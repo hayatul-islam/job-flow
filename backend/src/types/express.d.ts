@@ -4,7 +4,6 @@ declare global {
       userId?: number;
       userRole?: string;
     }
-
     interface Response {
       respond: (
         status: number,

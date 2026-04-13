@@ -1,8 +1,8 @@
-import { NextFunction, Request, Response } from "express";
+import { NextFunction, Response } from "express";
 import jwt from "jsonwebtoken";
 import AppError from "./AppError";
 
-const authenticate = (req: Request, res: Response, next: NextFunction) => {
+const authenticate = (req: any, res: Response, next: NextFunction) => {
   const token = req.headers.authorization;
 
   if (!token) {
