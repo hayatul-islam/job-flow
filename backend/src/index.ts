@@ -2,6 +2,7 @@ import dotenv from "dotenv";
 import express from "express";
 import errorHandler from "./middleware/errorHandler";
 import responseHandler from "./middleware/responseHandler";
+import applicationRoutes from "./routes/application";
 import authRoutes from "./routes/auth";
 import categoryRoutes from "./routes/category";
 import jobRoutes from "./routes/job";
@@ -16,6 +17,7 @@ app.use(responseHandler);
 app.use("/auth", authRoutes);
 app.use("/jobs", jobRoutes);
 app.use("/categories", categoryRoutes);
+app.use("/applications", applicationRoutes);
 
 app.use(errorHandler);
 
