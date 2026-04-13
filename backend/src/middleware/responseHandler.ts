@@ -1,19 +1,6 @@
-import { NextFunction, Request, Response } from "express";
+import { NextFunction, Request } from "express";
 
-declare global {
-  namespace Express {
-    interface Response {
-      respond: (
-        status: number,
-        success: boolean,
-        message: string,
-        data?: any,
-      ) => void;
-    }
-  }
-}
-
-const responseHandler = (req: Request, res: Response, next: NextFunction) => {
+const responseHandler = (req: Request, res: any, next: NextFunction) => {
   res.respond = (
     status: number,
     success: boolean,

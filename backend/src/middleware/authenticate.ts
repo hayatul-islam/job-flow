@@ -2,15 +2,6 @@ import { NextFunction, Request, Response } from "express";
 import jwt from "jsonwebtoken";
 import AppError from "./AppError";
 
-declare global {
-  namespace Express {
-    interface Request {
-      userId?: number;
-      userRole?: string;
-    }
-  }
-}
-
 const authenticate = (req: Request, res: Response, next: NextFunction) => {
   const token = req.headers.authorization;
 

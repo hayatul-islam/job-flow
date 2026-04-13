@@ -2,14 +2,19 @@ import dotenv from "dotenv";
 import express from "express";
 import errorHandler from "./middleware/errorHandler";
 import responseHandler from "./middleware/responseHandler";
+import authRoutes from "./routes/auth";
 
 dotenv.config();
+
 const app = express();
 
 app.use(express.json());
 app.use(responseHandler);
 
+app.use("/auth", authRoutes);
+
 app.use(errorHandler);
+
 const PORT = process.env.PORT || 3000;
 
 app.listen(PORT, () => {
