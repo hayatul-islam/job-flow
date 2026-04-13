@@ -1,15 +1,72 @@
-// This is your Prisma schema file,
-// learn more about it in the docs: https://pris.ly/d/prisma-schema
-
-// Looking for ways to speed up your queries, or scale easily with your serverless or edge functions?
-// Try Prisma Accelerate: https://pris.ly/cli/accelerate-init
-
 generator client {
-  provider = "prisma-client"
-  output   = "../generated/prisma"
+  provider = "prisma-client-js"
 }
 
 datasource db {
   provider = "postgresql"
   url      = env("DATABASE_URL")
+}
+
+enum Role {
+  EMPLOYER
+  JOB_SEEKER
+}
+
+enum JobType {
+  FULL_TIME
+  PART_TIME
+  REMOTE
+  HYBRID
+  INTERNSHIP
+}
+
+enum ApplicationStatus {
+  PENDING
+  ACCEPTED
+  REJECTED
+}
+
+model User {
+  id           Int           @id @default(autoincrement())
+  name         String
+  email        String        @unique
+  password     String
+  role         Role
+  avatar       String?
+  refreshToken String?
+  jobs         Job[]
+  applications Application[]
+  createdAt    DateTime      @default(now())
+}
+
+model Job {
+  id           Int           @id @default(autoincrement())
+  title        String
+  description  String
+  location     String
+  salary       String
+  jobType      JobType
+  categoryId   Int
+  category     Category      @relation(fields: [categoryId], references: [id])
+  employerId   Int
+  employer     User          @relation(fields: [employerId], references: [id])
+  applications Application[]
+  createdAt    DateTime      @default(now())
+}
+
+model Application {
+  id        Int               @id @default(autoincrement())
+  cvUrl     String
+  status    ApplicationStatus @default(PENDING)
+  jobId     Int
+  job       Job               @relation(fields: [jobId], references: [id])
+  userId    Int
+  user      User              @relation(fields: [userId], references: [id])
+  createdAt DateTime          @default(now())
+}
+
+model Category {
+  id   Int    @id @default(autoincrement())
+  name String @unique
+  jobs Job[]
 }
