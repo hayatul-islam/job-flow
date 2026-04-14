@@ -6,6 +6,7 @@ import applicationRoutes from "./routes/application";
 import authRoutes from "./routes/auth";
 import categoryRoutes from "./routes/category";
 import jobRoutes from "./routes/job";
+import profileRoutes from "./routes/profile";
 
 dotenv.config();
 
@@ -18,6 +19,7 @@ app.use("/auth", authRoutes);
 app.use("/jobs", jobRoutes);
 app.use("/categories", categoryRoutes);
 app.use("/applications", applicationRoutes);
+app.use("/profile", profileRoutes);
 
 app.use(errorHandler);
 
