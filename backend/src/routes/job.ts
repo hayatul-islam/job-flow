@@ -11,16 +11,50 @@ const prisma = new PrismaClient();
 
 router.get(
   "/",
-  asyncHandler(async (req, res, next) => {
+  asyncHandler(async (req, res) => {
+    const { q, location, jobType, categoryId } = req.query;
+
     const jobs = await prisma.job.findMany({
+      where: {
+        AND: [
+          q
+            ? {
+                OR: [
+                  {
+                    title: { contains: q as string, mode: "insensitive" },
+                  },
+                  {
+                    description: {
+                      contains: q as string,
+                      mode: "insensitive",
+                    },
+                  },
+                ],
+              }
+            : {},
+          location
+            ? {
+                location: { contains: location as string, mode: "insensitive" },
+              }
+            : {},
+          jobType ? { jobType: jobType as any } : {},
+          categoryId ? { categoryId: +categoryId } : {},
+        ],
+      },
       include: {
         category: true,
         employer: {
-          select: { id: true, firstName: true, lastName: true, email: true },
+          select: {
+            id: true,
+            firstName: true,
+            lastName: true,
+            email: true,
+          },
         },
       },
     });
-    res.respond(200, true, "Jobs fetch successfully", jobs);
+
+    res.respond(200, true, "Jobs fetched successfully", jobs);
   }),
 );
 
