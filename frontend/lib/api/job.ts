@@ -1,0 +1,30 @@
+import { Job, JobsParams } from "@/types";
+import api from "../axios";
+
+export const getJobs = async (params: JobsParams) => {
+  const res = await api.get("/jobs", {
+    params,
+  });
+
+  return res.data;
+};
+
+export const createJob = async (data: Job) => {
+  const res = await api.post("/jobs", data);
+  return res.data;
+};
+
+export const getJobById = async (id: number) => {
+  const res = await api.get(`/jobs/${id}`);
+  return res.data;
+};
+
+export const updateJob = async ({ id, data }: { id: number; data: Job }) => {
+  const res = await api.put(`/jobs/${id}`, data);
+  return res.data;
+};
+
+export const deleteJob = async (id: number) => {
+  const res = await api.delete(`/jobs/${id}`);
+  return res.data;
+};

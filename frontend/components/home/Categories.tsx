@@ -1,22 +1,13 @@
 "use client";
-
-import { CATEGORIES } from "@/lib/data";
+import { useCategories } from "@/hooks/useCategories";
 import { cn } from "@/lib/utils";
+import { Category } from "@/types";
 import { ArrowRightIcon } from "lucide-react";
 import Link from "next/link";
 
-const CATEGORY_COLORS: Record<string, string> = {
-  Engineering: "group-hover:bg-blue-50 group-hover:border-blue-200",
-  Marketing: "group-hover:bg-orange-50 group-hover:border-orange-200",
-  Design: "group-hover:bg-violet-50 group-hover:border-violet-200",
-  Finance: "group-hover:bg-green-50 group-hover:border-green-200",
-  Healthcare: "group-hover:bg-rose-50 group-hover:border-rose-200",
-  Operations: "group-hover:bg-amber-50 group-hover:border-amber-200",
-  Sales: "group-hover:bg-teal-50 group-hover:border-teal-200",
-  HR: "group-hover:bg-pink-50 group-hover:border-pink-200",
-};
-
 export default function CategoryGrid() {
+  const { data, isLoading } = useCategories();
+
   return (
     <section className="py-12 px-4">
       <div className="max-w-6xl mx-auto">
@@ -40,21 +31,20 @@ export default function CategoryGrid() {
 
         {/* Grid */}
         <div className="grid grid-cols-2 sm:grid-cols-4 lg:grid-cols-8 gap-3">
-          {CATEGORIES.map((cat) => (
+          {data?.data?.map((cat: Category) => (
             <Link
               key={cat.id}
-              href={`/jobs?category=${encodeURIComponent(cat.name)}`}
+              href={`/jobs?cat=${encodeURIComponent(cat.name)}`}
               className={cn(
-                "group flex flex-col items-center text-center p-4 rounded-xl border border-gray-100 bg-white cursor-pointer transition-all duration-200 hover:-translate-y-1 hover:shadow-md",
-                CATEGORY_COLORS[cat.name] ?? "group-hover:bg-gray-50",
+                "group flex flex-col items-center text-center p-4 rounded-xl border border-gray-100 bg-white cursor-pointer transition-all duration-200 hover:-translate-y-1 hover:shadow-md group-hover:bg-blue-50 group-hover:border-blue-200",
               )}
             >
-              <span className="text-2xl mb-2">{cat.icon}</span>
+              <span className="text-2xl mb-2">🚀</span>
               <span className="text-xs font-medium text-gray-800 leading-tight">
                 {cat.name}
               </span>
               <span className="text-xs text-gray-400 font-light mt-0.5">
-                {cat.jobCount.toLocaleString()}
+                120 jobs
               </span>
             </Link>
           ))}

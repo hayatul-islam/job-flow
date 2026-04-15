@@ -30,6 +30,13 @@ export interface Job {
   createdAt: string;
 }
 
+export type JobsParams = {
+  q?: string;
+  location?: string;
+  categoryId?: number;
+  jobType?: string;
+};
+
 export interface Category {
   id: number;
   name: string;

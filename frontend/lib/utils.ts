@@ -5,14 +5,6 @@ export function cn(...inputs: ClassValue[]) {
   return twMerge(clsx(inputs));
 }
 
-export function formatSalary(min: number, max: number): string {
-  const fmt = (n: number) =>
-    n >= 100000
-      ? `${(n / 100000).toFixed(n % 100000 === 0 ? 0 : 1)} Lac`
-      : `${(n / 1000).toFixed(0)}k`;
-  return `৳ ${fmt(min)} – ${fmt(max)}`;
-}
-
 export function timeAgo(dateStr: string): string {
   const date = new Date(dateStr);
   const now = new Date();

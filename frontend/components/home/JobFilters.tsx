@@ -13,7 +13,7 @@ export default function JobFilters({ onFilterChange }: JobFiltersProps) {
 
   function handleClick(tab: string) {
     setActive(tab);
-    onFilterChange?.(tab);
+    onFilterChange?.(tab === "ALL" ? "" : tab);
   }
 
   return (

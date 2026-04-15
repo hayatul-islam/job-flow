@@ -1,6 +1,6 @@
 "use client";
 
-import { MOCK_JOBS } from "@/lib/data";
+import { useJobs } from "@/hooks/useJobs";
 import { Job } from "@/types";
 import { ArrowRightIcon } from "lucide-react";
 import Link from "next/link";
@@ -9,16 +9,9 @@ import JobCard from "./JobCard";
 import JobFilters from "./JobFilters";
 
 export default function JobListings() {
-  const [activeFilter, setActiveFilter] = useState("All");
+  const [activeFilter, setActiveFilter] = useState("");
 
-  const filtered: Job[] = MOCK_JOBS.filter((job) => {
-    if (activeFilter === "All") return true;
-    if (activeFilter === "Remote") return job.workMode === "Remote";
-    if (activeFilter === "Full-time") return job.jobType === "Full-time";
-    if (activeFilter === "Part-time") return job.jobType === "Part-time";
-    // Senior / Entry Level — in a real app these would come from the job data
-    return true;
-  });
+  const { data, isLoading } = useJobs({ jobType: activeFilter });
 
   return (
     <section className="py-10 px-4 bg-[#f7f7f5]">
@@ -30,7 +23,7 @@ export default function JobListings() {
               Latest Jobs
             </h2>
             <p className="text-gray-500 text-sm mt-1 font-light">
-              {filtered.length} positions available
+              {data?.data?.length} positions available
             </p>
           </div>
           <Link
@@ -47,9 +40,9 @@ export default function JobListings() {
         </div>
 
         {/* Grid */}
-        {filtered.length > 0 ? (
+        {data?.data.length > 0 ? (
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
-            {filtered.map((job) => (
+            {data?.data.map((job: Job) => (
               <JobCard key={job.id} job={job} />
             ))}
           </div>
