@@ -13,33 +13,55 @@ const jobValidator_1 = require("../validators/jobValidator");
 const router = express_1.default.Router();
 const prisma = new client_1.PrismaClient();
 router.get("/", (0, asyncHandler_1.default)(async (req, res) => {
-    const { q, location, jobType, categoryId } = req.query;
+    const { q, location, jobType, catId } = req.query;
+    const locations = location
+        ? location.split(",").map((l) => l
+            .trim()
+            .toLowerCase()
+            .replace(/\b\w/g, (c) => c.toUpperCase()))
+        : [];
+    const jobTypes = jobType ? jobType.split(",") : [];
+    const filters = [];
+    if (q) {
+        filters.push({
+            OR: [
+                {
+                    title: {
+                        contains: q,
+                        mode: "insensitive",
+                    },
+                },
+                {
+                    description: {
+                        contains: q,
+                        mode: "insensitive",
+                    },
+                },
+            ],
+        });
+    }
+    if (locations.length) {
+        filters.push({
+            location: {
+                in: locations,
+            },
+        });
+    }
+    if (jobTypes.length) {
+        filters.push({
+            jobType: {
+                in: jobTypes,
+            },
+        });
+    }
+    if (catId) {
+        filters.push({
+            categoryId: Number(catId),
+        });
+    }
     const jobs = await prisma.job.findMany({
         where: {
-            AND: [
-                q
-                    ? {
-                        OR: [
-                            {
-                                title: { contains: q, mode: "insensitive" },
-                            },
-                            {
-                                description: {
-                                    contains: q,
-                                    mode: "insensitive",
-                                },
-                            },
-                        ],
-                    }
-                    : {},
-                location
-                    ? {
-                        location: { contains: location, mode: "insensitive" },
-                    }
-                    : {},
-                jobType ? { jobType: jobType } : {},
-                categoryId ? { categoryId: +categoryId } : {},
-            ],
+            AND: filters,
         },
         include: {
             category: true,
@@ -51,6 +73,9 @@ router.get("/", (0, asyncHandler_1.default)(async (req, res) => {
                     email: true,
                 },
             },
+        },
+        orderBy: {
+            createdAt: "desc",
         },
     });
     res.respond(200, true, "Jobs fetched successfully", jobs);
