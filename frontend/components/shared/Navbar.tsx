@@ -44,12 +44,12 @@ export default function Navbar() {
 
           {/* Desktop actions */}
           <div className="hidden md:flex items-center gap-3">
-            <Link href="/auth/login">
+            <Link href="/login">
               <Button
                 variant="ghost"
                 className="text-white/70 hover:text-white hover:bg-white/10 border border-white/20 text-sm"
               >
-                Sign in
+                Login
               </Button>
             </Link>
             <Link href="/auth/register?role=employer">
@@ -91,12 +91,12 @@ export default function Navbar() {
               </Link>
             ))}
             <div className="flex gap-2 mt-3 pt-3 border-t border-white/10">
-              <Link href="/auth/login" className="flex-1">
+              <Link href="/login" className="flex-1">
                 <Button
                   variant="ghost"
                   className="w-full text-white/70 border border-white/20 text-sm"
                 >
-                  Sign in
+                  Login
                 </Button>
               </Link>
               <Link href="/auth/register?role=employer" className="flex-1">

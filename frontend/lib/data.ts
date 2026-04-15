@@ -8,7 +8,6 @@ export const JOB_FILTER_TABS = [
 ];
 
 export const LOCATIONS = [
-  "All Locations",
   "Dhaka",
   "Chittagong",
   "Sylhet",

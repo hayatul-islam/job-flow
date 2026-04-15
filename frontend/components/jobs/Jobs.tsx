@@ -1,0 +1,42 @@
+"use client";
+import { JobsParams } from "@/types";
+import { useSearchParams } from "next/navigation";
+import { useState } from "react";
+import JobsFilters from "./JobFilters";
+import JobsGrid from "./JobGrid";
+
+export default function Jobs() {
+  const searchParams = useSearchParams();
+
+  const catId = searchParams.get("catId");
+
+  const [query, setQuery] = useState<JobsParams>({
+    q: "",
+    location: [] as string[],
+    catId: catId ?? "",
+    jobType: [] as string[],
+  });
+
+  const onQuery = (key: string, value: number | string | string[]) => {
+    setQuery((prev) => ({
+      ...prev,
+      [key]: value,
+    }));
+  };
+
+  return (
+    <div className="min-h-screen bg-slate-50">
+      <main className="container mx-auto px-4 py-8">
+        <div className="grid grid-cols-1 lg:grid-cols-4 gap-8 mt-12">
+          <aside className="lg:col-span-1">
+            <JobsFilters onQuery={onQuery} query={query} />
+          </aside>
+
+          <section className="lg:col-span-3">
+            <JobsGrid query={query} />
+          </section>
+        </div>
+      </main>
+    </div>
+  );
+}

@@ -2,8 +2,14 @@ import { Job, JobsParams } from "@/types";
 import api from "../axios";
 
 export const getJobs = async (params: JobsParams) => {
+  const formattedParams = {
+    ...params,
+    jobType: params.jobType.join(","),
+    location: params.location.join(","),
+  };
+
   const res = await api.get("/jobs", {
-    params,
+    params: formattedParams,
   });
 
   return res.data;

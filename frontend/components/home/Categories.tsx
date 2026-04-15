@@ -34,7 +34,7 @@ export default function CategoryGrid() {
           {data?.data?.map((cat: Category) => (
             <Link
               key={cat.id}
-              href={`/jobs?cat=${encodeURIComponent(cat.name)}`}
+              href={`/jobs?catId=${cat?.id}`}
               className={cn(
                 "group flex flex-col items-center text-center p-4 rounded-xl border border-gray-100 bg-white cursor-pointer transition-all duration-200 hover:-translate-y-1 hover:shadow-md group-hover:bg-blue-50 group-hover:border-blue-200",
               )}
