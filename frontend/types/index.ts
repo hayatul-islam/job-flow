@@ -1,9 +1,17 @@
+export type Role = "EMPLOYER" | "JOB_SEEKER";
+export type JobType =
+  | "FULL_TIME"
+  | "PART_TIME"
+  | "REMOTE"
+  | "HYBRID"
+  | "INTERNSHIP";
+export type ApplicationStatus = "PENDING" | "ACCEPTED" | "REJECTED";
 export interface User {
   id: number;
   firstName: string;
   lastName?: string;
   email: string;
-  role: "EMPLOYER" | "JOB_SEEKER";
+  role: Role;
   avatar?: string;
   createdAt: string;
 }
@@ -14,7 +22,7 @@ export interface Job {
   description: string;
   location: string;
   salary: string;
-  jobType: "FULL_TIME" | "PART_TIME" | "REMOTE" | "HYBRID" | "INTERNSHIP";
+  jobType: JobType;
   categoryId: number;
   category: Category;
   employerId: number;
@@ -30,7 +38,7 @@ export interface Category {
 export interface Application {
   id: number;
   cvUrl: string;
-  status: "PENDING" | "ACCEPTED" | "REJECTED";
+  status: ApplicationStatus;
   jobId: number;
   job: Job;
   userId: number;
