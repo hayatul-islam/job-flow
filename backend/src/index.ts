@@ -1,3 +1,4 @@
+import cors from "cors";
 import dotenv from "dotenv";
 import express from "express";
 import errorHandler from "./middleware/errorHandler";
@@ -14,6 +15,12 @@ const app = express();
 
 app.use(express.json());
 app.use(responseHandler);
+app.use(
+  cors({
+    origin: process.env.FRONTEND_URL,
+    credentials: true,
+  }),
+);
 
 app.use("/auth", authRoutes);
 app.use("/jobs", jobRoutes);
