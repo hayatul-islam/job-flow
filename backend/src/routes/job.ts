@@ -12,34 +12,64 @@ const prisma = new PrismaClient();
 router.get(
   "/",
   asyncHandler(async (req, res) => {
-    const { q, location, jobType, categoryId } = req.query;
+    const { q, location, jobType, catId } = req.query;
+
+    const locations: string[] = location
+      ? (location as string).split(",").map((l) =>
+          l
+            .trim()
+            .toLowerCase()
+            .replace(/\b\w/g, (c) => c.toUpperCase()),
+        )
+      : [];
+
+    const jobTypes: string[] = jobType ? (jobType as string).split(",") : [];
+
+    const filters: any[] = [];
+
+    if (q) {
+      filters.push({
+        OR: [
+          {
+            title: {
+              contains: q as string,
+              mode: "insensitive",
+            },
+          },
+          {
+            description: {
+              contains: q as string,
+              mode: "insensitive",
+            },
+          },
+        ],
+      });
+    }
+
+    if (locations.length) {
+      filters.push({
+        location: {
+          in: locations,
+        },
+      });
+    }
+
+    if (jobTypes.length) {
+      filters.push({
+        jobType: {
+          in: jobTypes,
+        },
+      });
+    }
+    if (catId) {
+      filters.push({
+        categoryId: Number(catId),
+      });
+    }
 
     const jobs = await prisma.job.findMany({
       where: {
-        AND: [
-          q
-            ? {
-                OR: [
-                  {
-                    title: { contains: q as string, mode: "insensitive" },
-                  },
-                  {
-                    description: {
-                      contains: q as string,
-                      mode: "insensitive",
-                    },
-                  },
-                ],
-              }
-            : {},
-          location
-            ? {
-                location: { contains: location as string, mode: "insensitive" },
-              }
-            : {},
-          jobType ? { jobType: jobType as any } : {},
-          categoryId ? { categoryId: +categoryId } : {},
-        ],
+        AND: filters,
       },
       include: {
         category: true,
@@ -51,6 +81,9 @@ router.get(
             email: true,
           },
         },
+      },
+      orderBy: {
+        createdAt: "desc",
       },
     });
 
