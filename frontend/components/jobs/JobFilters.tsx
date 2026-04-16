@@ -7,15 +7,19 @@ import { ChevronDown } from "lucide-react";
 import { useSearchParams } from "next/navigation";
 import { useEffect, useState } from "react";
 
+type SectionKey = "location" | "jobType";
+
 interface JobsFiltersProps {
   query: JobsParams;
-  onQuery: (key: string, value: string | number | string[]) => void;
+  onQuery: (key: keyof JobsParams, value: any) => void;
 }
 
 export default function JobsFilters({ query, onQuery }: JobsFiltersProps) {
   const searchParams = useSearchParams();
 
-  const [expandedSections, setExpandedSections] = useState({
+  const [expandedSections, setExpandedSections] = useState<
+    Record<SectionKey, boolean>
+  >({
     location: true,
     jobType: true,
   });
@@ -27,7 +31,7 @@ export default function JobsFilters({ query, onQuery }: JobsFiltersProps) {
     }
   }, [searchParams]);
 
-  const toggleSection = (section: string) => {
+  const toggleSection = (section: SectionKey) => {
     setExpandedSections((prev) => ({
       ...prev,
       [section]: !prev[section],
@@ -35,12 +39,12 @@ export default function JobsFilters({ query, onQuery }: JobsFiltersProps) {
   };
 
   const toggleArray = (key: "location" | "jobType", value: string) => {
-    const current = query[key] || [];
+    const current = (query[key] as string[]) || [];
 
     if (current.includes(value)) {
       onQuery(
         key,
-        current.filter((item: string) => item !== value),
+        current.filter((item) => item !== value),
       );
     } else {
       onQuery(key, [...current, value]);
@@ -55,16 +59,18 @@ export default function JobsFilters({ query, onQuery }: JobsFiltersProps) {
 
   return (
     <div className="space-y-4">
+      {/* Search */}
       <input
         type="text"
         placeholder="Search jobs..."
-        value={query.q}
+        value={query.q || ""}
         onChange={(e) => onQuery("q", e.target.value)}
         className="w-full border rounded-lg px-3 py-2"
       />
 
       <h3 className="font-bold">Filters</h3>
 
+      {/* Location */}
       <Card className="p-4">
         <button
           onClick={() => toggleSection("location")}
@@ -82,7 +88,7 @@ export default function JobsFilters({ query, onQuery }: JobsFiltersProps) {
               <label key={loc} className="flex gap-2 items-center">
                 <input
                   type="checkbox"
-                  checked={query.location?.includes(loc)}
+                  checked={(query.location as string[])?.includes(loc)}
                   onChange={() => toggleArray("location", loc)}
                 />
                 {loc}
@@ -92,6 +98,7 @@ export default function JobsFilters({ query, onQuery }: JobsFiltersProps) {
         )}
       </Card>
 
+      {/* Job Type */}
       <Card className="p-4">
         <button
           onClick={() => toggleSection("jobType")}
@@ -112,7 +119,7 @@ export default function JobsFilters({ query, onQuery }: JobsFiltersProps) {
                 <label key={type} className="flex gap-2 items-center">
                   <input
                     type="checkbox"
-                    checked={query.jobType?.includes(type)}
+                    checked={(query.jobType as string[])?.includes(type)}
                     onChange={() => toggleArray("jobType", type)}
                   />
                   {type}
@@ -123,6 +130,7 @@ export default function JobsFilters({ query, onQuery }: JobsFiltersProps) {
         )}
       </Card>
 
+      {/* Clear */}
       <button onClick={handleClear} className="w-full border py-2 rounded">
         Clear Filters
       </button>

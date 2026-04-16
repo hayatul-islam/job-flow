@@ -29,10 +29,10 @@ export interface Job {
 }
 
 export type JobsParams = {
-  q?: string;
-  location?: string[];
-  catId?: string | number;
-  jobType?: string[];
+  q: string;
+  location: string[];
+  catId: string | number;
+  jobType: string[];
 };
 
 export interface Category {
