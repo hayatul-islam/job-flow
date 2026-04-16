@@ -17,7 +17,7 @@ export default function Jobs() {
     jobType: [] as string[],
   });
 
-  const onQuery = (key: string, value: number | string | string[]) => {
+  const onQuery = (key: string, value: any) => {
     setQuery((prev) => ({
       ...prev,
       [key]: value,

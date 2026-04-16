@@ -5,15 +5,15 @@ import { cn } from "@/lib/utils";
 import { useState } from "react";
 
 interface JobFiltersProps {
-  onFilterChange?: (filter: string) => void;
+  onQuery?: (key: string, value: any) => void;
 }
 
-export default function JobFilters({ onFilterChange }: JobFiltersProps) {
+export default function JobFilters({ onQuery }: JobFiltersProps) {
   const [active, setActive] = useState("All");
 
   function handleClick(tab: string) {
     setActive(tab);
-    onFilterChange?.(tab === "ALL" ? "" : tab);
+    onQuery?.("jobType", tab === "ALL" ? [] : [tab.toUpperCase()]);
   }
 
   return (

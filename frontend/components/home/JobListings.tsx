@@ -1,7 +1,7 @@
 "use client";
 
 import { useJobs } from "@/hooks/useJobs";
-import { Job } from "@/types";
+import { Job, JobsParams } from "@/types";
 import { ArrowRightIcon } from "lucide-react";
 import Link from "next/link";
 import { useState } from "react";
@@ -9,9 +9,26 @@ import JobCard from "./JobCard";
 import JobFilters from "./JobFilters";
 
 export default function JobListings() {
-  const [activeFilter, setActiveFilter] = useState("");
+  const [query, setQuery] = useState<JobsParams>({
+    jobType: [] as string[],
+    q: "",
+    location: [] as string[],
+    catId: "",
+  });
 
-  const { data, isLoading } = useJobs({ jobType: activeFilter });
+  const { data, isLoading } = useJobs({
+    q: query?.q ?? "",
+    location: query?.location ?? [],
+    catId: query?.catId?.toString() ?? "",
+    jobType: query?.jobType ?? [],
+  });
+
+  const onQuery = (key: string, value: any) => {
+    setQuery((prev) => ({
+      ...prev,
+      [key]: value,
+    }));
+  };
 
   return (
     <section className="py-10 px-4 bg-[#f7f7f5]">
@@ -36,7 +53,7 @@ export default function JobListings() {
 
         {/* Filters */}
         <div className="mb-6">
-          <JobFilters onFilterChange={setActiveFilter} />
+          <JobFilters onQuery={onQuery} />
         </div>
 
         {/* Grid */}
