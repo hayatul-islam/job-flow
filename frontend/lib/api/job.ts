@@ -22,7 +22,7 @@ export const createJob = async (data: Job) => {
 
 export const getJobById = async (id: number) => {
   const res = await api.get(`/jobs/${id}`);
-  return res.data;
+  return res.data.data as Job;
 };
 
 export const updateJob = async ({ id, data }: { id: number; data: Job }) => {

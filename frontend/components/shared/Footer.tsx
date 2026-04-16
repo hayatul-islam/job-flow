@@ -35,7 +35,7 @@ export default function Footer() {
                 <BriefcaseIcon className="w-4 h-4 text-white" />
               </div>
               <span className="text-white font-bold text-xl font-serif">
-                work<span className="text-primary">.</span>ly
+                Job<span className="text-primary">.</span>Flow
               </span>
             </Link>
             <p className="text-white/30 text-xs font-light leading-relaxed max-w-[200px]">

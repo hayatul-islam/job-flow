@@ -25,7 +25,7 @@ export default function Navbar() {
               <BriefcaseIcon className="w-4 h-4 text-white" />
             </div>
             <span className="text-white font-bold text-xl tracking-tight font-serif">
-              work<span className="text-primary">.</span>ly
+              Job<span className="text-primary">.</span>Flow
             </span>
           </Link>
 

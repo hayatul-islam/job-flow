@@ -22,11 +22,9 @@ export interface Job {
   description: string;
   location: string;
   salary: string;
-  jobType: JobType;
-  categoryId: number;
-  category: Category;
-  employerId: number;
-  employer: User;
+  jobType: string;
+  category: { name: string };
+  employer: { firstName: string; lastName: string };
   createdAt: string;
 }
 
