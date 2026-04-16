@@ -11,13 +11,25 @@ import profileRoutes from "./routes/profile";
 
 dotenv.config();
 
+const allowedOrigins = (process.env.FRONTEND_URL || "")
+  .split(",")
+  .filter(Boolean);
+
 const app = express();
 
 app.use(express.json());
 app.use(responseHandler);
 app.use(
   cors({
-    origin: process.env.FRONTEND_URL,
+    origin: function (origin, callback) {
+      if (!origin) return callback(null, true);
+
+      if (allowedOrigins.includes(origin)) {
+        return callback(null, true);
+      }
+
+      return callback(new Error("Not allowed by CORS"));
+    },
     credentials: true,
   }),
 );

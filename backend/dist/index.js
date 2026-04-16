@@ -14,11 +14,21 @@ const category_1 = __importDefault(require("./routes/category"));
 const job_1 = __importDefault(require("./routes/job"));
 const profile_1 = __importDefault(require("./routes/profile"));
 dotenv_1.default.config();
+const allowedOrigins = (process.env.FRONTEND_URL || "")
+    .split(",")
+    .filter(Boolean);
 const app = (0, express_1.default)();
 app.use(express_1.default.json());
 app.use(responseHandler_1.default);
 app.use((0, cors_1.default)({
-    origin: process.env.FRONTEND_URL,
+    origin: function (origin, callback) {
+        if (!origin)
+            return callback(null, true);
+        if (allowedOrigins.includes(origin)) {
+            return callback(null, true);
+        }
+        return callback(new Error("Not allowed by CORS"));
+    },
     credentials: true,
 }));
 app.use("/auth", auth_1.default);
