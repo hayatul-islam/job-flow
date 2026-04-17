@@ -2,7 +2,7 @@
 
 import { useJobs } from "@/hooks/useJobs";
 import { Job } from "@/types";
-import JobCard from "../home/JobCard";
+import JobCardV2 from "../home/JobCardTwo";
 
 interface JobsGridProps {
   query: {
@@ -38,7 +38,7 @@ export default function JobsGrid({ query }: JobsGridProps) {
       {data?.data?.length > 0 ? (
         <div className="grid gap-6">
           {data?.data?.map((job: Job) => (
-            <JobCard key={job.id} job={job} />
+            <JobCardV2 key={job.id} job={job} />
           ))}
         </div>
       ) : (

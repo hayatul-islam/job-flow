@@ -4,7 +4,7 @@ import { Job, JobsParams } from "@/types";
 import { ArrowRightIcon } from "lucide-react";
 import Link from "next/link";
 import { useState } from "react";
-import JobCard from "./JobCard";
+import JobCardV2 from "./JobCardTwo";
 import JobFilters from "./JobFilters";
 
 export default function JobListings() {
@@ -56,7 +56,7 @@ export default function JobListings() {
         {data?.data.length > 0 ? (
           <div className="grid gap-4">
             {data?.data.map((job: Job) => (
-              <JobCard key={job.id} job={job} />
+              <JobCardV2 key={job.id} job={job} />
             ))}
           </div>
         ) : (

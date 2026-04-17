@@ -3,17 +3,14 @@
 import { JOB_TYPE_CONFIG } from "@/lib/data";
 import { timeAgo } from "@/lib/utils";
 import { Job } from "@/types";
-import { Building2, Clock, Heart, MapPin, Tag } from "lucide-react";
+import { Building2, Clock, MapPin, Tag } from "lucide-react";
 import Link from "next/link";
-import { useState } from "react";
 
 interface JobCardProps {
   job: Job;
 }
 
 export default function JobCard({ job }: JobCardProps) {
-  const [liked, setLiked] = useState(false);
-
   const employerName = `${job.employer.firstName} ${job.employer.lastName}`;
   const JobTypeIcon = JOB_TYPE_CONFIG[job.jobType]?.icon;
   const isNew = timeAgo(job.createdAt) === "Today";
@@ -86,21 +83,6 @@ export default function JobCard({ job }: JobCardProps) {
                 <Clock className="w-3 h-3" />
                 {timeAgo(job.createdAt)}
               </span>
-
-              <span className="w-1 h-1 rounded-full bg-gray-300" />
-
-              <button
-                onClick={() => setLiked((v) => !v)}
-                className={`rounded-md p-0.5 transition-colors ${
-                  liked
-                    ? "text-red-500"
-                    : "text-gray-400 hover:text-red-400 hover:bg-red-50"
-                }`}
-              >
-                <Heart
-                  className={`w-3.5 h-3.5 ${liked ? "fill-current" : ""}`}
-                />
-              </button>
             </div>
           </div>
         </div>
