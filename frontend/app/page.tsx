@@ -1,4 +1,4 @@
-import CategoryGrid from "@/components/home/Categories";
+import CategoriesDesign1 from "@/components/home/CategoriesTwo";
 import HeroSection from "@/components/home/HeroSection";
 import JobListings from "@/components/home/JobListings";
 
@@ -6,7 +6,8 @@ const page = () => {
   return (
     <>
       <HeroSection />
-      <CategoryGrid />
+      <CategoriesDesign1 />
+      {/* <CategoryGrid /> */}
       <JobListings />
     </>
   );

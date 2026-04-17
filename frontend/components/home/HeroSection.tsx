@@ -51,11 +51,7 @@ export default function HeroSection() {
   }, []);
 
   return (
-    <section
-      className="min-h-screen bg-[#080810] flex flex-col overflow-hidden relative"
-      style={{ fontFamily: "'Inter', sans-serif" }}
-    >
-      {/* Noise texture overlay */}
+    <section className="min-h-screen bg-black flex flex-col overflow-hidden relative">
       <div
         className="absolute inset-0 opacity-[0.04]"
         style={{
@@ -64,7 +60,6 @@ export default function HeroSection() {
         }}
       />
 
-      {/* Ambient blobs */}
       <div className=" absolute top-[-200px] left-[-200px] w-[600px] h-[600px] rounded-full bg-violet-700/10 blur-[120px]" />
       <div className=" absolute bottom-[-150px] right-[-200px] w-[500px] h-[500px] rounded-full bg-indigo-700/10 blur-[100px]" />
 
@@ -74,20 +69,6 @@ export default function HeroSection() {
           backgroundImage: `url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)'/%3E%3C/svg%3E")`,
         }}
       />
-
-      {/* Gradient orbs */}
-      {/* <div
-        className="absolute top-20 right-40 w-96 h-96 rounded-full opacity-20 blur-3xl pointer-events-none"
-        style={{ background: "radial-gradient(circle, #7c3aed, transparent)" }}
-      />
-      <div
-        className="absolute bottom-20 left-20 w-80 h-80 rounded-full opacity-15 blur-3xl pointer-events-none"
-        style={{ background: "radial-gradient(circle, #0ea5e9, transparent)" }}
-      /> */}
-      {/* <div
-        className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[400px] rounded-full opacity-10 blur-3xl pointer-events-none"
-        style={{ background: "radial-gradient(circle, #ec4899, transparent)" }}
-      /> */}
 
       {/* Main content */}
       <div className="relative mt-32 z-10 flex-1 container w-full grid lg:grid-cols-5 gap-12 items-center pb-16">

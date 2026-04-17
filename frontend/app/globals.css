@@ -9,13 +9,12 @@
   --color-foreground: var(--foreground);
   --color-primary: var(--primary);
   --color-primary-100: var(--primary-100);
-  --primary-light: #ff7a8f;
-  --primary-dark: #8f2d3f;
+  --color-primary-dark: var(--primary-dark);
+  --color-primary-light: var(--primary-light);
+  --color-black: var(--black);
 
-  /* Common gradient */
   --gradient-primary: linear-gradient(
     135deg,
-    var(--primary-light),
     var(--primary),
     var(--primary-dark)
   );
@@ -26,15 +25,30 @@
   --foreground: oklch(0.145 0 0);
   --primary: #e94560;
   --primary-100: #c73552;
+  --primary-dark: #8f2d3f;
+  --primary-light: #f06e8c;
+  --black: #080810;
 }
 
-.dark {
-  --background: oklch(0.145 0 0);
-  --foreground: oklch(0.985 0 0);
+body {
+  font-family: var(--font-body), sans-serif;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  font-family: var(--font-heading), sans-serif;
 }
 
 .container {
   @apply mx-auto max-w-[1300px] px-4 md:px-6;
+}
+
+button {
+  cursor: pointer;
 }
 
 @layer utilities {
