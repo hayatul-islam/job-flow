@@ -9,6 +9,16 @@
   --color-foreground: var(--foreground);
   --color-primary: var(--primary);
   --color-primary-100: var(--primary-100);
+  --primary-light: #ff7a8f;
+  --primary-dark: #8f2d3f;
+
+  /* Common gradient */
+  --gradient-primary: linear-gradient(
+    135deg,
+    var(--primary-light),
+    var(--primary),
+    var(--primary-dark)
+  );
 }
 
 :root {
@@ -23,5 +33,12 @@
   --foreground: oklch(0.985 0 0);
 }
 
-@layer base {
+.container {
+  @apply mx-auto max-w-[1300px] px-4 md:px-6;
+}
+
+@layer utilities {
+  .bg-primary-gradient {
+    background-image: var(--gradient-primary);
+  }
 }

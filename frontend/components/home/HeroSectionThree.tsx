@@ -40,7 +40,7 @@ const liveJobs = [
   },
 ];
 
-export default function HeroSection() {
+export default function HeroDesign3() {
   const [tickerOffset, setTickerOffset] = useState(0);
 
   useEffect(() => {
@@ -52,7 +52,12 @@ export default function HeroSection() {
 
   return (
     <section
-      className="min-h-screen bg-[#080810] flex flex-col overflow-hidden relative"
+      className="min-h-screen bg-[#080810] flex flex-col overflow-hidden"
+      // style={{
+      //   background:
+      //     "linear-gradient(135deg, #0f0f23 0%, #1a0a2e 50%, #0f1a2e 100%)",
+      //   fontFamily: "'Inter', sans-serif",
+      // }}
       style={{ fontFamily: "'Inter', sans-serif" }}
     >
       {/* Noise texture overlay */}
@@ -65,8 +70,8 @@ export default function HeroSection() {
       />
 
       {/* Ambient blobs */}
-      <div className=" absolute top-[-200px] left-[-200px] w-[600px] h-[600px] rounded-full bg-violet-700/10 blur-[120px]" />
-      <div className=" absolute bottom-[-150px] right-[-200px] w-[500px] h-[500px] rounded-full bg-indigo-700/10 blur-[100px]" />
+      <div className="absolute top-[-200px] left-[-200px] w-[600px] h-[600px] rounded-full bg-violet-700/10 blur-[120px]" />
+      <div className="absolute bottom-[-150px] right-[-100px] w-[500px] h-[500px] rounded-full bg-indigo-700/10 blur-[100px]" />
 
       <div
         className="absolute inset-0 opacity-[0.03] pointer-events-none"
@@ -90,7 +95,7 @@ export default function HeroSection() {
       /> */}
 
       {/* Main content */}
-      <div className="relative mt-32 z-10 flex-1 container w-full grid lg:grid-cols-5 gap-12 items-center pb-16">
+      <div className="relative z-10 flex-1 container w-full px-6 lg:px-16 grid lg:grid-cols-5 gap-12 items-center pb-16">
         {/* Left — 3 cols */}
         <div className="lg:col-span-3">
           <div className="flex items-center gap-2 mb-8">
@@ -282,7 +287,7 @@ export default function HeroSection() {
       </div>
 
       {/* Ticker tape */}
-      <div className="relative z-10 border-y border-white/5 bg-white/[0.02] py-3 mb-12 overflow-hidden">
+      {/* <div className="relative z-10 border-y border-white/5 bg-white/[0.02] py-3 mb-12 overflow-hidden">
         <div
           className="flex gap-0 whitespace-nowrap"
           style={{
@@ -300,7 +305,7 @@ export default function HeroSection() {
             </span>
           ))}
         </div>
-      </div>
+      </div> */}
     </section>
   );
 }
