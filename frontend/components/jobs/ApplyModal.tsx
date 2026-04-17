@@ -43,7 +43,7 @@ export default function ApplyModal({
   return (
     <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/40 px-4">
       <div className="bg-white rounded-2xl p-7 w-full max-w-md border border-gray-200">
-        <h2 className="text-lg font-medium text-gray-900 mb-1">
+        <h2 className="text-lg font-medium text-black mb-1">
           Apply for this job
         </h2>
         <p className="text-sm text-gray-400 mb-5">

@@ -49,37 +49,6 @@ const categories: Category[] = [
   { id: 10, title: "Finance", jobs: 750, icon: <Landmark size={20} /> },
 ];
 
-const CategoryCard = ({ category }: { category: Category }) => {
-  return (
-    <div
-      className="
-        group flex items-center gap-4 px-5 py-4 rounded-2xl border
-        bg-white border-gray-200 cursor-pointer
-        transition-all duration-300
-        hover:shadow-lg hover:-translate-y-1 hover:border-primary/30
-      "
-    >
-      <div
-        className="
-          w-11 h-11 flex items-center justify-center rounded-xl
-          bg-primary/10 text-primary
-          transition-all duration-300
-          group-hover:bg-primary group-hover:text-white
-        "
-      >
-        {category.icon}
-      </div>
-
-      <div>
-        <p className="text-sm font-semibold text-gray-800">{category.title}</p>
-        <p className="text-xs text-gray-400 mt-1">
-          {category.jobs.toLocaleString()} Jobs Available
-        </p>
-      </div>
-    </div>
-  );
-};
-
 const JobCategories = () => {
   return (
     <section className="w-full bg-white py-20">
@@ -88,7 +57,7 @@ const JobCategories = () => {
         {/* Header */}{" "}
         <div className="text-center mb-12">
           {" "}
-          <h2 className="text-4xl text-gray-900 leading-tight font-medium">
+          <h2 className="text-4xl text-black leading-tight font-medium">
             {" "}
             Explore All The Job{" "}
             <span className="italic font-serif text-primary">
@@ -117,6 +86,37 @@ const JobCategories = () => {
         </div>
       </div>
     </section>
+  );
+};
+
+const CategoryCard = ({ category }: { category: Category }) => {
+  return (
+    <div
+      className="
+        group flex items-center gap-4 px-5 py-4 rounded-xl border
+        bg-white border-gray-200 cursor-pointer
+        transition-all duration-300
+        hover:shadow-lg hover:-translate-y-1 hover:border-primary/30
+      "
+    >
+      <div
+        className="
+          w-11 h-11 flex items-center justify-center rounded-lg
+          bg-gradient-to-r from-gray-900 to-gray-500 text-white
+          transition-all duration-300 
+          group-hover:from-primary group-hover:to-primary/80
+        "
+      >
+        {category.icon}
+      </div>
+
+      <div>
+        <p className="text-sm font-semibold text-gray-800">{category.title}</p>
+        <p className="text-xs text-gray-400 mt-1">
+          {category.jobs.toLocaleString()} Jobs Available
+        </p>
+      </div>
+    </div>
   );
 };
 

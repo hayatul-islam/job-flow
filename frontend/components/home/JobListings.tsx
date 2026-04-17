@@ -1,5 +1,4 @@
 "use client";
-
 import { useJobs } from "@/hooks/useJobs";
 import { Job, JobsParams } from "@/types";
 import { ArrowRightIcon } from "lucide-react";
@@ -31,13 +30,12 @@ export default function JobListings() {
   };
 
   return (
-    <section className="py-10 px-4 bg-[#f7f7f5]">
-      <div className="max-w-6xl mx-auto">
-        {/* Header */}
-        <div className="flex items-center justify-between mb-5">
+    <section className="py-20 px-4 bg-gray-50">
+      <div className="container">
+        <div className="flex items-end justify-between mb-10">
           <div>
-            <h2 className="text-2xl font-serif font-bold text-gray-900">
-              Latest Jobs
+            <h2 className="text-4xl text-black leading-tight font-medium">
+              Recent Jobs
             </h2>
             <p className="text-gray-500 text-sm mt-1 font-light">
               {data?.data?.length} positions available
@@ -51,14 +49,12 @@ export default function JobListings() {
           </Link>
         </div>
 
-        {/* Filters */}
         <div className="mb-6">
           <JobFilters onQuery={onQuery} />
         </div>
 
-        {/* Grid */}
         {data?.data.length > 0 ? (
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
+          <div className="grid gap-4">
             {data?.data.map((job: Job) => (
               <JobCard key={job.id} job={job} />
             ))}
@@ -70,7 +66,6 @@ export default function JobListings() {
           </div>
         )}
 
-        {/* Mobile see all */}
         <div className="flex justify-center mt-7 sm:hidden">
           <Link
             href="/jobs"

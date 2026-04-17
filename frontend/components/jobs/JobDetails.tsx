@@ -100,7 +100,7 @@ export default function JobDetails() {
                 <p className="text-sm font-medium text-primary">
                   {data?.employer?.firstName} {data?.employer?.lastName}
                 </p>
-                <h1 className="text-xl font-medium text-gray-900">
+                <h1 className="text-xl font-medium text-black">
                   {data?.title}
                 </h1>
               </div>
@@ -159,7 +159,7 @@ export default function JobDetails() {
                     <p className="text-xs text-gray-400 uppercase tracking-wide">
                       {item.label}
                     </p>
-                    <p className="text-sm font-medium text-gray-900 mt-0.5">
+                    <p className="text-sm font-medium text-black mt-0.5">
                       {item.value}
                     </p>
                   </div>
@@ -171,7 +171,7 @@ export default function JobDetails() {
 
             {/* Description */}
             <div className="mb-6">
-              <h2 className="text-base font-medium text-gray-900 mb-3">
+              <h2 className="text-base font-medium text-black mb-3">
                 About the role
               </h2>
               <p className="text-sm text-gray-500 leading-relaxed whitespace-pre-line">
@@ -184,7 +184,7 @@ export default function JobDetails() {
           <div className="bg-white border border-gray-200 rounded-2xl p-6 lg:sticky lg:top-6">
             {/* Salary */}
             <div className="mb-5">
-              <p className="text-2xl font-medium text-gray-900">
+              <p className="text-2xl font-medium text-black">
                 ৳{Number(data.salary).toLocaleString()}
               </p>
               <p className="text-xs text-gray-400 mt-1">per month</p>
@@ -270,7 +270,7 @@ export default function JobDetails() {
                   <Briefcase size={16} className="text-primary-100" />
                 </div>
                 <div>
-                  <p className="text-sm font-medium text-gray-900">
+                  <p className="text-sm font-medium text-black">
                     {data?.employer?.firstName} {data?.employer?.lastName}
                   </p>
                   <p className="text-xs text-gray-400">Employer</p>

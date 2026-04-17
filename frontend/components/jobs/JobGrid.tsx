@@ -36,7 +36,7 @@ export default function JobsGrid({ query }: JobsGridProps) {
 
       {/* Jobs Grid */}
       {data?.data?.length > 0 ? (
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+        <div className="grid gap-6">
           {data?.data?.map((job: Job) => (
             <JobCard key={job.id} job={job} />
           ))}

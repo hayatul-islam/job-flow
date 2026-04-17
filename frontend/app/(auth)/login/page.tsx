@@ -50,12 +50,12 @@ export default function LoginPage() {
               <path d="M10 2L3 7v11h5v-5h4v5h5V7L10 2z" fill="white" />
             </svg>
           </div>
-          <span className="text-xl font-medium text-gray-900">JobFlow</span>
+          <span className="text-xl font-medium text-black">JobFlow</span>
         </div>
 
         {/* Heading */}
         <div className="mb-7">
-          <h1 className="text-2xl font-medium text-gray-900">Welcome back</h1>
+          <h1 className="text-2xl font-medium text-black">Welcome back</h1>
           <p className="text-sm text-gray-500 mt-1">
             Sign in to your account to continue
           </p>

@@ -14,7 +14,7 @@ export default function CategoryGrid() {
         {/* Header */}
         <div className="flex items-center justify-between mb-7">
           <div>
-            <h2 className="text-2xl font-serif font-bold text-gray-900">
+            <h2 className="text-2xl font-serif font-bold text-black">
               Browse by Category
             </h2>
             <p className="text-gray-500 text-sm mt-1 font-light">
