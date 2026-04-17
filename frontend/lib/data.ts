@@ -1,4 +1,11 @@
-import { Blend, Briefcase, Clock, GraduationCap, Home } from "lucide-react";
+import {
+  Blend,
+  Briefcase,
+  Clock,
+  GraduationCap,
+  Home,
+  LucideIcon,
+} from "lucide-react";
 
 export const JOB_FILTER_TABS = [
   "ALL",
@@ -39,7 +46,10 @@ export const JOB_TYPE_COLOR: Record<string, string> = {
   INTERNSHIP: "bg-pink-50 text-pink-800",
 };
 
-export const JOB_TYPE_CONFIG = {
+export const JOB_TYPE_CONFIG: Record<
+  string,
+  { label: string; icon: LucideIcon; className: string }
+> = {
   FULL_TIME: {
     label: "Full Time",
     icon: Briefcase,
