@@ -1,14 +1,12 @@
-import CategoriesDesign1 from "@/components/home/CategoriesTwo";
-import HeroSectionLight from "@/components/home/HeroSectionLight";
+import Categories from "@/components/home/Categories";
+import HeroSection from "@/components/home/HeroSection";
 import JobListings from "@/components/home/JobListings";
 
 const page = () => {
   return (
     <>
-      <HeroSectionLight />
-      {/* <HeroSection /> */}
-      <CategoriesDesign1 />
-      {/* <CategoryGrid /> */}
+      <HeroSection />
+      <Categories />
       <JobListings />
     </>
   );
