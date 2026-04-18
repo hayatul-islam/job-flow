@@ -77,7 +77,7 @@ export default function JobDetails() {
   }
 
   return (
-    <div className=" bg-gray-50 px-4 py-8">
+    <div className=" bg-gray-50 px-4 pb-12 pt-24">
       <div className="max-w-4xl mx-auto">
         {/* Back */}
         <button

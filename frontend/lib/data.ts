@@ -18,16 +18,13 @@ export const JOB_FILTER_TABS = [
 
 export const LOCATIONS = [
   "Dhaka",
-  "Chittagong",
+  "Chattogram",
   "Sylhet",
   "Rajshahi",
-  "Remote",
-];
-
-export const STATS = [
-  { value: "12,400+", label: "Active Jobs" },
-  { value: "3,200+", label: "Companies" },
-  { value: "98k+", label: "Job Seekers" },
+  "Khulna",
+  "Barishal",
+  "Rangpur",
+  "Mymensingh",
 ];
 
 export const JOB_TYPE_LABEL: Record<string, string> = {
