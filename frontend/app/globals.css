@@ -23,12 +23,25 @@
 :root {
   --background: oklch(1 0 0);
   --foreground: oklch(0.145 0 0);
+  /* --primary: #5b4fcf;
+  --primary-100: #4a3fb8; */
+  --primary: #4f46e5;
+  --primary-100: #4a3fb8;
+  --primary-dark: #3a2fa0;
+  --primary-light: #7b6fe0;
+  --primary-light: #7c3aed;
+  --black: #080810;
+}
+
+/* :root {
+  --background: oklch(1 0 0);
+  --foreground: oklch(0.145 0 0);
   --primary: #e94560;
   --primary-100: #c73552;
   --primary-dark: #8f2d3f;
   --primary-light: #f06e8c;
   --black: #080810;
-}
+} */
 
 body {
   font-family: var(--font-body), sans-serif;

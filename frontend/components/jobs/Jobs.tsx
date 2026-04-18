@@ -9,12 +9,14 @@ export default function Jobs() {
   const searchParams = useSearchParams();
 
   const catId = searchParams.get("catId");
+  const searchQ = searchParams.get("q");
+  const jobType = searchParams.get("jobType");
 
   const [query, setQuery] = useState<JobsParams>({
-    q: "",
+    q: searchQ ?? "",
     location: [] as string[],
     catId: catId ?? "",
-    jobType: [] as string[],
+    jobType: jobType ? [jobType] : ([] as string[]),
   });
 
   const onQuery = (key: string, value: any) => {
