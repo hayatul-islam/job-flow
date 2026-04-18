@@ -1,5 +1,6 @@
 import Categories from "@/components/home/Categories";
 import HeroSection from "@/components/home/HeroSection";
+import HowItWorks from "@/components/home/HowItWorks";
 import RecentJobs from "@/components/home/RecentJobs";
 
 const page = () => {
@@ -8,6 +9,7 @@ const page = () => {
       <HeroSection />
       <Categories />
       <RecentJobs />
+      <HowItWorks />
     </>
   );
 };

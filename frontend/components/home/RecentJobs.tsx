@@ -40,7 +40,7 @@ export default function RecentJobs() {
               Recent jobs
             </h2>
 
-            <p className="mt-1 text-sm text-[#9999b8]">
+            <p className="mt-1 text-sm text-gray-500">
               {isLoading
                 ? ""
                 : `${jobs.length} position${jobs.length !== 1 ? "s" : ""} available`}
@@ -81,15 +81,5 @@ export default function RecentJobs() {
         </div>
       </div>
     </section>
-  );
-}
-
-function SkeletonList() {
-  return (
-    <div className="flex flex-col gap-3">
-      {Array.from({ length: 4 }).map((_, i) => (
-        <div key={i} className="h-20 rounded-2xl bg-primary/5 animate-pulse" />
-      ))}
-    </div>
   );
 }
