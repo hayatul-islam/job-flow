@@ -1,13 +1,13 @@
 import Categories from "@/components/home/Categories";
 import HeroSection from "@/components/home/HeroSection";
-import JobListings from "@/components/home/JobListings";
+import RecentJobs from "@/components/home/RecentJobs";
 
 const page = () => {
   return (
     <>
       <HeroSection />
       <Categories />
-      <JobListings />
+      <RecentJobs />
     </>
   );
 };

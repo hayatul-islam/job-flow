@@ -12,6 +12,7 @@
   --color-primary-dark: var(--primary-dark);
   --color-primary-light: var(--primary-light);
   --color-black: var(--black);
+  --color-light-background: var(--light-background);
 
   --gradient-primary: linear-gradient(
     135deg,
@@ -31,6 +32,7 @@
   --primary-light: #7b6fe0;
   --primary-light: #7c3aed;
   --black: #080810;
+  --light-background: #f8f7ff;
 }
 
 /* :root {
