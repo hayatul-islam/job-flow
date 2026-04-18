@@ -62,7 +62,7 @@ export default function Navbar() {
 
           <Link
             href="#"
-            className="px-5 py-2 text-sm font-medium text-white rounded-lg
+            className="px-5 py-2 text-sm font-medium text-white rounded-full
             hover:scale-[1.03] hover:opacity-90 transition-all"
             style={{
               background:
