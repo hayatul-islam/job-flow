@@ -1,4 +1,5 @@
 "use client";
+import Logo from "@/components/shared/Logo";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import api from "@/lib/axios";
@@ -41,19 +42,12 @@ export default function LoginPage() {
   };
 
   return (
-    <div className="min-h-screen flex items-center justify-center bg-gray-50 px-4">
+    <div className="flex justify-center bg-light-background px-4 py-12 pt-32">
       <div className="w-full max-w-md bg-white border border-gray-200 rounded-2xl p-10 shadow-sm">
-        {/* Brand */}
-        <div className="flex items-center justify-center gap-2.5 mb-8">
-          <div className="w-9 h-9 bg-blue-500 rounded-xl flex items-center justify-center">
-            <svg width="18" height="18" viewBox="0 0 20 20" fill="none">
-              <path d="M10 2L3 7v11h5v-5h4v5h5V7L10 2z" fill="white" />
-            </svg>
-          </div>
-          <span className="text-xl font-medium text-black">JobFlow</span>
+        <div className="flex justify-center pb-8">
+          <Logo color="black" />
         </div>
 
-        {/* Heading */}
         <div className="mb-7">
           <h1 className="text-2xl font-medium text-black">Welcome back</h1>
           <p className="text-sm text-gray-500 mt-1">
@@ -75,7 +69,7 @@ export default function LoginPage() {
               <Input
                 type="email"
                 placeholder="you@example.com"
-                className="pl-9 h-11 bg-gray-50 border-gray-200 focus:border-blue-500 focus:ring-blue-500/10"
+                className="pl-9 h-11 bg-gray-50 border-gray-200 focus:border-primary focus:ring-primary/10"
                 {...register("email")}
               />
             </div>
@@ -97,7 +91,7 @@ export default function LoginPage() {
               <Input
                 type={showPassword ? "text" : "password"}
                 placeholder="••••••••"
-                className="pl-9 pr-10 h-11 bg-gray-50 border-gray-200 focus:border-blue-500 focus:ring-blue-500/10"
+                className="pl-9 pr-10 h-11 bg-gray-50 border-gray-200 focus:border-primary focus:ring-primary/10"
                 {...register("password")}
               />
               <button
@@ -145,7 +139,7 @@ export default function LoginPage() {
           <Button
             type="submit"
             disabled={isSubmitting}
-            className="w-full h-11 bg-blue-500 hover:bg-blue-600 text-white font-medium rounded-lg text-sm"
+            className="w-full h-11 bg-primary hover:bg-primary/90 text-white font-medium rounded-lg text-sm"
           >
             {isSubmitting ? (
               <span className="flex items-center gap-2">
@@ -184,7 +178,7 @@ export default function LoginPage() {
           Don&apos;t have an account?{" "}
           <Link
             href="/register"
-            className="text-blue-500 font-medium hover:underline"
+            className="text-primary font-medium hover:underline"
           >
             Register
           </Link>

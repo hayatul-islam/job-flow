@@ -1,4 +1,5 @@
 "use client";
+import Logo from "@/components/shared/Logo";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import api from "@/lib/axios";
@@ -98,19 +99,11 @@ export default function RegisterPage() {
   };
 
   return (
-    <div className="min-h-screen flex items-center justify-center bg-gray-50 px-4 py-10">
+    <div className=" flex items-center justify-center bg-light-background px-4 py-12 pt-32">
       <div className="w-full max-w-lg bg-white border border-gray-200 rounded-2xl p-10 shadow-sm">
-        {/* Brand */}
-        <div className="flex items-center justify-center gap-2.5 mb-8">
-          <div className="w-9 h-9 bg-blue-500 rounded-xl flex items-center justify-center">
-            <svg width="18" height="18" viewBox="0 0 20 20" fill="none">
-              <path d="M10 2L3 7v11h5v-5h4v5h5V7L10 2z" fill="white" />
-            </svg>
-          </div>
-          <span className="text-xl font-medium text-black">JobFlow</span>
+        <div className="flex justify-center pb-8">
+          <Logo color="black" />
         </div>
-
-        {/* Heading */}
         <div className="mb-7">
           <h1 className="text-2xl font-medium text-black">Create account</h1>
           <p className="text-sm text-gray-500 mt-1">
@@ -137,13 +130,13 @@ export default function RegisterPage() {
                     className={`relative flex flex-col items-center gap-2 p-4 rounded-xl border-2 transition-all duration-150 cursor-pointer
                       ${
                         isActive
-                          ? "border-blue-500 bg-blue-50 text-blue-600"
+                          ? "border-primary bg-blue-50 text-primary/90"
                           : "border-gray-200 bg-white text-gray-500 hover:border-gray-300 hover:bg-gray-50"
                       }`}
                   >
                     {/* Check badge */}
                     {isActive && (
-                      <span className="absolute top-2.5 right-2.5 w-4 h-4 bg-blue-500 rounded-full flex items-center justify-center">
+                      <span className="absolute top-2.5 right-2.5 w-4 h-4 bg-primary rounded-full flex items-center justify-center">
                         <svg
                           width="9"
                           height="9"
@@ -161,21 +154,21 @@ export default function RegisterPage() {
                       </span>
                     )}
                     <span
-                      className={`${isActive ? "text-blue-500" : "text-gray-400"}`}
+                      className={`${isActive ? "text-primary" : "text-gray-400"}`}
                     >
                       {role.icon}
                     </span>
                     <div className="text-center">
                       <p
                         className={`text-sm font-medium ${
-                          isActive ? "text-blue-600" : "text-gray-700"
+                          isActive ? "text-primary/90" : "text-gray-700"
                         }`}
                       >
                         {role.label}
                       </p>
                       <p
                         className={`text-xs mt-0.5 ${
-                          isActive ? "text-blue-400" : "text-gray-400"
+                          isActive ? "text-primary/70" : "text-gray-400"
                         }`}
                       >
                         {role.description}
@@ -190,7 +183,6 @@ export default function RegisterPage() {
             )}
           </div>
 
-          {/* First Name + Last Name */}
           <div className="grid grid-cols-2 gap-3">
             <div className="space-y-1.5">
               <label className="text-xs font-medium text-gray-500 uppercase tracking-wide">
@@ -203,7 +195,7 @@ export default function RegisterPage() {
                 />
                 <Input
                   placeholder="John"
-                  className="pl-9 h-11 bg-gray-50 border-gray-200 focus:border-blue-500 focus:ring-blue-500/10"
+                  className="pl-9 h-11 bg-gray-50 border-gray-200 focus:border-primary focus:ring-primary/10"
                   {...register("firstName")}
                 />
               </div>
@@ -225,7 +217,7 @@ export default function RegisterPage() {
                 />
                 <Input
                   placeholder="Doe"
-                  className="pl-9 h-11 bg-gray-50 border-gray-200 focus:border-blue-500 focus:ring-blue-500/10"
+                  className="pl-9 h-11 bg-gray-50 border-gray-200 focus:border-primary focus:ring-primary/10"
                   {...register("lastName")}
                 />
               </div>
@@ -237,7 +229,6 @@ export default function RegisterPage() {
             </div>
           </div>
 
-          {/* Email */}
           <div className="space-y-1.5">
             <label className="text-xs font-medium text-gray-500 uppercase tracking-wide">
               Email
@@ -250,7 +241,7 @@ export default function RegisterPage() {
               <Input
                 type="email"
                 placeholder="you@example.com"
-                className="pl-9 h-11 bg-gray-50 border-gray-200 focus:border-blue-500 focus:ring-blue-500/10"
+                className="pl-9 h-11 bg-gray-50 border-gray-200 focus:border-primary focus:ring-primary/10"
                 {...register("email")}
               />
             </div>
@@ -259,7 +250,6 @@ export default function RegisterPage() {
             )}
           </div>
 
-          {/* Password */}
           <div className="space-y-1.5">
             <label className="text-xs font-medium text-gray-500 uppercase tracking-wide">
               Password
@@ -272,7 +262,7 @@ export default function RegisterPage() {
               <Input
                 type={showPassword ? "text" : "password"}
                 placeholder="Min. 6 characters"
-                className="pl-9 pr-10 h-11 bg-gray-50 border-gray-200 focus:border-blue-500 focus:ring-blue-500/10"
+                className="pl-9 pr-10 h-11 bg-gray-50 border-gray-200 focus:border-primary focus:ring-primary/10"
                 {...register("password")}
               />
               <button
@@ -287,7 +277,7 @@ export default function RegisterPage() {
               <p className="text-red-500 text-xs">{errors.password.message}</p>
             )}
           </div>
-          {/* Confirm Password */}
+
           <div className="space-y-1.5">
             <label className="text-xs font-medium text-gray-500 uppercase tracking-wide">
               Confirm Password
@@ -314,7 +304,6 @@ export default function RegisterPage() {
             )}
           </div>
 
-          {/* Root error */}
           {errors.root && (
             <div className="flex items-center gap-2 bg-red-50 border border-red-200 rounded-lg px-3.5 py-2.5">
               <svg
@@ -342,11 +331,10 @@ export default function RegisterPage() {
             </div>
           )}
 
-          {/* Submit */}
           <Button
             type="submit"
             disabled={isSubmitting}
-            className="w-full h-11 bg-blue-500 hover:bg-blue-600 text-white font-medium rounded-lg text-sm"
+            className="w-full h-11 bg-primary hover:bg-primary/90 text-white font-medium rounded-lg text-sm"
           >
             {isSubmitting ? (
               <span className="flex items-center gap-2">
@@ -385,9 +373,9 @@ export default function RegisterPage() {
           Already have an account?{" "}
           <Link
             href="/login"
-            className="text-blue-500 font-medium hover:underline"
+            className="text-primary font-medium hover:underline"
           >
-            Sign in
+            Login
           </Link>
         </p>
       </div>
