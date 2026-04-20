@@ -11,15 +11,7 @@ import {
 } from "@/components/ui/dropdown-menu";
 import { useAuth } from "@/hooks/useAuth";
 import { DropdownItemConfig } from "@/types";
-import {
-  Briefcase,
-  FileText,
-  Gift,
-  LayoutDashboard,
-  LogOut,
-  Settings,
-  User,
-} from "lucide-react";
+import { Briefcase, FileText, LogOut, User } from "lucide-react";
 import Link from "next/link";
 import { Button } from "../ui/button";
 
@@ -30,13 +22,7 @@ const MENU_ITEMS: DropdownItemConfig[] = [
     href: "/profile",
     icon: <User size={14} />,
   },
-  {
-    label: "Dashboard",
-    sublabel: "Manage listings",
-    href: "/dashboard",
-    icon: <LayoutDashboard size={14} />,
-    roles: ["EMPLOYER"],
-  },
+
   {
     label: "My posts",
     sublabel: "Active job listings",
@@ -44,25 +30,13 @@ const MENU_ITEMS: DropdownItemConfig[] = [
     icon: <FileText size={14} />,
     roles: ["EMPLOYER"],
   },
+
   {
-    label: "Saved jobs",
-    sublabel: "Bookmarked listings",
-    href: "/saved-jobs",
-    icon: <Gift size={14} />,
-    roles: ["JOB_SEEKER"],
-  },
-  {
-    label: "My applications",
+    label: "My applied",
     sublabel: "Track your applications",
-    href: "/applications",
+    href: "/my-applied",
     icon: <Briefcase size={14} />,
     roles: ["JOB_SEEKER"],
-  },
-  {
-    label: "Settings",
-    sublabel: "Account preferences",
-    href: "/settings",
-    icon: <Settings size={14} />,
   },
 ];
 

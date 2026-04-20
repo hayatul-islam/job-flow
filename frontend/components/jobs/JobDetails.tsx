@@ -15,6 +15,7 @@ import {
 import Link from "next/link";
 import { useParams, useRouter } from "next/navigation";
 import { useState } from "react";
+import JobDetailsSkeleton from "../skeletons/JobDetailsSkeleton";
 import { Button } from "../ui/button";
 import ApplyModal from "./ApplyModal";
 
@@ -35,32 +36,8 @@ export default function JobDetails() {
 
   if (isLoading) {
     return (
-      <div className="min-h-[60vh] flex items-center justify-center bg-gray-50">
-        <div className="flex items-center gap-3 text-gray-400">
-          <svg
-            className="animate-spin"
-            width="20"
-            height="20"
-            viewBox="0 0 24 24"
-            fill="none"
-          >
-            <circle
-              cx="12"
-              cy="12"
-              r="10"
-              stroke="currentColor"
-              strokeWidth="2"
-              strokeOpacity="0.3"
-            />
-            <path
-              d="M12 2a10 10 0 0110 10"
-              stroke="currentColor"
-              strokeWidth="2"
-              strokeLinecap="round"
-            />
-          </svg>
-          <span className="text-sm">Loading job details...</span>
-        </div>
+      <div className="pt-20 pb-12">
+        <JobDetailsSkeleton />
       </div>
     );
   }

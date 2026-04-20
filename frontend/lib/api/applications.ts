@@ -1,5 +1,10 @@
 import api from "../axios";
 
+export const getMyApplications = async () => {
+  const res = await api.get("/applications/my");
+  return res.data;
+};
+
 export const applyToJob = async ({
   jobId,
   cvFile,
