@@ -7,7 +7,6 @@ import {
   ArrowLeft,
   ArrowRight,
   Bookmark,
-  Briefcase,
   Calendar,
   Clock,
   MapPin,
@@ -16,6 +15,7 @@ import {
 import Link from "next/link";
 import { useParams, useRouter } from "next/navigation";
 import { useState } from "react";
+import { Button } from "../ui/button";
 import ApplyModal from "./ApplyModal";
 
 export default function JobDetails() {
@@ -28,6 +28,10 @@ export default function JobDetails() {
   const { data, isLoading, isError } = useJob(
     Number(typeof id === "string" ? id : undefined),
   );
+
+  const employerName = `${data?.employer.firstName} ${data?.employer.lastName}`;
+
+  const employerFirstLetter = employerName?.[0]?.toUpperCase() || "A";
 
   if (isLoading) {
     return (
@@ -78,35 +82,29 @@ export default function JobDetails() {
 
   return (
     <div className=" bg-gray-50 px-4 pb-12 pt-24">
-      <div className="max-w-4xl mx-auto">
-        {/* Back */}
+      <div className="container">
         <button
           onClick={() => router.back()}
-          className="inline-flex items-center gap-1.5 text-sm text-gray-500 hover:text-gray-800 mb-6 transition-colors"
+          className="inline-flex items-center gap-1.5 text-sm text-gray-500 hover:text-black mb-6 transition-colors"
         >
           <ArrowLeft size={15} />
           Back to jobs
         </button>
 
         <div className="grid grid-cols-1 lg:grid-cols-[1fr_300px] gap-6 items-start">
-          {/* ── Left: Main Card ── */}
           <div className="bg-white border border-gray-200 rounded-2xl p-7">
-            {/* Company + Title */}
             <div className="flex items-center gap-4 mb-5">
-              <div className="w-14 h-14 rounded-xl bg-blue-50 border border-blue-100 flex items-center justify-center flex-shrink-0">
-                <Briefcase size={24} className="text-primary-100" />
+              <div className="w-12 h-12 rounded-lg bg-primary/5 border border-primary/5 flex items-center justify-center text-xl font-semibold text-primary shrink-0 capitalize">
+                {employerFirstLetter}
               </div>
               <div>
-                <p className="text-sm font-medium text-primary">
+                <p className="!font-medium !text-primary">
                   {data?.employer?.firstName} {data?.employer?.lastName}
                 </p>
-                <h1 className="text-xl font-medium text-black">
-                  {data?.title}
-                </h1>
+                <h5 className="text-xl !font-medium ">{data?.title}</h5>
               </div>
             </div>
 
-            {/* Badges */}
             <div className="flex flex-wrap gap-2 mb-5">
               <span
                 className={`inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-medium ${JOB_TYPE_COLOR[data.jobType] ?? "bg-gray-100 text-gray-700"}`}
@@ -126,7 +124,6 @@ export default function JobDetails() {
               </span>
             </div>
 
-            {/* Meta grid */}
             <div className="grid grid-cols-2 gap-3 mb-6">
               {[
                 {
@@ -156,12 +153,8 @@ export default function JobDetails() {
                 >
                   {item.icon}
                   <div>
-                    <p className="text-xs text-gray-400 uppercase tracking-wide">
-                      {item.label}
-                    </p>
-                    <p className="text-sm font-medium text-black mt-0.5">
-                      {item.value}
-                    </p>
+                    <p className="!text-xs uppercase">{item.label}</p>
+                    <h6 className=" mt-0.5">{item.value}</h6>
                   </div>
                 </div>
               ))}
@@ -169,25 +162,20 @@ export default function JobDetails() {
 
             <hr className="border-gray-100 mb-6" />
 
-            {/* Description */}
             <div className="mb-6">
-              <h2 className="text-base font-medium text-black mb-3">
-                About the role
-              </h2>
-              <p className="text-sm text-gray-500 leading-relaxed whitespace-pre-line">
+              <h5 className=" mb-3">About the role</h5>
+              <p className=" leading-relaxed whitespace-pre-line">
                 {data.description}
               </p>
             </div>
           </div>
 
-          {/* ── Right: Sticky Card ── */}
           <div className="bg-white border border-gray-200 rounded-2xl p-6 lg:sticky lg:top-6">
-            {/* Salary */}
             <div className="mb-5">
-              <p className="text-2xl font-medium text-black">
+              <h4 className=" !font-medium ">
                 ৳{Number(data.salary).toLocaleString()}
-              </p>
-              <p className="text-xs text-gray-400 mt-1">per month</p>
+              </h4>
+              <p className="mt-1">per month</p>
             </div>
 
             <hr className="border-gray-100 mb-4" />
@@ -206,15 +194,12 @@ export default function JobDetails() {
                   key={row.key}
                   className="flex items-center justify-between"
                 >
-                  <span className="text-xs text-gray-400">{row.key}</span>
-                  <span className="text-sm font-medium text-gray-800">
-                    {row.val}
-                  </span>
+                  <p>{row.key}</p>
+                  <h6>{row.val}</h6>
                 </div>
               ))}
             </div>
 
-            {/* Apply button */}
             {applied ? (
               <div className="w-full h-11 flex items-center justify-center gap-2 bg-green-50 border border-green-200 rounded-xl text-green-700 text-sm font-medium">
                 <svg width="15" height="15" viewBox="0 0 20 20" fill="none">
@@ -236,44 +221,40 @@ export default function JobDetails() {
                 Applied successfully
               </div>
             ) : (
-              <button
+              <Button
                 onClick={() => setShowApplyModal(true)}
-                className="w-full h-11 bg-primary-100 hover:bg-primary text-white text-sm font-medium rounded-xl flex items-center justify-center gap-2 transition-colors"
+                className="w-full"
               >
                 <ArrowRight size={15} />
                 Apply now
-              </button>
+              </Button>
             )}
 
-            {/* Save button */}
-            <button
+            <Button
               onClick={() => setSaved((s) => !s)}
-              className={`w-full h-10 mt-2.5 text-sm font-medium rounded-xl flex items-center justify-center gap-2 border transition-colors ${
+              className={`w-full h-10 mt-2.5  ${
                 saved
-                  ? "bg-blue-50 border-blue-200 text-primary"
-                  : "bg-white border-gray-200 text-gray-600 hover:bg-gray-50"
+                  ? "bg-primary/10 border-primary/20 text-primary"
+                  : "bg-white border-primary/10 text-black hover:bg-primary/10"
               }`}
             >
               <Bookmark size={14} fill={saved ? "currentColor" : "none"} />
               {saved ? "Saved" : "Save job"}
-            </button>
+            </Button>
 
             <hr className="border-gray-100 my-5" />
 
-            {/* Company mini */}
             <div>
-              <p className="text-xs text-gray-400 uppercase tracking-wide mb-3">
-                Posted by
-              </p>
+              <p className=" uppercase tracking-wide mb-3">Posted by</p>
               <div className="flex items-center gap-3">
-                <div className="w-9 h-9 rounded-lg bg-blue-50 border border-blue-100 flex items-center justify-center flex-shrink-0">
-                  <Briefcase size={16} className="text-primary-100" />
+                <div className="w-8 h-8 rounded-lg bg-primary/5 border border-primary/5 flex items-center justify-center text-sm font-semibold text-primary shrink-0 capitalize">
+                  {employerFirstLetter}
                 </div>
                 <div>
-                  <p className="text-sm font-medium text-black">
-                    {data?.employer?.firstName} {data?.employer?.lastName}
-                  </p>
-                  <p className="text-xs text-gray-400">Employer</p>
+                  <h6 className="text-sm font-medium text-black">
+                    {employerName}
+                  </h6>
+                  <p className="!text-xs 0">Employer</p>
                 </div>
               </div>
             </div>
@@ -281,7 +262,6 @@ export default function JobDetails() {
         </div>
       </div>
 
-      {/* ── Apply Modal ── */}
       {showApplyModal && (
         <ApplyModal
           jobId={id as string}

@@ -105,7 +105,7 @@ export default function RegisterPage() {
           <Logo color="black" />
         </div>
         <div className="mb-7">
-          <h1 className="text-2xl font-medium text-black">Create account</h1>
+          <h3>Create account</h3>
           <p className="text-sm text-gray-500 mt-1">
             Join JobFlow and get started today
           </p>

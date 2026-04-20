@@ -11,8 +11,10 @@ import {
   Pencil,
   Smartphone,
   Users,
+  Zap,
 } from "lucide-react";
 import React from "react";
+import { Card } from "../ui/card";
 
 interface Category {
   id: number;
@@ -179,38 +181,34 @@ const CategoryCard = ({ category }: { category: Category }) => {
   const c = category.color;
 
   return (
-    <div
-      onMouseEnter={() => setHovered(true)}
-      onMouseLeave={() => setHovered(false)}
-      className="flex items-center gap-3 px-4 py-3.5 rounded-[14px] border cursor-pointer transition-all duration-200"
-      style={{
-        background: hovered ? c.hoverBg : "white",
-        borderColor: hovered ? "rgba(0,0,0,0.12)" : "rgba(0,0,0,0.07)",
-      }}
-    >
+    <Card className="p-0">
       <div
-        className="w-10 h-10 flex items-center justify-center rounded-[10px] shrink-0 transition-all duration-200"
+        onMouseEnter={() => setHovered(true)}
+        onMouseLeave={() => setHovered(false)}
+        className="flex items-center gap-3 px-4 py-3.5 rounded-2xl cursor-pointer transition-all duration-200"
         style={{
-          background: hovered ? c.iconHoverBg : c.iconBg,
-          color: c.iconColor,
-          transform: hovered ? "scale(1.08)" : "scale(1)",
+          background: hovered ? c.hoverBg : "white",
         }}
       >
-        {category.icon}
-      </div>
-
-      <div>
-        <p
-          className="text-[13px] font-medium leading-snug"
-          style={{ color: "#1a1a2e" }}
+        <div
+          className="w-10 h-10 flex items-center justify-center rounded-[10px] shrink-0 transition-all duration-200"
+          style={{
+            background: hovered ? c.iconHoverBg : c.iconBg,
+            color: c.iconColor,
+            transform: hovered ? "scale(1.08)" : "scale(1)",
+          }}
         >
-          {category.title}
-        </p>
-        <p className="text-[11px] mt-0.5" style={{ color: "#9999b8" }}>
-          {category.jobs.toLocaleString()} jobs available
-        </p>
+          {category.icon}
+        </div>
+
+        <div>
+          <h6>{category.title}</h6>
+          <p className="!text-[12px] mt-0.5">
+            {category.jobs.toLocaleString()} jobs available
+          </p>
+        </div>
       </div>
-    </div>
+    </Card>
   );
 };
 
@@ -219,15 +217,18 @@ const Categories = () => {
     <section className="w-full bg-white py-20">
       <div className="container max-w-4xl mx-auto px-6">
         <div className="text-center mb-10">
-          <h2 className="text-4xl font-medium text-black leading-tight">
+          <div className="inline-flex items-center gap-1.5 text-[11px] font-medium tracking-[0.6px] uppercase rounded-full px-4 py-1.5 mb-2 bg-light-background text-primary">
+            <Zap className="w-3 h-3" />
+            Explore Careers
+          </div>
+
+          <h2 className="!font-medium">
             Explore all the job{" "}
             <span className="font-normal text-primary italic">categories</span>
             <br />
             that change yourself.
           </h2>
-          <p className="text-sm text-gray-400 mt-3">
-            10 categories · thousands of opportunities
-          </p>
+          <p className=" mt-3">10 categories · thousands of opportunities</p>
         </div>
 
         <div className="grid grid-cols-3 gap-3 max-w-3xl mx-auto mb-3">

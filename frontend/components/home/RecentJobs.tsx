@@ -36,11 +36,9 @@ export default function RecentJobs() {
       <div className="container">
         <div className="mb-8 flex items-end justify-between">
           <div>
-            <h2 className="text-3xl sm:text-4xl font-medium text-black">
-              Recent jobs
-            </h2>
+            <h2>Recent jobs</h2>
 
-            <p className="mt-1 text-sm text-gray-500">
+            <p>
               {isLoading
                 ? ""
                 : `${jobs.length} position${jobs.length !== 1 ? "s" : ""} available`}

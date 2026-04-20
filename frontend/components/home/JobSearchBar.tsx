@@ -1,5 +1,4 @@
 "use client";
-
 import {
   Briefcase,
   Building2,
@@ -17,6 +16,8 @@ import {
 } from "lucide-react";
 import { useRouter } from "next/navigation";
 import { useCallback, useEffect, useRef, useState } from "react";
+import { Button } from "../ui/button";
+import { Card } from "../ui/card";
 
 const JOB_TYPES = [
   { value: "", label: "All types", Icon: Layers },
@@ -121,7 +122,7 @@ export default function SearchBarLight() {
 
   return (
     <div className="max-w-3xl mx-auto mb-16">
-      <div className="flex flex-col sm:flex-row rounded-2xl bg-white border border-primary/20">
+      <Card className="p-0 flex flex-col sm:flex-row ">
         <div className="flex flex-1 items-center gap-3 px-5 py-1">
           <Search className="w-5 h-5 shrink-0 text-primary" />
           <input
@@ -130,7 +131,7 @@ export default function SearchBarLight() {
             onChange={(e) => setQ(e.target.value)}
             onKeyDown={handleKeyDown}
             placeholder="Job title, skills, or company…"
-            className="flex-1 bg-transparent text-base outline-none py-3"
+            className="flex-1 bg-transparent text-sm outline-none py-3"
           />
         </div>
 
@@ -195,23 +196,14 @@ export default function SearchBarLight() {
           </div>
         </div>
 
-        {/* Search button */}
         <div className="p-2">
-          <button
-            onClick={handleSearch}
-            className="w-full sm:w-auto flex items-center justify-center gap-2 shrink-0 px-7 py-3.5 rounded-xl font-semibold text-sm text-white transition-all duration-200 hover:opacity-90 hover:scale-[1.02] active:scale-[0.98]"
-            style={{
-              background:
-                "linear-gradient(135deg, var(--primary) 0%, var(--primary-light) 100%)",
-            }}
-          >
+          <Button onClick={handleSearch}>
             <Search className="w-4 h-4" />
             Search
-          </button>
+          </Button>
         </div>
-      </div>
+      </Card>
 
-      {/* ── Quick filter tags ── */}
       <div className="flex flex-wrap items-center gap-2 mt-3 px-1">
         <span className="text-xs text-primary/80">Popular:</span>
         {QUICK_TAGS.map((tag) => {

@@ -3,6 +3,7 @@
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { useEffect, useState } from "react";
+import { Button } from "../ui/button";
 import Logo from "./Logo";
 
 export default function Navbar() {
@@ -60,17 +61,8 @@ export default function Navbar() {
             Login
           </Link>
 
-          <Link
-            href="#"
-            className="px-5 py-2 text-sm font-medium text-white rounded-full
-            hover:scale-[1.03] hover:opacity-90 transition-all"
-            style={{
-              background:
-                "linear-gradient(135deg, var(--primary) 0%, var(--primary-light) 100%)",
-              boxShadow: "0 2px 12px rgba(91,79,207,0.25)",
-            }}
-          >
-            Post a Job
+          <Link href="#">
+            <Button className="rounded-full h-10">Post a Job</Button>
           </Link>
         </div>
       </nav>

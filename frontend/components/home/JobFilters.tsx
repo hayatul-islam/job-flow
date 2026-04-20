@@ -12,6 +12,7 @@ import {
   Wifi,
 } from "lucide-react";
 import { useState } from "react";
+import { Button } from "../ui/button";
 
 interface JobFiltersProps {
   onQuery?: (key: string, value: any) => void;
@@ -43,26 +44,20 @@ export default function JobFilters({ onQuery }: JobFiltersProps) {
         const label = JOB_TYPE_CONFIG[tab.toUpperCase()]?.label || tab;
 
         return (
-          <button
+          <Button
             key={tab}
             onClick={() => handleClick(tab)}
+            variant={isActive ? "default" : "outline"}
             className={cn(
-              "flex items-center gap-1.5 px-4 py-2 rounded-full text-xs font-medium transition-all duration-150",
+              "h-8 flex items-center gap-1.5 !px-4 rounded-full text-xs",
               isActive
-                ? "text-white"
-                : "bg-white text-[#6b6b8a] hover:text-[#5B4FCF] hover:border-[rgba(91,79,207,0.45)] hover:bg-[rgba(91,79,207,0.04)]",
+                ? ""
+                : "bg-transparent hover:text-primary hover:border-primary/20",
             )}
-            style={{
-              background: isActive ? "#5B4FCF" : "white",
-              border: `0.5px solid ${isActive ? "#5B4FCF" : "rgba(91,79,207,0.2)"}`,
-              cursor: "pointer",
-              fontFamily: "inherit",
-              letterSpacing: "0.1px",
-            }}
           >
-            <Icon className="w-3 h-3 shrink-0" />
+            <Icon className="!w-3 !h-3 shrink-0" />
             {label}
-          </button>
+          </Button>
         );
       })}
     </div>

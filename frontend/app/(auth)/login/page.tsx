@@ -49,10 +49,8 @@ export default function LoginPage() {
         </div>
 
         <div className="mb-7">
-          <h1 className="text-2xl font-medium text-black">Welcome back</h1>
-          <p className="text-sm text-gray-500 mt-1">
-            Sign in to your account to continue
-          </p>
+          <h3>Welcome back</h3>
+          <p className=" mt-1">Sign in to your account to continue</p>
         </div>
 
         <form onSubmit={handleSubmit(onSubmit)} className="space-y-5">

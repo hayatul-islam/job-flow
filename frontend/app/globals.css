@@ -22,32 +22,22 @@
 }
 
 :root {
-  --background: oklch(1 0 0);
-  --foreground: oklch(0.145 0 0);
-  /* --primary: #5b4fcf;
-  --primary-100: #4a3fb8; */
-  /* --primary: #4f46e5; */
+  --background: white;
+  --foreground: #080810;
   --primary: #5b4fcf;
   --primary-100: #4a3fb8;
   --primary-dark: #3a2fa0;
-  --primary-light: #7b6fe0;
   --primary-light: #7c3aed;
   --black: #080810;
   --light-background: #f8f7ff;
 }
 
-/* :root {
-  --background: oklch(1 0 0);
-  --foreground: oklch(0.145 0 0);
-  --primary: #e94560;
-  --primary-100: #c73552;
-  --primary-dark: #8f2d3f;
-  --primary-light: #f06e8c;
-  --black: #080810;
-} */
-
 body {
   font-family: var(--font-body), sans-serif;
+}
+
+.container {
+  @apply mx-auto max-w-[1300px] px-4 md:px-6;
 }
 
 h1,
@@ -57,10 +47,32 @@ h4,
 h5,
 h6 {
   font-family: var(--font-heading), sans-serif;
+  font-weight: 600;
+  color: var(--color-black);
 }
 
-.container {
-  @apply mx-auto max-w-[1300px] px-4 md:px-6;
+h1 {
+  @apply text-4xl md:text-5xl lg:text-7xl tracking-tight;
+}
+h2 {
+  @apply text-3xl md:text-[32px] lg:text-[42px] tracking-tight;
+}
+h3 {
+  @apply text-xl md:text-2xl lg:text-3xl tracking-tight;
+}
+h4 {
+  @apply text-lg md:text-xl lg:text-2xl tracking-tight;
+}
+h5 {
+  @apply text-base md:text-lg;
+}
+h6 {
+  @apply text-sm;
+}
+
+p {
+  color: rgb(8 8 16 / 0.5);
+  @apply text-sm;
 }
 
 button {

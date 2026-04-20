@@ -47,49 +47,18 @@ export default function Footer() {
   return (
     <footer className="bg-black text-gray-400">
       <div className="container pt-14 pb-8">
-        <div className="grid gap-12 md:grid-cols-[1fr_auto] mb-10">
-          <div>
-            <Logo />
-            <p className="mt-3 mb-6 max-w-xs text-xs italic leading-relaxed text-gray-500">
-              Connecting talent with opportunity — <br />
-              find your next role today.
-            </p>
-
-            <div className="inline-flex items-center gap-2 rounded-full bg-zinc-900 border border-zinc-700 px-3 py-1 text-[10px] uppercase tracking-wider text-zinc-300  transition">
-              <span className="h-1.5 w-1.5 rounded-full bg-green-400" />
-              Open to opportunities
-            </div>
-          </div>
-
-          <div className="min-w-[220px]">
-            <p className="mb-3 text-xs italic tracking-wide text-gray-300">
-              Built with
-            </p>
-
-            <div className="flex flex-col divide-y divide-white/5">
-              {techGroups.map((group, i) => (
-                <div key={i} className="flex items-center gap-2 py-2">
-                  <span className="h-1 w-1 rounded-full bg-primary " />
-
-                  {group.map((tech, j) => (
-                    <span key={tech} className="flex items-center gap-2">
-                      <span className="text-[11px] text-gray-400">{tech}</span>
-
-                      {j < group.length - 1 && (
-                        <span className="h-2 w-px bg-white/10" />
-                      )}
-                    </span>
-                  ))}
-                </div>
-              ))}
-            </div>
-          </div>
+        <div className="flex justify-center text-center">
+          <Logo />
         </div>
+        <p className="mt-3 mb-6 max-w-xs !text-xs italic leading-relaxed !text-gray-500 text-center mx-auto">
+          Connecting talent with opportunity — <br />
+          find your next role today.
+        </p>
 
         <div className="mb-5 h-px bg-white/5" />
 
         <div className="flex flex-wrap items-center justify-between gap-3">
-          <p className="text-xs text-gray-500">
+          <p className="text-xs !text-gray-500">
             © {year} Built by{" "}
             <span className="font-medium text-gray-400">Md. Hayatul Islam</span>
           </p>

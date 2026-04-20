@@ -1,14 +1,6 @@
 "use client";
 
-import {
-  BadgeCheck,
-  Briefcase,
-  Rocket,
-  Search,
-  UserRoundPlus,
-  Zap,
-} from "lucide-react";
-import Link from "next/link";
+import { BadgeCheck, Search, UserRoundPlus, Zap } from "lucide-react";
 
 const STEPS = [
   {
@@ -43,19 +35,19 @@ const STEPS = [
 export default function HowItWorks() {
   return (
     <section className="py-20 px-4 bg-white">
-      <div className="container max-w-6xl mx-auto">
+      <div className="container ">
         <div className="flex flex-col items-center text-center mb-16">
           <div className="inline-flex items-center gap-1.5 text-[11px] font-medium tracking-[0.6px] uppercase rounded-full px-4 py-1.5 mb-2 bg-light-background text-primary">
             <Zap className="w-3 h-3" />
             Simple process
           </div>
 
-          <h2 className="text-4xl font-medium text-black leading-tight">
+          <h2 className="!font-medium">
             Get hired in{" "}
             <span className="text-primary italic">three simple</span> steps
           </h2>
 
-          <p className="max-w-md text-sm text-gray-400 mt-3">
+          <p className="max-w-md mt-3">
             No lengthy sign-ups or complicated processes — start your job search
             and land your dream role in minutes.
           </p>
@@ -97,42 +89,10 @@ export default function HowItWorks() {
                 </div>
               </div>
 
-              <p
-                className="text-sm font-medium mb-2"
-                style={{ color: "#1a1a2e" }}
-              >
-                {step.title}
-              </p>
-              <p
-                className="text-xs leading-relaxed max-w-[200px]"
-                style={{ color: "#9999b8" }}
-              >
-                {step.desc}
-              </p>
+              <h5 className="mb-2">{step.title}</h5>
+              <p className="!text-xs max-w-[200px]">{step.desc}</p>
             </div>
           ))}
-        </div>
-
-        <div className="flex flex-col sm:flex-row items-center justify-center gap-3 mt-14">
-          <Link
-            href="/register"
-            className="flex items-center gap-2 px-6 py-3 rounded-full text-sm font-medium text-white transition-opacity hover:opacity-85"
-            style={{
-              background:
-                "linear-gradient(135deg, var(--primary) 0%, var(--primary-light) 100%)",
-            }}
-          >
-            <Rocket className="w-4 h-4" />
-            Get started free
-          </Link>
-
-          <Link
-            href="/jobs"
-            className="flex items-center gap-2 px-6 py-3 rounded-full text-sm font-medium transition-colors hover:bg-white text-primary border border-primary/40"
-          >
-            <Briefcase className="w-4 h-4" />
-            Browse jobs
-          </Link>
         </div>
       </div>
     </section>

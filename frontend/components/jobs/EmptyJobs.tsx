@@ -7,9 +7,10 @@ export default function EmptyJobs() {
         <Search className="w-5 h-5" />
       </div>
 
-      <p className="text-sm font-medium text-gray-600">No jobs found</p>
-
-      <p className="text-xs text-gray-400">Try adjusting your filters</p>
+      <div className="space-y-1">
+        <h6>No jobs found</h6>
+        <p>Try adjusting your filters</p>
+      </div>
     </div>
   );
 }
