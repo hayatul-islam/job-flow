@@ -57,3 +57,11 @@ export interface ApiResponse<T> {
   message: string;
   data: T;
 }
+
+export interface DropdownItemConfig {
+  label: string;
+  sublabel?: string;
+  href: string;
+  icon: React.ReactNode;
+  roles?: ("EMPLOYER" | "JOB_SEEKER")[];
+}

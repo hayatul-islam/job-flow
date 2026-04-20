@@ -41,7 +41,7 @@ export default function Navbar() {
             className={`px-3 py-1.5 rounded-lg text-sm transition-all ${
               isActive("/jobs")
                 ? "bg-black/5 text-black font-medium"
-                : "text-black/50 hover:text-black hover:bg-black/5"
+                : "text-black hover:text-black hover:bg-black/5"
             }`}
           >
             Jobs
@@ -56,7 +56,7 @@ export default function Navbar() {
                 className={`px-3 py-1.5 rounded-lg text-sm transition-all ${
                   isActive("/login")
                     ? "bg-black/5 text-black font-medium"
-                    : "text-black/50 hover:text-black hover:bg-black/5"
+                    : "text-black hover:text-black hover:bg-black/5"
                 }`}
               >
                 Login
