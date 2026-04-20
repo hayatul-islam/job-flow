@@ -1,9 +1,4 @@
-"use client";
-
-import Footer from "@/components/shared/Footer";
-import Navbar from "@/components/shared/Navbar";
-import queryClient from "@/lib/queryClient";
-import { QueryClientProvider } from "@tanstack/react-query";
+import Providers from "@/components/shared/Providers";
 import { Inter, Poppins } from "next/font/google";
 import "./globals.css";
 
@@ -28,11 +23,9 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body className={`${inter.variable} ${poppins.variable}`}>
-        <QueryClientProvider client={queryClient}>
-          <Navbar />
-          {children}
-          <Footer />
-        </QueryClientProvider>
+        <body>
+          <Providers>{children}</Providers>
+        </body>
       </body>
     </html>
   );

@@ -40,41 +40,6 @@ body {
   @apply mx-auto max-w-[1300px] px-4 md:px-6;
 }
 
-h1,
-h2,
-h3,
-h4,
-h5,
-h6 {
-  font-family: var(--font-heading), sans-serif;
-  font-weight: 600;
-  color: var(--color-black);
-}
-
-h1 {
-  @apply text-4xl md:text-5xl lg:text-7xl tracking-tight;
-}
-h2 {
-  @apply text-3xl md:text-[32px] lg:text-[42px] tracking-tight;
-}
-h3 {
-  @apply text-xl md:text-2xl lg:text-3xl tracking-tight;
-}
-h4 {
-  @apply text-lg md:text-xl lg:text-2xl tracking-tight;
-}
-h5 {
-  @apply text-base md:text-lg;
-}
-h6 {
-  @apply text-sm;
-}
-
-p {
-  color: rgb(8 8 16 / 0.5);
-  @apply text-sm;
-}
-
 button {
   cursor: pointer;
 }
@@ -82,5 +47,42 @@ button {
 @layer utilities {
   .bg-primary-gradient {
     background-image: var(--gradient-primary);
+  }
+}
+
+@layer base {
+  h1,
+  h2,
+  h3,
+  h4,
+  h5,
+  h6 {
+    font-family: var(--font-heading), sans-serif;
+    font-weight: 600;
+    color: var(--color-black);
+  }
+
+  h1 {
+    @apply text-4xl md:text-5xl lg:text-7xl tracking-tight;
+  }
+  h2 {
+    @apply text-3xl md:text-[32px] lg:text-[42px] tracking-tight;
+  }
+  h3 {
+    @apply text-xl md:text-2xl lg:text-3xl tracking-tight;
+  }
+  h4 {
+    @apply text-lg md:text-xl lg:text-2xl tracking-tight;
+  }
+  h5 {
+    @apply text-base md:text-lg;
+  }
+  h6 {
+    @apply text-sm;
+  }
+
+  p {
+    color: rgb(8 8 16 / 0.5);
+    @apply text-sm;
   }
 }

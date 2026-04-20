@@ -7,6 +7,7 @@ import moment from "moment";
 import Link from "next/link";
 import Marquee from "../shared/Marquee";
 import LiveJobFeedSkeleton from "../skeletons/LiveJobFeedSkeleton";
+import { Button } from "../ui/button";
 import { Card } from "../ui/card";
 import JobSearchBar from "./JobSearchBar";
 
@@ -111,11 +112,10 @@ export default function HeroSection() {
                   ))}
               </div>
 
-              <Link
-                href="/jobs"
-                className="mt-4 block w-full rounded-2xl border border-primary/20 py-3 text-center text-sm font-medium transition hover:border-primary hover:bg-primary/5 active:bg-primary/10"
-              >
-                View all new listings →
+              <Link href="/jobs">
+                <Button variant={"outline"} className="w-full mt-4">
+                  View all new listings →
+                </Button>
               </Link>
             </Card>
           )}

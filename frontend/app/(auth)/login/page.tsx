@@ -1,6 +1,7 @@
 "use client";
 import Logo from "@/components/shared/Logo";
 import { Button } from "@/components/ui/button";
+import { Card } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
 import api from "@/lib/axios";
 import { LoginForm, loginSchema } from "@/lib/validations";
@@ -42,8 +43,8 @@ export default function LoginPage() {
   };
 
   return (
-    <div className="flex justify-center bg-light-background px-4 py-12 pt-32">
-      <div className="w-full max-w-md bg-white border border-gray-200 rounded-2xl p-10 shadow-sm">
+    <div className="min-h-screen bg-light-background flex justify-center items-center">
+      <Card className="w-full max-w-md p-10">
         <div className="flex justify-center pb-8">
           <Logo color="black" />
         </div>
@@ -54,9 +55,8 @@ export default function LoginPage() {
         </div>
 
         <form onSubmit={handleSubmit(onSubmit)} className="space-y-5">
-          {/* Email */}
-          <div className="space-y-1.5">
-            <label className="text-xs font-medium text-gray-500 uppercase tracking-wide">
+          <div className="space-y-1">
+            <label className="block text-xs font-medium text-gray-500 uppercase tracking-wide">
               Email
             </label>
             <div className="relative">
@@ -76,9 +76,8 @@ export default function LoginPage() {
             )}
           </div>
 
-          {/* Password */}
-          <div className="space-y-1.5">
-            <label className="text-xs font-medium text-gray-500 uppercase tracking-wide">
+          <div className="space-y-1">
+            <label className="block text-xs font-medium text-gray-500 uppercase tracking-wide">
               Password
             </label>
             <div className="relative">
@@ -105,7 +104,6 @@ export default function LoginPage() {
             )}
           </div>
 
-          {/* Root error */}
           {errors.root && (
             <div className="flex items-center gap-2 bg-red-50 border border-red-200 rounded-lg px-3.5 py-2.5">
               <svg
@@ -133,11 +131,10 @@ export default function LoginPage() {
             </div>
           )}
 
-          {/* Submit */}
           <Button
             type="submit"
             disabled={isSubmitting}
-            className="w-full h-11 bg-primary hover:bg-primary/90 text-white font-medium rounded-lg text-sm"
+            className="w-full h-11 bg-black text-white font-medium rounded-lg text-sm"
           >
             {isSubmitting ? (
               <span className="flex items-center gap-2">
@@ -163,10 +160,10 @@ export default function LoginPage() {
                     strokeLinecap="round"
                   />
                 </svg>
-                Signing in...
+                login in...
               </span>
             ) : (
-              "Sign in"
+              "Login"
             )}
           </Button>
         </form>
@@ -176,12 +173,12 @@ export default function LoginPage() {
           Don&apos;t have an account?{" "}
           <Link
             href="/register"
-            className="text-primary font-medium hover:underline"
+            className="text-black font-medium hover:underline"
           >
             Register
           </Link>
         </p>
-      </div>
+      </Card>
     </div>
   );
 }

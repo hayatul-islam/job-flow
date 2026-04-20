@@ -40,3 +40,19 @@ export function getLogoColor(name: string): string {
   const idx = name.charCodeAt(0) % LOGO_COLORS.length;
   return LOGO_COLORS[idx];
 }
+
+export function getPasswordStrength(password: string) {
+  let score = 0;
+  if (password.length >= 6) score++;
+  if (password.length >= 10) score++;
+  if (/[A-Z]/.test(password) && /[0-9]/.test(password)) score++;
+  if (/[^A-Za-z0-9]/.test(password)) score++;
+
+  const levels = [
+    { label: "Weak", color: "#E24B4A" },
+    { label: "Fair", color: "#EF9F27" },
+    { label: "Good", color: "#1D9E75" },
+    { label: "Strong", color: "#0F6E56" },
+  ];
+  return { score, ...(levels[score - 1] ?? { label: "", color: "" }) };
+}
