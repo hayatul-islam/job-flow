@@ -1,5 +1,6 @@
 import Providers from "@/components/shared/Providers";
 import { Inter, Poppins } from "next/font/google";
+import { Toaster } from "react-hot-toast";
 import "./globals.css";
 
 const inter = Inter({
@@ -25,6 +26,15 @@ export default function RootLayout({
       <body className={`${inter.variable} ${poppins.variable}`}>
         <body>
           <Providers>{children}</Providers>
+          <Toaster
+            position="top-right"
+            toastOptions={{
+              duration: 3000,
+              style: {
+                fontSize: "14px",
+              },
+            }}
+          />
         </body>
       </body>
     </html>

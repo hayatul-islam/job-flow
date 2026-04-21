@@ -31,6 +31,13 @@ export const createJobSchema = z.object({
   categoryId: z.number(),
 });
 
+export const profileSchema = z.object({
+  firstName: z.string().min(1, "First name is required"),
+  lastName: z.string(),
+});
+
+export type ProfileForm = z.infer<typeof profileSchema>;
+
 export type LoginForm = z.infer<typeof loginSchema>;
 export type RegisterForm = z.infer<typeof registerSchema>;
 export type CreateJobForm = z.infer<typeof createJobSchema>;

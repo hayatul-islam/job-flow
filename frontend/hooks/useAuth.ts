@@ -40,5 +40,5 @@ export const useAuth = () => {
     router.push("/login");
   };
 
-  return { user, loading, logout };
+  return { user, setUser, loading, logout };
 };
