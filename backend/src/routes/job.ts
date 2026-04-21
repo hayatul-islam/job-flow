@@ -1,5 +1,7 @@
 import { PrismaClient } from "@prisma/client";
 import express from "express";
+import jwt from "jsonwebtoken";
+import { getPagination, getPaginationMeta } from "../lib/pagination";
 import AppError from "../middleware/AppError";
 import asyncHandler from "../middleware/asyncHandler";
 import authenticate from "../middleware/authenticate";
@@ -12,7 +14,8 @@ const prisma = new PrismaClient();
 router.get(
   "/",
   asyncHandler(async (req, res) => {
-    const { q, location, jobType, catId } = req.query;
+    const { q, location, jobType, catId, page, limit } = req.query;
+    const { currentPage, pageSize, skip } = getPagination(page, limit);
 
     const locations: string[] = location
       ? (location as string).split(",").map((l) =>
@@ -30,71 +33,93 @@ router.get(
     if (q) {
       filters.push({
         OR: [
-          {
-            title: {
-              contains: q as string,
-              mode: "insensitive",
-            },
-          },
-          {
-            description: {
-              contains: q as string,
-              mode: "insensitive",
-            },
-          },
+          { title: { contains: q as string, mode: "insensitive" } },
+          { description: { contains: q as string, mode: "insensitive" } },
         ],
       });
     }
 
     if (locations.length) {
-      filters.push({
-        location: {
-          in: locations,
-        },
-      });
+      filters.push({ location: { in: locations } });
     }
 
     if (jobTypes.length) {
-      filters.push({
-        jobType: {
-          in: jobTypes,
-        },
-      });
-    }
-    if (catId) {
-      filters.push({
-        categoryId: Number(catId),
-      });
+      filters.push({ jobType: { in: jobTypes } });
     }
 
-    const jobs = await prisma.job.findMany({
-      where: {
-        AND: filters,
-      },
-      include: {
-        category: true,
-        employer: {
-          select: {
-            id: true,
-            firstName: true,
-            lastName: true,
-            email: true,
+    if (catId) {
+      filters.push({ categoryId: Number(catId) });
+    }
+
+    const where = { AND: filters };
+
+    const [total, jobs] = await prisma.$transaction([
+      prisma.job.count({ where }),
+      prisma.job.findMany({
+        where,
+        include: {
+          category: true,
+          employer: {
+            select: {
+              id: true,
+              firstName: true,
+              lastName: true,
+              email: true,
+            },
           },
         },
-      },
-      orderBy: {
-        createdAt: "desc",
-      },
-    });
+        orderBy: { createdAt: "desc" },
+        skip,
+        take: pageSize,
+      }),
+    ]);
 
-    res.respond(200, true, "Jobs fetched successfully", jobs);
+    const pagination = getPaginationMeta(total, currentPage, pageSize);
+
+    res.respond(200, true, "Jobs fetched successfully", jobs, pagination);
+  }),
+);
+
+router.get(
+  "/my-jobs",
+  authenticate,
+  asyncHandler(async (req: any, res, next) => {
+    if (req.userRole !== "EMPLOYER") {
+      return next(new AppError("Only employers can view their jobs", 403));
+    }
+
+    const { page, limit } = req.query;
+    const { currentPage, pageSize, skip } = getPagination(page, limit);
+
+    const where = { employerId: req.userId };
+
+    const [total, jobs] = await prisma.$transaction([
+      prisma.job.count({ where }),
+      prisma.job.findMany({
+        where,
+        include: {
+          category: true,
+          _count: {
+            select: { applications: true },
+          },
+        },
+        orderBy: { createdAt: "desc" },
+        skip,
+        take: pageSize,
+      }),
+    ]);
+
+    const pagination = getPaginationMeta(total, currentPage, pageSize);
+
+    res.respond(200, true, "Jobs fetched successfully", jobs, pagination);
   }),
 );
 
 router.get(
   "/:id",
-  asyncHandler(async (req, res, next) => {
-    const id = parseInt(req.params.id as string);
+  asyncHandler(async (req: any, res, next) => {
+    const id = +req.params.id;
+
     const job = await prisma.job.findUnique({
       where: { id },
       include: {
@@ -114,7 +139,32 @@ router.get(
       return next(new AppError("Job not found", 404));
     }
 
-    res.respond(200, true, "Job fetched successfully", job);
+    let isApplied = false;
+    const token = req.headers.authorization;
+
+    if (token) {
+      try {
+        const decoded = jwt.verify(token, process.env.JWT_SECRET as string) as {
+          userId: number;
+        };
+
+        const application = await prisma.application.findFirst({
+          where: {
+            jobId: id,
+            userId: decoded.userId,
+          },
+        });
+
+        isApplied = !!application;
+      } catch {
+        isApplied = false;
+      }
+    }
+
+    res.respond(200, true, "Job fetched successfully", {
+      ...job,
+      isApplied,
+    });
   }),
 );
 

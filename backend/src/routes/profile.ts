@@ -37,12 +37,32 @@ router.get(
 router.put(
   "/",
   authenticate,
+  uploadImage.single("avatar"),
   asyncHandler(async (req: any, res, next) => {
     const { firstName, lastName } = req.body;
 
+    let avatarUrl;
+
+    if (req.file) {
+      avatarUrl = await new Promise<string>((resolve, reject) => {
+        const stream = cloudinary.uploader.upload_stream(
+          { folder: "jobflow/avatars" },
+          (error, result) => {
+            if (error) reject(error);
+            else resolve(result!.secure_url);
+          },
+        );
+        stream.end(req.file.buffer);
+      });
+    }
+
     const user = await prisma.user.update({
       where: { id: req.userId },
-      data: { firstName, lastName },
+      data: {
+        firstName,
+        lastName,
+        ...(avatarUrl && { avatar: avatarUrl }),
+      },
       select: {
         id: true,
         firstName: true,

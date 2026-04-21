@@ -1,6 +1,7 @@
 import { PrismaClient } from "@prisma/client";
 import express from "express";
 import cloudinary from "../config/cloudinary";
+import { getPagination, getPaginationMeta } from "../lib/pagination";
 import AppError from "../middleware/AppError";
 import asyncHandler from "../middleware/asyncHandler";
 import authenticate from "../middleware/authenticate";
@@ -71,26 +72,45 @@ router.get(
       return next(new AppError("Only job seekers can view applications", 403));
     }
 
-    const applications = await prisma.application.findMany({
-      where: { userId: req.userId },
-      include: {
-        job: {
-          include: {
-            category: true,
-            employer: {
-              select: {
-                id: true,
-                firstName: true,
-                lastName: true,
-                email: true,
+    const { page, limit } = req.query;
+    const { currentPage, pageSize, skip } = getPagination(page, limit);
+
+    const where = { userId: req.userId };
+
+    const [total, applications] = await prisma.$transaction([
+      prisma.application.count({ where }),
+      prisma.application.findMany({
+        where,
+        include: {
+          job: {
+            include: {
+              category: true,
+              employer: {
+                select: {
+                  id: true,
+                  firstName: true,
+                  lastName: true,
+                  email: true,
+                },
               },
             },
           },
         },
-      },
-    });
+        orderBy: { createdAt: "desc" },
+        skip,
+        take: pageSize,
+      }),
+    ]);
 
-    res.respond(200, true, "Applications fetched successfully", applications);
+    const pagination = getPaginationMeta(total, currentPage, pageSize);
+
+    res.respond(
+      200,
+      true,
+      "Applications fetched successfully",
+      applications,
+      pagination,
+    );
   }),
 );
 
@@ -105,6 +125,8 @@ router.get(
     }
 
     const jobId = +req.params.jobId;
+    const { page, limit } = req.query;
+    const { currentPage, pageSize, skip } = getPagination(page, limit);
 
     const job = await prisma.job.findUnique({ where: { id: jobId } });
 
@@ -118,21 +140,37 @@ router.get(
       );
     }
 
-    const applications = await prisma.application.findMany({
-      where: { jobId },
-      include: {
-        user: {
-          select: {
-            id: true,
-            firstName: true,
-            lastName: true,
-            email: true,
+    const where = { jobId };
+
+    const [total, applications] = await prisma.$transaction([
+      prisma.application.count({ where }),
+      prisma.application.findMany({
+        where,
+        include: {
+          user: {
+            select: {
+              id: true,
+              firstName: true,
+              lastName: true,
+              email: true,
+            },
           },
         },
-      },
-    });
+        orderBy: { createdAt: "desc" },
+        skip,
+        take: pageSize,
+      }),
+    ]);
 
-    res.respond(200, true, "Applications fetched successfully", applications);
+    const pagination = getPaginationMeta(total, currentPage, pageSize);
+
+    res.respond(
+      200,
+      true,
+      "Applications fetched successfully",
+      applications,
+      pagination,
+    );
   }),
 );
 

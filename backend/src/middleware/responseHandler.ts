@@ -6,13 +6,20 @@ const responseHandler = (req: Request, res: any, next: NextFunction) => {
     success: boolean,
     message: string,
     data: any = null,
+    pagination?: any,
   ) => {
-    res.status(status).json({
+    const response: any = {
       status,
       success,
       message,
       data,
-    });
+    };
+
+    if (pagination) {
+      response.pagination = pagination;
+    }
+
+    res.status(status).json(response);
   };
   next();
 };

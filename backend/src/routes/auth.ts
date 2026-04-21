@@ -66,7 +66,7 @@ router.post(
     const accessToken = jwt.sign(
       { userId: user.id, role: user.role },
       ACCESS_SECRET,
-      { expiresIn: "15m" },
+      { expiresIn: "3d" },
     );
 
     const refreshToken = jwt.sign(
