@@ -99,7 +99,7 @@ const getColumns = (onDelete: (id: number) => void): Column<JobPost>[] => [
     render: (row) => (
       <div className="flex justify-end items-center gap-1.5">
         <Link
-          href={`/jobs/${row.id}`}
+          href={`/jobs/${row.id}/applications`}
           className="inline-flex items-center px-3 py-1.5 rounded-lg text-xs font-medium text-primary bg-primary/5 hover:bg-primary/10 transition-colors"
         >
           <Eye size={12} />

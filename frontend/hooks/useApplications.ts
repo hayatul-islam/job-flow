@@ -1,10 +1,21 @@
-import { applyToJob, getMyApplications } from "@/lib/api/applications";
+import {
+  applyToJob,
+  getJobApplications,
+  getMyApplications,
+} from "@/lib/api/applications";
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 
 export const useMyApplications = () => {
   return useQuery({
     queryKey: ["my-applications"],
     queryFn: () => getMyApplications(),
+  });
+};
+
+export const useJobApplications = (id: number) => {
+  return useQuery({
+    queryKey: ["job-applications"],
+    queryFn: () => getJobApplications(id),
   });
 };
 
