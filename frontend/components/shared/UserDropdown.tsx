@@ -12,6 +12,7 @@ import {
 import { useAuth } from "@/hooks/useAuth";
 import { DropdownItemConfig } from "@/types";
 import { Briefcase, FileText, LogOut, User } from "lucide-react";
+import Image from "next/image";
 import Link from "next/link";
 import { Button } from "../ui/button";
 
@@ -53,8 +54,18 @@ export default function UserDropdown() {
     <DropdownMenu>
       <DropdownMenuTrigger asChild>
         <button className="outline-none">
-          <div className="w-8 h-8 rounded-full bg-black flex items-center justify-center text-white text-[14px] font-medium shrink-0">
-            {user.firstName?.[0]}
+          <div className="w-8 h-8 rounded-full bg-black flex items-center justify-center text-white text-[14px] font-medium shrink-0 ">
+            {user?.avatar ? (
+              <Image
+                src={user?.avatar}
+                alt="User"
+                width={100}
+                height={100}
+                className="rounded-full"
+              />
+            ) : (
+              user.firstName?.[0]
+            )}
           </div>
         </button>
       </DropdownMenuTrigger>

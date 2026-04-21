@@ -31,8 +31,17 @@ export default function LoginPage() {
       const response = await api.post("/auth/login", data);
       const { accessToken, refreshToken } = response.data.data;
 
-      Cookies.set("accessToken", accessToken);
-      Cookies.set("refreshToken", refreshToken);
+      Cookies.set("accessToken", accessToken, {
+        expires: 1,
+        secure: true,
+        sameSite: "strict",
+      });
+
+      Cookies.set("refreshToken", refreshToken, {
+        expires: 7,
+        secure: true,
+        sameSite: "strict",
+      });
 
       router.push("/");
     } catch (error: any) {

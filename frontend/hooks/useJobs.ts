@@ -5,9 +5,17 @@ import {
   deleteJob,
   getJobById,
   getJobs,
+  getMyJobs,
   updateJob,
 } from "@/lib/api/job";
 import { JobsParams } from "@/types";
+
+export const useMyJobs = () => {
+  return useQuery({
+    queryKey: ["my-jobs"],
+    queryFn: () => getMyJobs(),
+  });
+};
 
 export const useJobs = (params: JobsParams) => {
   return useQuery({
@@ -31,6 +39,7 @@ export const useCreateJob = () => {
     mutationFn: createJob,
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ["jobs"] });
+      queryClient.invalidateQueries({ queryKey: ["my-jobs"] });
     },
   });
 };
@@ -56,6 +65,7 @@ export const useDeleteJob = () => {
     mutationFn: deleteJob,
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ["jobs"] });
+      queryClient.invalidateQueries({ queryKey: ["my-jobs"] });
     },
   });
 };
