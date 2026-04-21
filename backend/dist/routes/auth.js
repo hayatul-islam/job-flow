@@ -47,7 +47,7 @@ router.post("/login", (0, validate_1.default)(authValidator_1.loginSchema), (0, 
     if (!isMatch) {
         return next(new AppError_1.default("Invalid credentials", 401));
     }
-    const accessToken = jsonwebtoken_1.default.sign({ userId: user.id, role: user.role }, ACCESS_SECRET, { expiresIn: "15m" });
+    const accessToken = jsonwebtoken_1.default.sign({ userId: user.id, role: user.role }, ACCESS_SECRET, { expiresIn: "3d" });
     const refreshToken = jsonwebtoken_1.default.sign({ userId: user.id, role: user.role }, REFRESH_SECRET, { expiresIn: "7d" });
     await prisma.user.update({
         where: { id: user.id },

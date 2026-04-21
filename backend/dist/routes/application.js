@@ -6,6 +6,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
 const client_1 = require("@prisma/client");
 const express_1 = __importDefault(require("express"));
 const cloudinary_1 = __importDefault(require("../config/cloudinary"));
+const pagination_1 = require("../lib/pagination");
 const AppError_1 = __importDefault(require("../middleware/AppError"));
 const asyncHandler_1 = __importDefault(require("../middleware/asyncHandler"));
 const authenticate_1 = __importDefault(require("../middleware/authenticate"));
@@ -54,31 +55,43 @@ router.get("/my", authenticate_1.default, (0, asyncHandler_1.default)(async (req
     if (req.userRole !== "JOB_SEEKER") {
         return next(new AppError_1.default("Only job seekers can view applications", 403));
     }
-    const applications = await prisma.application.findMany({
-        where: { userId: req.userId },
-        include: {
-            job: {
-                include: {
-                    category: true,
-                    employer: {
-                        select: {
-                            id: true,
-                            firstName: true,
-                            lastName: true,
-                            email: true,
+    const { page, limit } = req.query;
+    const { currentPage, pageSize, skip } = (0, pagination_1.getPagination)(page, limit);
+    const where = { userId: req.userId };
+    const [total, applications] = await prisma.$transaction([
+        prisma.application.count({ where }),
+        prisma.application.findMany({
+            where,
+            include: {
+                job: {
+                    include: {
+                        category: true,
+                        employer: {
+                            select: {
+                                id: true,
+                                firstName: true,
+                                lastName: true,
+                                email: true,
+                            },
                         },
                     },
                 },
             },
-        },
-    });
-    res.respond(200, true, "Applications fetched successfully", applications);
+            orderBy: { createdAt: "desc" },
+            skip,
+            take: pageSize,
+        }),
+    ]);
+    const pagination = (0, pagination_1.getPaginationMeta)(total, currentPage, pageSize);
+    res.respond(200, true, "Applications fetched successfully", applications, pagination);
 }));
 router.get("/job/:jobId", authenticate_1.default, (0, asyncHandler_1.default)(async (req, res, next) => {
     if (req.userRole !== "EMPLOYER") {
         return next(new AppError_1.default("Only employers can view job applications", 403));
     }
     const jobId = +req.params.jobId;
+    const { page, limit } = req.query;
+    const { currentPage, pageSize, skip } = (0, pagination_1.getPagination)(page, limit);
     const job = await prisma.job.findUnique({ where: { id: jobId } });
     if (!job) {
         return next(new AppError_1.default("Job not found", 404));
@@ -86,20 +99,28 @@ router.get("/job/:jobId", authenticate_1.default, (0, asyncHandler_1.default)(as
     if (job.employerId !== req.userId) {
         return next(new AppError_1.default("You are not authorized to view these applications", 403));
     }
-    const applications = await prisma.application.findMany({
-        where: { jobId },
-        include: {
-            user: {
-                select: {
-                    id: true,
-                    firstName: true,
-                    lastName: true,
-                    email: true,
+    const where = { jobId };
+    const [total, applications] = await prisma.$transaction([
+        prisma.application.count({ where }),
+        prisma.application.findMany({
+            where,
+            include: {
+                user: {
+                    select: {
+                        id: true,
+                        firstName: true,
+                        lastName: true,
+                        email: true,
+                    },
                 },
             },
-        },
-    });
-    res.respond(200, true, "Applications fetched successfully", applications);
+            orderBy: { createdAt: "desc" },
+            skip,
+            take: pageSize,
+        }),
+    ]);
+    const pagination = (0, pagination_1.getPaginationMeta)(total, currentPage, pageSize);
+    res.respond(200, true, "Applications fetched successfully", applications, pagination);
 }));
 router.put("/:id/status", authenticate_1.default, (0, validate_1.default)(applicationValidator_1.updateApplicationSchema), (0, asyncHandler_1.default)(async (req, res, next) => {
     if (req.userRole !== "EMPLOYER") {

@@ -30,11 +30,27 @@ router.get("/", authenticate_1.default, (0, asyncHandler_1.default)(async (req, 
     }
     res.respond(200, true, "Profile fetched successfully", user);
 }));
-router.put("/", authenticate_1.default, (0, asyncHandler_1.default)(async (req, res, next) => {
+router.put("/", authenticate_1.default, upload_1.uploadImage.single("avatar"), (0, asyncHandler_1.default)(async (req, res, next) => {
     const { firstName, lastName } = req.body;
+    let avatarUrl;
+    if (req.file) {
+        avatarUrl = await new Promise((resolve, reject) => {
+            const stream = cloudinary_1.default.uploader.upload_stream({ folder: "jobflow/avatars" }, (error, result) => {
+                if (error)
+                    reject(error);
+                else
+                    resolve(result.secure_url);
+            });
+            stream.end(req.file.buffer);
+        });
+    }
     const user = await prisma.user.update({
         where: { id: req.userId },
-        data: { firstName, lastName },
+        data: {
+            firstName,
+            lastName,
+            ...(avatarUrl && { avatar: avatarUrl }),
+        },
         select: {
             id: true,
             firstName: true,
