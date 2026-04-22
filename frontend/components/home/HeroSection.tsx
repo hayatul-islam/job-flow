@@ -88,12 +88,12 @@ export default function HeroSection() {
                     >
                       <div className="flex items-center gap-3">
                         <div className="flex h-[38px] w-[38px] shrink-0 items-center justify-center rounded-xl bg-primary/5 text-sm font-extrabold text-primary">
-                          {job.employer.firstName[0]}
+                          {job?.employer?.firstName[0]}
                         </div>
                         <div>
-                          <h6>{job.title}</h6>
+                          <h6>{job?.title}</h6>
                           <p className="mt-0.5 text-xs text-black/60">
-                            {job.employer.firstName} {job.employer.lastName}
+                            {job?.employer?.firstName} {job?.employer?.lastName}
                           </p>
                         </div>
                       </div>
@@ -101,7 +101,9 @@ export default function HeroSection() {
                       <div className="flex items-center gap-2">
                         <span className="h-1.5 w-1.5 rounded-full bg-green-500" />
                         <span className="text-xs text-gray-400">
-                          {moment(job.createdAt).startOf("hour").fromNow()}
+                          {moment(job?.createdAt || "")
+                            .startOf("hour")
+                            .fromNow()}
                         </span>
                         <ChevronRight
                           size={16}

@@ -47,7 +47,7 @@ const columns: Column<Application>[] = [
     render: (row) => (
       <div className="flex items-center gap-3">
         <div className="w-[38px] h-[38px] rounded-[10px] shrink-0 flex items-center justify-center text-[14px] font-medium border border-gray-200 bg-primary/10">
-          {row.job.employer.firstName[0]}
+          {row.job?.employer?.firstName[0]}
         </div>
         <div>
           <h6>{row.job.title}</h6>

@@ -41,11 +41,7 @@ export default function CreateJobForm() {
 
   const onSubmit = (data: JobForm) => {
     createJob(
-      {
-        ...data,
-        salary: data.salary,
-        categoryId: Number(data.categoryId),
-      },
+      { ...data, categoryId: Number(data?.categoryId) },
       {
         onSuccess: () => {
           reset();
@@ -107,7 +103,7 @@ export default function CreateJobForm() {
                 <SelectField
                   label="Category"
                   placeholder="Select category"
-                  options={categoryOptions}
+                  options={categoryOptions || []}
                   registration={register("categoryId")}
                   error={errors.categoryId?.message}
                 />

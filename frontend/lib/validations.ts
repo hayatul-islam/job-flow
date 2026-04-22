@@ -39,7 +39,7 @@ export const createJobSchema = z.object({
   categoryId: z.string().min(1, "Category is required"),
 });
 
-export type JobForm = z.infer<typeof jobSchema>;
+export type JobForm = z.infer<typeof createJobSchema>;
 export type ProfileForm = z.infer<typeof profileSchema>;
 export type LoginForm = z.infer<typeof loginSchema>;
 export type RegisterForm = z.infer<typeof registerSchema>;

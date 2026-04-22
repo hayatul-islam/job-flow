@@ -29,7 +29,7 @@ export default function JobDetails() {
     Number(typeof id === "string" ? id : undefined),
   );
 
-  const employerName = `${data?.employer.firstName} ${data?.employer.lastName}`;
+  const employerName = `${data?.employer?.firstName} ${data?.employer?.lastName}`;
 
   const employerFirstLetter = employerName?.[0]?.toUpperCase() || "A";
 
@@ -110,7 +110,7 @@ export default function JobDetails() {
                 {
                   icon: <Calendar size={16} className="text-gray-400" />,
                   label: "Posted",
-                  value: timeAgo(data.createdAt),
+                  value: timeAgo(data?.createdAt || ""),
                 },
                 {
                   icon: <Clock size={16} className="text-gray-400" />,

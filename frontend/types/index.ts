@@ -17,15 +17,16 @@ export interface User {
 }
 
 export interface Job {
-  id: number;
+  id?: number;
   title: string;
   description: string;
   location: string;
   salary: string;
   jobType: string;
-  category: { name: string };
-  employer: { firstName: string; lastName: string };
-  createdAt: string;
+  category?: { name: string };
+  employer?: { firstName: string; lastName: string };
+  createdAt?: string;
+  categoryId?: number;
 }
 
 export type JobsParams = {

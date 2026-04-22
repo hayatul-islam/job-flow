@@ -12,9 +12,9 @@ interface JobCardProps {
 }
 
 export default function JobCardV3({ job, index = 1 }: JobCardProps) {
-  const employerName = `${job.employer.firstName} ${job.employer.lastName}`;
-  const JobTypeIcon = JOB_TYPE_CONFIG[job.jobType]?.icon;
-  const isNew = timeAgo(job.createdAt) === "Today";
+  const employerName = `${job?.employer?.firstName} ${job?.employer?.lastName}`;
+  const JobTypeIcon = JOB_TYPE_CONFIG[job?.jobType]?.icon;
+  const isNew = timeAgo(job?.createdAt || "") === "Today";
 
   return (
     <Link
@@ -43,7 +43,7 @@ export default function JobCardV3({ job, index = 1 }: JobCardProps) {
         <div className="flex flex-wrap items-center gap-1.5 text-[11px] text-gray-500">
           <span className="inline-flex items-center gap-1 px-2 py-0.5 rounded bg-violet-50 text-violet-800 font-medium">
             <JobTypeIcon className="w-2.5 h-2.5" />
-            {JOB_TYPE_CONFIG[job.jobType]?.label}
+            {JOB_TYPE_CONFIG[job?.jobType]?.label}
           </span>
           <span className="inline-flex items-center gap-1 px-2 py-0.5 rounded bg-amber-50 text-amber-800 font-medium">
             <Tag size={9} />
@@ -62,7 +62,7 @@ export default function JobCardV3({ job, index = 1 }: JobCardProps) {
           <span className="w-1 h-1 rounded-full bg-gray-300" />
           <span className="flex items-center gap-1">
             <Clock className="w-2.5 h-2.5" />
-            {timeAgo(job.createdAt)}
+            {timeAgo(job?.createdAt || "")}
           </span>
         </div>
       </div>
