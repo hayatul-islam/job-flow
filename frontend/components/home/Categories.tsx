@@ -200,7 +200,7 @@ const Categories = () => {
     <section className="w-full bg-white py-20">
       <div className="container max-w-4xl mx-auto px-6">
         <div className="text-center mb-10">
-          <div className="inline-flex items-center gap-1.5 text-[11px] font-medium tracking-[0.6px] uppercase rounded-full px-4 py-1.5 mb-2 bg-light-background text-primary">
+          <div className="inline-flex items-center gap-1.5 text-[11px] font-medium tracking-[0.6px] uppercase rounded-full px-4 py-1.5 mb-2 bg-primary/5 text-primary">
             <Zap className="w-3 h-3" />
             Explore Careers
           </div>
@@ -211,7 +211,9 @@ const Categories = () => {
             <br />
             that change yourself.
           </h2>
-          <p className=" mt-3">10 categories · thousands of opportunities</p>
+          <p className="text-lg mt-3">
+            10 categories · thousands of opportunities
+          </p>
         </div>
 
         <div className="grid grid-cols-3 gap-3 max-w-3xl mx-auto mb-3">

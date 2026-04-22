@@ -55,7 +55,11 @@ export default function UserDropdown() {
         <button className="outline-none">
           <div className="w-8 h-8 rounded-full bg-black flex items-center justify-center text-white text-[14px] font-medium shrink-0 ">
             {user?.avatar ? (
-              <img src={user?.avatar} alt="User" className="rounded-full" />
+              <img
+                src={user?.avatar}
+                alt="User"
+                className="rounded-full w-7.8 h-7.8"
+              />
             ) : (
               user.firstName?.[0]
             )}

@@ -80,7 +80,8 @@ button {
   }
 
   p {
-    color: rgba(6, 6, 12, 0.5);
+    color: #3f3f3f;
+    /* color: black; */
     @apply text-sm;
   }
 }

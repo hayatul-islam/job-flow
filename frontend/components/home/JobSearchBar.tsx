@@ -124,7 +124,7 @@ export default function SearchBarLight() {
     <div className="max-w-3xl mx-auto mb-16">
       <Card className="p-0 flex flex-col sm:flex-row ">
         <div className="flex flex-1 items-center gap-3 px-5 py-1">
-          <Search className="w-5 h-5 shrink-0 text-primary" />
+          <Search className="w-5 h-5 shrink-0 text-black/90" />
           <input
             type="text"
             value={q}
@@ -143,7 +143,7 @@ export default function SearchBarLight() {
           className="relative flex items-center gap-2 px-4 py-1 cursor-pointer select-none min-w-[160px]"
           onClick={() => (open ? closeDropdown() : openDropdown())}
         >
-          <Briefcase className="w-4 h-4 shrink-0 text-primary" />
+          <Briefcase className="w-4 h-4 shrink-0 text-black/90" />
 
           <span
             className={`flex-1 py-3 text-sm ${jobType ? "text-black/90" : "text-black/50"}`}
@@ -212,7 +212,7 @@ export default function SearchBarLight() {
             <button
               key={tag.label}
               onClick={() => handleQuickTag(tag)}
-              className={`flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-medium transition-all hover:scale-[1.03] text-primary border  ${active ? "bg-primary/10 border-primary/40" : "bg-primary/5 border-primary/5"}`}
+              className={`flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-medium transition-all hover:scale-[1.03] text-primary/90 border  ${active ? "bg-primary/5 border-primary/40" : "bg-primary/5 border-primary/5"}`}
             >
               <tag.Icon className="w-3 h-3" />
               {tag.label}

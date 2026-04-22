@@ -29,7 +29,7 @@ export default function HeroSection() {
     <section className="relative overflow-hidden pb-12 bg-light-background">
       <div className="relative z-10 container mt-32 grid w-full flex-1 items-center gap-12 pb-16 lg:grid-cols-5">
         <div className="lg:col-span-3">
-          <div className="mb-7 inline-flex items-center gap-2 rounded-full  border-primary/10 bg-primary/2 px-4 py-2 text-xs text-primary">
+          <div className="mb-7 inline-flex items-center gap-2 rounded-full  border-primary/10 bg-primary/3 px-4 py-2 text-xs text-primary">
             <span className="h-1.5 w-1.5 animate-pulse rounded-full bg-green-500" />
             2,400 jobs added this week
           </div>
@@ -84,7 +84,7 @@ export default function HeroSection() {
                         </div>
                         <div>
                           <h6>{job?.title}</h6>
-                          <p className="mt-0.5 text-xs text-black/60">
+                          <p className="mt-0.5 text-xs ">
                             {job?.employer?.firstName} {job?.employer?.lastName}
                           </p>
                         </div>
@@ -92,14 +92,14 @@ export default function HeroSection() {
 
                       <div className="flex items-center gap-2">
                         <span className="h-1.5 w-1.5 rounded-full bg-green-500" />
-                        <span className="text-xs text-gray-400">
+                        <span className="text-xs text-gray-500">
                           {moment(job?.createdAt || "")
                             .startOf("hour")
                             .fromNow()}
                         </span>
                         <ChevronRight
                           size={16}
-                          className="text-gray-400 transition group-hover:translate-x-0.5"
+                          className="text-gray-500 transition group-hover:translate-x-0.5"
                         />
                       </div>
                     </Link>
