@@ -1,7 +1,7 @@
 "use client";
 
 import { useJob } from "@/hooks/useJobs";
-import { JOB_TYPE_COLOR, JOB_TYPE_LABEL } from "@/lib/data";
+import { JOB_TYPE_LABEL } from "@/lib/data";
 import { timeAgo } from "@/lib/utils";
 import {
   ArrowLeft,
@@ -16,13 +16,13 @@ import { useParams, useRouter } from "next/navigation";
 import { useState } from "react";
 import JobDetailsSkeleton from "../skeletons/JobDetailsSkeleton";
 import { Button } from "../ui/button";
+import { Card } from "../ui/card";
 import ApplyModal from "./ApplyModal";
 
 export default function JobDetails() {
   const { id } = useParams();
   const router = useRouter();
   const [applied, setApplied] = useState(false);
-  const [saved, setSaved] = useState(false);
   const [showApplyModal, setShowApplyModal] = useState(false);
 
   const { data, isLoading, isError } = useJob(
@@ -57,7 +57,7 @@ export default function JobDetails() {
   }
 
   return (
-    <div className=" bg-gray-50 px-4 pb-12 pt-24">
+    <div className=" bg-gray-50 pb-12 pt-24">
       <div className="container">
         <button
           onClick={() => router.back()}
@@ -68,33 +68,35 @@ export default function JobDetails() {
         </button>
 
         <div className="grid grid-cols-1 lg:grid-cols-[1fr_300px] gap-6 items-start">
-          <div className="bg-white border border-gray-200 rounded-2xl p-7">
-            <div className="flex items-center gap-4 mb-5">
+          <Card className="md:p-7">
+            <div className="flex items-center gap-2 md:gap-4 mb-5">
               <div className="w-12 h-12 rounded-lg bg-primary/5 border border-primary/5 flex items-center justify-center text-xl font-semibold text-primary shrink-0 capitalize">
                 {employerFirstLetter}
               </div>
               <div>
-                <p className="!font-medium !text-primary">
+                <p className="text-xs md:text-sm font-medium text-black">
                   {data?.employer?.firstName} {data?.employer?.lastName}
                 </p>
-                <h5 className="text-xl !font-medium ">{data?.title}</h5>
+                <h5 className="text-sm md:text-xl font-medium ">
+                  {data?.title}
+                </h5>
               </div>
             </div>
 
             <div className="flex flex-wrap gap-2 mb-5">
               <span
-                className={`inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-medium ${JOB_TYPE_COLOR[data.jobType] ?? "bg-gray-100 text-gray-700"}`}
+                className={`inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-medium bg-black/5 text-black`}
               >
                 <Clock size={11} />
                 {JOB_TYPE_LABEL[data.jobType] ?? data.jobType}
               </span>
               {data.jobType === "REMOTE" || data.jobType === "HYBRID" ? null : (
-                <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-medium bg-green-50 text-green-800">
+                <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-medium bg-black/5 text-black">
                   <MapPin size={11} />
                   On-site
                 </span>
               )}
-              <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-medium bg-amber-50 text-amber-800">
+              <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-medium bg-black/5 text-black">
                 <Tag size={11} />
                 {data?.category?.name}
               </span>
@@ -138,16 +140,16 @@ export default function JobDetails() {
 
             <hr className="border-gray-100 mb-6" />
 
-            <div className="mb-6">
+            <div>
               <h5 className=" mb-3">About the role</h5>
               <div
                 className="leading-relaxed prose prose-sm max-w-none"
                 dangerouslySetInnerHTML={{ __html: data.description }}
               />
             </div>
-          </div>
+          </Card>
 
-          <div className="bg-white border border-gray-200 rounded-2xl p-6 lg:sticky lg:top-6">
+          <Card className="md:p-6 lg:sticky top-20">
             <div className="mb-5">
               <h4 className=" !font-medium ">
                 ৳{Number(data.salary).toLocaleString()}
@@ -157,7 +159,6 @@ export default function JobDetails() {
 
             <hr className="border-gray-100 mb-4" />
 
-            {/* Info rows */}
             <div className="space-y-3 mb-5">
               {[
                 { key: "Location", val: data.location },
@@ -223,7 +224,7 @@ export default function JobDetails() {
                 </div>
               </div>
             </div>
-          </div>
+          </Card>
         </div>
       </div>
 

@@ -34,7 +34,7 @@ export default function RecentJobs() {
   return (
     <section className="bg-light-background/40 py-12 md:py-20 ">
       <div className="container">
-        <div className="mb-8 flex items-end justify-between">
+        <div className="mb-4 md:mb-8 flex items-end justify-between">
           <div>
             <h2 className="text-2xl sm:text-3xl md:text-[32px] lg:text-[42px]">
               Recent jobs
@@ -54,7 +54,7 @@ export default function RecentJobs() {
           </Link>
         </div>
 
-        <div className="hidden mb-5">
+        <div className=" mb-5">
           <JobFilters onQuery={onQuery} />
         </div>
 
