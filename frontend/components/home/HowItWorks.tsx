@@ -34,23 +34,21 @@ const STEPS = [
 
 export default function HowItWorks() {
   return (
-    <section className="py-20 px-4 bg-white">
+    <section className="py-12 md:py-20 bg-white">
       <div className="container ">
-        <div className="flex flex-col items-center text-center mb-16">
-          <div className="inline-flex items-center gap-1.5 text-[11px] font-medium tracking-[0.6px] uppercase rounded-full px-4 py-1.5 mb-2 bg-light-background text-primary">
+        <div className="text-center mb-16">
+          <div className="inline-flex items-center gap-1.5 text-[9px] sm:text-[11px] font-medium tracking-[0.6px] uppercase rounded-full px-4 py-1.5 mb-2 bg-primary/5 text-primary">
             <Zap className="w-3 h-3" />
             Simple process
           </div>
-
-          <h2 className="!font-medium">
+          <h2 className="font-medium text-2xl sm:text-3xl md:text-[32px] lg:text-[42px]">
             Get hired in{" "}
             <span className="font-normal text-primary italic">
               three simple
             </span>{" "}
             steps
           </h2>
-
-          <p className="max-w-md mt-3">
+          <p className="max-w-lg mx-auto text-xs sm:text-sm md:text-lg mt-1.5 md:mt-3">
             No lengthy sign-ups or complicated processes — start your job search
             and land your dream role in minutes.
           </p>
@@ -74,29 +72,20 @@ export default function HowItWorks() {
               className="relative flex flex-col items-center text-center px-4 z-10"
             >
               <div
-                className="absolute top-0 left-1/2 translate-x-4 -translate-y-1.5 w-[18px] h-[18px] rounded-full flex items-center justify-center text-[10px] font-medium text-white"
-                style={{ background: step.iconColor }}
+                className="absolute top-1 left-1/2 translate-x-4 -translate-y-1.5 w-[18px] h-[18px] rounded-full flex items-center justify-center text-[10px] font-bold bg-black text-white"
+                // style={{ background: step.iconColor }}
               >
                 {step.number}
               </div>
 
-              <div
-                className="w-[72px] h-[72px] rounded-full flex items-center justify-center mb-5"
-                style={{
-                  border: `1.5px solid ${step.ringBorder}`,
-                  background: "white",
-                }}
-              >
-                <div
-                  className="w-[52px] h-[52px] rounded-full flex items-center justify-center"
-                  style={{ background: step.iconBg, color: step.iconColor }}
-                >
+              <div className="w-[72px] h-[72px] rounded-full flex items-center justify-center mb-5 bg-white border border-black/10">
+                <div className="w-[52px] h-[52px] rounded-full flex items-center justify-center bg-black/5">
                   <step.icon className="w-[22px] h-[22px]" />
                 </div>
               </div>
 
               <h5 className="mb-2">{step.title}</h5>
-              <p className="!text-xs max-w-[200px]">{step.desc}</p>
+              <p className="text-xs max-w-[200px]">{step.desc}</p>
             </div>
           ))}
         </div>

@@ -46,24 +46,24 @@ export default function Footer() {
 
   return (
     <footer className="bg-black text-gray-400">
-      <div className="container pt-14 pb-8">
+      <div className="container pt-6 md:pt-14 pb-4 md:pb-8">
         <div className="flex justify-center text-center">
           <Logo />
         </div>
-        <p className="mt-3 mb-6 max-w-xs !text-xs italic leading-relaxed !text-gray-500 text-center mx-auto">
+        <p className="mt-3 pb-3 md:mb-6 max-w-xs !text-xs italic leading-relaxed text-gray-400 text-center mx-auto">
           Connecting talent with opportunity — <br />
           find your next role today.
         </p>
 
-        <div className="mb-5 h-px bg-white/5" />
+        <div className="mb-3 md:mb-5 h-px bg-white/5" />
 
-        <div className="flex flex-wrap items-center justify-between gap-3">
+        <div className="grid md:flex flex-wrap items-center justify-center md:justify-between gap-3">
           <p className="text-xs !text-gray-500">
             © {year} Built by{" "}
             <span className="font-medium text-gray-400">Md. Hayatul Islam</span>
           </p>
 
-          <div className="flex gap-2">
+          <div className="flex gap-2 order-first md:order-last">
             {socialLinks.map((item) => {
               const Icon = item.icon;
 

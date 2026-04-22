@@ -35,7 +35,7 @@ body {
 }
 
 .container {
-  @apply mx-auto max-w-[1300px] px-4 md:px-6;
+  @apply mx-auto max-w-[1300px] px-6;
 }
 
 button {
@@ -61,10 +61,10 @@ button {
   }
 
   h1 {
-    @apply text-4xl md:text-5xl lg:text-7xl tracking-tight;
+    @apply text-4xl sm:text-5xl lg:text-7xl tracking-tight;
   }
   h2 {
-    @apply text-3xl md:text-[32px] lg:text-[42px] tracking-tight;
+    @apply text-2xl md:text-[32px] lg:text-[42px] tracking-tight;
   }
   h3 {
     @apply text-xl md:text-2xl lg:text-3xl tracking-tight;
@@ -76,7 +76,7 @@ button {
     @apply text-base md:text-lg;
   }
   h6 {
-    @apply text-sm;
+    @apply text-xs sm:text-sm;
   }
 
   p {
