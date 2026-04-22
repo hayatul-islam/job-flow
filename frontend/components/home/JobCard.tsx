@@ -23,7 +23,7 @@ export default function JobCard({ job }: JobCardProps) {
       <div className="flex items-stretch">
         <div className="flex items-center justify-between flex-1 px-4 py-3.5 gap-4">
           <div className="flex items-center gap-3 flex-1 min-w-0">
-            <div className="w-10 h-10 rounded-xl bg-gray-100 border border-gray-200 flex items-center justify-center text-sm font-semibold text-gray-700 shrink-0">
+            <div className="w-10 h-10 rounded-xl bg-red-500 border border-gray-200 flex items-center justify-center text-sm font-semibold text-gray-700 shrink-0">
               {employerName?.[0] || "A"}
             </div>
 

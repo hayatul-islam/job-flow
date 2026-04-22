@@ -24,12 +24,10 @@
 :root {
   --background: white;
   --foreground: #080810;
-  --primary: #5b4fcf;
-  --primary-100: #4a3fb8;
-  --primary-dark: #3a2fa0;
-  --primary-light: #7c3aed;
+  /* --primary: #5b4fcf; */
+  --primary: black;
   --black: #080810;
-  --light-background: #f8f7ff;
+  --light-background: #fafafa;
 }
 
 body {
@@ -82,7 +80,7 @@ button {
   }
 
   p {
-    color: rgb(8 8 16 / 0.5);
+    color: rgba(6, 6, 12, 0.5);
     @apply text-sm;
   }
 }

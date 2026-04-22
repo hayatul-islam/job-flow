@@ -24,15 +24,15 @@ export default function Navbar() {
 
   return (
     <header
-      className={`fixed w-full top-0 left-0 z-50 transition-all duration-300 ${
+      className={`fixed w-full top-0 left-0 z-50  transition-all duration-300 ${
         isHome
           ? scrolled
-            ? "bg-white/80 backdrop-blur-md border-b border-black/5"
-            : "bg-transparent"
-          : "bg-white/80 backdrop-blur-md border-b border-black/5"
+            ? "bg-white backdrop-blur-md border-b border-black/5 "
+            : "bg-transparent border-b border-black/3"
+          : "bg-white backdrop-blur-md border-b border-black/5"
       }`}
     >
-      <nav className="container flex items-center justify-between px-8 lg:px-16 h-14">
+      <nav className="container flex items-center justify-between px-8 lg:px-16 h-16">
         <Logo color="black" />
 
         <div className="flex items-center gap-2">

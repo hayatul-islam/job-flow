@@ -6,7 +6,6 @@ import { ProfileForm, profileSchema } from "@/lib/validations";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { Camera, Check, Pencil, X } from "lucide-react";
 import moment from "moment";
-import Image from "next/image";
 import { useEffect, useRef, useState } from "react";
 import { useForm } from "react-hook-form";
 import toast from "react-hot-toast";
@@ -142,12 +141,10 @@ export default function ProfilePage() {
                     onClick={handleAvatarClick}
                   >
                     {displayAvatar ? (
-                      <Image
+                      <img
                         src={displayAvatar}
                         alt="Avatar"
                         className="w-full h-full object-cover"
-                        width={200}
-                        height={200}
                       />
                     ) : (
                       <div className="w-full h-full bg-gradient-to-br from-gray-900 via-slate-800 to-zinc-900 flex items-center justify-center text-white text-2xl font-semibold select-none">

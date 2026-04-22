@@ -177,33 +177,16 @@ const categories: Category[] = [
 ];
 
 const CategoryCard = ({ category }: { category: Category }) => {
-  const [hovered, setHovered] = React.useState(false);
-  const c = category.color;
-
   return (
-    <Card className="p-0">
-      <div
-        onMouseEnter={() => setHovered(true)}
-        onMouseLeave={() => setHovered(false)}
-        className="flex items-center gap-3 px-4 py-3.5 rounded-2xl cursor-pointer transition-all duration-200"
-        style={{
-          background: hovered ? c.hoverBg : "white",
-        }}
-      >
-        <div
-          className="w-10 h-10 flex items-center justify-center rounded-[10px] shrink-0 transition-all duration-200"
-          style={{
-            background: hovered ? c.iconHoverBg : c.iconBg,
-            color: c.iconColor,
-            transform: hovered ? "scale(1.08)" : "scale(1)",
-          }}
-        >
+    <Card className="p-0 group border-gray-200 hover:border-gray-300 rounded-2xl cursor-pointer transition-all duration-500 hover:bg-gray-50 hover:scale-105">
+      <div className="flex items-center gap-3 px-4 py-3.5 ">
+        <div className="w-10 h-10 flex items-center justify-center rounded-[10px] shrink-0 transition-all duration-200 bg-gray-100 group-hover:bg-gray-200">
           {category.icon}
         </div>
 
         <div>
           <h6>{category.title}</h6>
-          <p className="!text-[12px] mt-0.5">
+          <p className="text-[12px] mt-0.5">
             {category.jobs.toLocaleString()} jobs available
           </p>
         </div>

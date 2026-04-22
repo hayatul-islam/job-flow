@@ -32,7 +32,7 @@ export default function RecentJobs() {
   const jobs: Job[] = data?.data ?? [];
 
   return (
-    <section className="bg-light-background py-20 px-4">
+    <section className="bg-light-background/40 py-20 px-4">
       <div className="container">
         <div className="mb-8 flex items-end justify-between">
           <div>

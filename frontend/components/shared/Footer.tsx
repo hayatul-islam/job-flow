@@ -72,9 +72,9 @@ export default function Footer() {
                   key={item.label}
                   href={item.href}
                   target="_blank"
-                  className="group font-normal flex items-center gap-1.5 rounded-full border border-primary/40 bg-transparent px-3 py-1.5 text-xs text-white/70 transition-all duration-200 hover:border-primary/50 hover:bg-primary/10 hover:text-primary"
+                  className="group font-normal flex items-center gap-1.5 rounded-full border border-white/10 bg-transparent px-3 py-1.5 text-xs text-white/70 transition-all duration-200 hover:border-white/50 hover:bg-white/10 hover:text-white"
                 >
-                  <span className="transition-all duration-200 text-white/70 group-hover:text-primary group-hover:scale-110">
+                  <span className="transition-all duration-200 text-white/70 group-hover:text-white group-hover:scale-110">
                     <Icon className="w-4 h-4" />
                   </span>
 

@@ -26,26 +26,18 @@ export default function HeroSection() {
     ) || [];
 
   return (
-    <section className="relative overflow-hidden pb-12 bg-gradient-to-br from-indigo-50 via-purple-50 to-blue-50">
-      <div className="pointer-events-none absolute inset-0 bg-[linear-gradient(rgba(91,79,207,0.06)_1px,transparent_1px),linear-gradient(90deg,rgba(91,79,207,0.06)_1px,transparent_1px)] bg-[size:56px_56px]" />
-
-      <div className="pointer-events-none absolute -top-28 -left-20 h-[480px] w-[480px] rounded-full bg-[radial-gradient(circle,rgba(91,79,207,0.12)_0%,transparent_70%)]" />
-      <div className="pointer-events-none absolute -bottom-20 -right-24 h-[400px] w-[400px] rounded-full bg-[radial-gradient(circle,rgba(123,111,224,0.10)_0%,transparent_70%)]" />
-      <div className="pointer-events-none absolute top-1/3 left-2/5 h-[300px] w-[300px] rounded-full bg-[radial-gradient(circle,rgba(91,79,207,0.07)_0%,transparent_70%)]" />
-
+    <section className="relative overflow-hidden pb-12 bg-light-background">
       <div className="relative z-10 container mt-32 grid w-full flex-1 items-center gap-12 pb-16 lg:grid-cols-5">
         <div className="lg:col-span-3">
-          <div className="mb-7 inline-flex items-center gap-2 rounded-full border border-primary/10 bg-primary/10 px-4 py-1.5 text-xs text-primary">
+          <div className="mb-7 inline-flex items-center gap-2 rounded-full  border-primary/10 bg-primary/2 px-4 py-2 text-xs text-primary">
             <span className="h-1.5 w-1.5 animate-pulse rounded-full bg-green-500" />
             2,400 jobs added this week
           </div>
 
           <h1 className="mb-8 leading-[0.95] !font-bold">
             <span className="block">Land your</span>
-            <span className="block italic bg-gradient-to-r from-primary via-primary-light to-primary-dark bg-clip-text text-transparent">
-              dream job
-            </span>
-            <span className="block italic font-light text-gray-500 text-[0.83em]">
+            <span className="block italic">dream job</span>
+            <span className="block italic font-light  text-[0.83em]">
               without the grind.
             </span>
           </h1>
@@ -63,7 +55,7 @@ export default function HeroSection() {
           {isLoading ? (
             <LiveJobFeedSkeleton />
           ) : (
-            <Card>
+            <Card className="">
               <div className="mb-5 flex items-start justify-between">
                 <div>
                   <h6>Live Job Feed</h6>

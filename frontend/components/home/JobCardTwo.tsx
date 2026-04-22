@@ -15,15 +15,15 @@ export default function JobCardV2({ job }: JobCardProps) {
   const employerName = `${job?.employer?.firstName} ${job?.employer?.lastName}`;
   const JobTypeIcon = JOB_TYPE_CONFIG[job?.jobType]?.icon;
   const isNew = timeAgo(job?.createdAt || "") === "Today";
-  const initial = employerName?.[0]?.toUpperCase() || "A";
+  const employerFirstLetter = employerName?.[0]?.toUpperCase() || "A";
 
   return (
     <Link href={`/jobs/${job.id}`}>
       <Card className="p-0 group block overflow-hidden hover:border-gray-400 transition-all duration-150 ">
-        <div className="flex items-center justify-between gap-3 px-4 py-2.5 bg-gray-50 border-b border-gray-200">
+        <div className="flex items-center justify-between gap-3 px-4 py-2.5 bg-white/80 border-b border-gray-100">
           <div className="flex items-center gap-2.5 min-w-0">
             <div className="w-8 h-8 rounded-lg bg-white border border-gray-200 flex items-center justify-center text-xs font-semibold text-primary shrink-0">
-              {initial}
+              {employerFirstLetter}
             </div>
             <div className="min-w-0">
               <h6>{employerName}</h6>

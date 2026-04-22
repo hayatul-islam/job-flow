@@ -44,7 +44,10 @@ export default function HowItWorks() {
 
           <h2 className="!font-medium">
             Get hired in{" "}
-            <span className="text-primary italic">three simple</span> steps
+            <span className="font-normal text-primary italic">
+              three simple
+            </span>{" "}
+            steps
           </h2>
 
           <p className="max-w-md mt-3">
@@ -70,7 +73,10 @@ export default function HowItWorks() {
               key={step.number}
               className="relative flex flex-col items-center text-center px-4 z-10"
             >
-              <div className="absolute top-0 left-1/2 translate-x-4 -translate-y-1.5 w-[18px] h-[18px] rounded-full flex items-center justify-center text-[10px] font-medium text-white z-20 bg-primary">
+              <div
+                className="absolute top-0 left-1/2 translate-x-4 -translate-y-1.5 w-[18px] h-[18px] rounded-full flex items-center justify-center text-[10px] font-medium text-white"
+                style={{ background: step.iconColor }}
+              >
                 {step.number}
               </div>
 
