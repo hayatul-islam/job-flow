@@ -22,12 +22,6 @@ const LinkedinIcon = ({ className }: { className?: string }) => (
   </svg>
 );
 
-const techGroups = [
-  ["Next.js", "TypeScript", "Tailwind CSS"],
-  ["Node.js", "Express.js"],
-  ["PostgreSQL", "Prisma"],
-];
-
 const socialLinks = [
   {
     label: "GitHub",

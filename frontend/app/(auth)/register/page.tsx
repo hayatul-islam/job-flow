@@ -88,9 +88,9 @@ export default function RegisterPage() {
   return (
     <div className="flex min-h-screen items-center justify-center bg-light-background px-4 py-12">
       <Card className="p-0 w-full max-w-[850px] overflow-hidden rounded-2xl">
-        <div className="flex">
-          {/* LEFT PANEL  */}
-          <div className="relative flex w-62 flex-shrink-0 flex-col justify-between overflow-hidden bg-black p-6">
+        <div className="flex flex-col md:flex-row">
+          {/* LEFT PANEL — hidden on mobile */}
+          <div className="relative hidden md:flex w-62 flex-shrink-0 flex-col justify-between overflow-hidden bg-black p-6">
             <div className="absolute -right-14 -top-12 h-44 w-44 rounded-full border border-white/[0.1]" />
             <div className="absolute -left-10 bottom-16 h-28 w-28 rounded-full border border-white/[0.07]" />
 
@@ -122,19 +122,12 @@ export default function RegisterPage() {
                       )}
                       <div
                         className={`flex h-5 w-5 flex-shrink-0 items-center justify-center rounded-full text-[10px] font-semibold transition-all duration-200
-                        ${
-                          isActive
-                            ? "bg-white text-black"
-                            : isDone
-                              ? "bg-white/20 text-white/60"
-                              : "border border-white/20 bg-white/[0.04] text-white/60"
-                        }`}
+                        ${isActive ? "bg-white text-black" : isDone ? "bg-white/20 text-white/60" : "border border-white/20 bg-white/[0.04] text-white/60"}`}
                       >
                         {isDone ? <Check size={9} strokeWidth={3} /> : s.id}
                       </div>
                       <span
-                        className={`text-xs font-medium transition-colors
-                        ${isActive ? "text-white" : isDone ? "text-white/70" : "text-white/70"}`}
+                        className={`text-xs font-medium transition-colors ${isActive ? "text-white" : "text-white/70"}`}
                       >
                         {s.label}
                       </span>
@@ -150,14 +143,33 @@ export default function RegisterPage() {
             </p>
           </div>
 
-          {/* ── RIGHT PANEL ── */}
-          <div className="w-full bg-white px-10 py-10">
+          {/* RIGHT PANEL */}
+          <div className="w-full bg-white px-5 py-8 md:px-10 md:py-10">
+            {/* Mobile: logo + step indicator */}
+            <div className="flex items-center justify-between mb-6 md:hidden">
+              <Logo color="black" />
+              <div className="flex items-center gap-1.5">
+                {steps.map((s) => (
+                  <div
+                    key={s.id}
+                    className={`h-1.5 rounded-full transition-all duration-200 ${
+                      step === s.id
+                        ? "w-6 bg-black"
+                        : step > s.id
+                          ? "w-4 bg-black/30"
+                          : "w-4 bg-gray-200"
+                    }`}
+                  />
+                ))}
+              </div>
+            </div>
+
             {step === 1 && (
               <div>
-                <p className="mb-1.5 text-[10px] block font-medium uppercase tracking-[1px] ">
+                <p className="mb-1.5 text-[10px] block font-medium uppercase tracking-[1px]">
                   Step 1 of 2
                 </p>
-                <h4 className="mb-1 font-semibold leading-tight tracking-tight ">
+                <h4 className="mb-1 font-semibold leading-tight tracking-tight">
                   Who are you?
                 </h4>
                 <p className="mb-6">
@@ -173,11 +185,7 @@ export default function RegisterPage() {
                         type="button"
                         onClick={() => handleRoleSelect(role.value as Role)}
                         className={`relative flex flex-col items-start gap-2.5 rounded-[14px] border-[1.5px] p-4 text-left transition-all duration-150
-                        ${
-                          isActive
-                            ? "border-black bg-gray-50"
-                            : "border-gray-200 bg-white hover:border-gray-300 hover:bg-gray-50"
-                        }`}
+                        ${isActive ? "border-black bg-gray-50" : "border-gray-200 bg-white hover:border-gray-300 hover:bg-gray-50"}`}
                       >
                         {isActive && (
                           <span className="absolute right-2.5 top-2.5 flex h-4 w-4 items-center justify-center rounded-full bg-black">
@@ -186,17 +194,15 @@ export default function RegisterPage() {
                         )}
                         <div
                           className={`flex h-[34px] w-[34px] items-center justify-center rounded-[9px] border transition-all
-                          ${
-                            isActive
-                              ? "border-transparent bg-black text-white"
-                              : " border-gray-500 bg-white text-black"
-                          }`}
+                          ${isActive ? "border-transparent bg-black text-white" : "border-gray-500 bg-white text-black"}`}
                         >
                           {role.icon}
                         </div>
                         <div>
                           <h6
-                            className={` ${isActive ? "text-black" : "text-gray-700"}`}
+                            className={
+                              isActive ? "text-black" : "text-gray-700"
+                            }
                           >
                             {role.label}
                           </h6>
@@ -227,18 +233,17 @@ export default function RegisterPage() {
               </div>
             )}
 
-            {/* STEP 2 */}
             {step === 2 && (
               <form onSubmit={handleSubmit(onSubmit)}>
-                <p className="mb-1.5 text-[10px] block font-medium uppercase tracking-[1px] ">
+                <p className="mb-1.5 text-[10px] block font-medium uppercase tracking-[1px]">
                   Step 2 of 2
                 </p>
                 <h4 className="mb-1 font-semibold leading-tight tracking-tight">
                   Create account
                 </h4>
-                <p className="mb-6 ">Almost there — fill in your details</p>
+                <p className="mb-6">Almost there — fill in your details</p>
 
-                <div className="mb-3 grid grid-cols-2 gap-3">
+                <div className="mb-3 grid grid-cols-1 sm:grid-cols-2 gap-3">
                   {(
                     [
                       {
@@ -406,7 +411,7 @@ export default function RegisterPage() {
 
                 <Button
                   type="button"
-                  variant={"outline"}
+                  variant="outline"
                   onClick={() => setStep(1)}
                   className="w-full mt-4"
                 >

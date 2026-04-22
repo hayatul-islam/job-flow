@@ -147,7 +147,7 @@ export default function SearchBarLight() {
           <Briefcase className="w-4 h-4 shrink-0 text-black/90" />
 
           <span
-            className={`flex-1 py-3 text-sm ${jobType ? "text-black/90" : "text-black/50"}`}
+            className={`flex-1 py-3 text-left text-sm ${jobType ? "text-black/90" : "text-black/50"}`}
           >
             {jobType ? selectedOption.label : "Job type"}
           </span>
@@ -178,7 +178,7 @@ export default function SearchBarLight() {
               return (
                 <div
                   key={type.value}
-                  className={`group flex items-center gap-2.5 px-3.5 py-2.5 text-sm cursor-pointer hover:bg-black/3 hover:text-black ${active ? "bg-black/3 text-black" : "bg-transparent text-black/70"}`}
+                  className={`group flex items-center text-left gap-2.5 px-3.5 py-2.5 text-sm cursor-pointer hover:bg-black/3 hover:text-black ${active ? "bg-black/3 text-black" : "bg-transparent text-black/70"}`}
                   onClick={() => {
                     setJobType(type.value);
                     closeDropdown();

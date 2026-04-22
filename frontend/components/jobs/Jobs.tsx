@@ -27,7 +27,7 @@ export default function Jobs() {
   };
 
   return (
-    <div className="min-h-screen bg-white pt-24">
+    <div className="min-h-screen bg-light-background pt-24">
       <main className="container mx-auto px-4 pb-12 pt-4">
         <div className="grid grid-cols-1 lg:grid-cols-4 gap-8">
           <aside className="lg:col-span-1">

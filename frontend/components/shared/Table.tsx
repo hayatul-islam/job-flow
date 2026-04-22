@@ -1,3 +1,4 @@
+import { cn } from "@/lib/utils";
 import { ReactNode } from "react";
 import { Card } from "../ui/card";
 
@@ -79,10 +80,14 @@ export default function Table<T>({
                     {columns.map(({ label, align, render }) => (
                       <td
                         key={label}
-                        className={`
-                        px-6 py-4
-                        ${align === "right" ? "text-right" : align === "center" ? "text-center" : "text-left"}
-                      `}
+                        className={cn(
+                          "px-6 py-4 whitespace-nowrap",
+                          align === "right"
+                            ? "text-right"
+                            : align === "center"
+                              ? "text-center"
+                              : "text-left",
+                        )}
                       >
                         {render(row)}
                       </td>

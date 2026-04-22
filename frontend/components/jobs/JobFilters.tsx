@@ -6,6 +6,7 @@ import { JobsParams } from "@/types";
 import { ChevronDown, SlidersHorizontal } from "lucide-react";
 import { useSearchParams } from "next/navigation";
 import { useCallback, useEffect, useRef, useState } from "react";
+import { Card } from "../ui/card";
 
 type SectionKey = "location" | "jobType";
 
@@ -18,7 +19,10 @@ export default function JobsFilters({ query, onQuery }: JobsFiltersProps) {
   const searchParams = useSearchParams();
   const [expandedSections, setExpandedSections] = useState<
     Record<SectionKey, boolean>
-  >({ location: true, jobType: true });
+  >(() => {
+    const isMobile = typeof window !== "undefined" && window.innerWidth < 640;
+    return { location: !isMobile, jobType: !isMobile };
+  });
   const [searchValue, setSearchValue] = useState(query.q || "");
 
   useEffect(() => {
@@ -95,8 +99,7 @@ export default function JobsFilters({ query, onQuery }: JobsFiltersProps) {
   ];
 
   return (
-    <div className="w-full overflow-hidden rounded-2xl border border-slate-200 bg-white shadow-sm">
-      {/* Header */}
+    <Card className="p-0 w-full overflow-hidden">
       <div className="flex items-center justify-between px-5 py-4 border-b border-slate-100 bg-slate-50/80">
         <div className="flex items-center gap-2.5">
           <SlidersHorizontal className="h-4 w-4 text-slate-400" />
@@ -105,7 +108,7 @@ export default function JobsFilters({ query, onQuery }: JobsFiltersProps) {
           </span>
         </div>
         {totalActive > 0 && (
-          <span className="rounded-full bg-indigo-50 border border-indigo-200 px-2.5 py-0.5 text-[11px] font-semibold text-primary/90">
+          <span className="rounded-full bg-black/5 border border-black/5 px-2.5 py-0.5 text-[11px] font-semibold text-black/80">
             {totalActive} active
           </span>
         )}
@@ -142,26 +145,20 @@ export default function JobsFilters({ query, onQuery }: JobsFiltersProps) {
             className="group flex w-full items-center justify-between px-5 py-3.5 hover:bg-slate-50/80 transition-colors"
           >
             <div className="flex items-center gap-2.5">
-              <span
-                className={cn(
-                  "h-1.5 w-1.5 rounded-full flex-shrink-0",
-                  accentColor,
-                )}
-              />
               <span className="text-sm font-medium text-slate-600 group-hover:text-slate-800 transition-colors">
                 {label}
               </span>
             </div>
             <div className="flex items-center gap-2">
               {count > 0 && (
-                <span className="rounded-full bg-indigo-50 border border-indigo-200 px-2 py-0.5 text-[10px] font-semibold text-primary/90">
+                <span className="rounded-full bg-black/5 border border-black/10 px-2 py-0.5 text-[10px] font-semibold text-black">
                   {count}
                 </span>
               )}
               <ChevronDown
                 className={cn(
                   "h-3.5 w-3.5 text-slate-400 transition-all duration-200",
-                  expandedSections[key] ? "rotate-180 text-slate-600" : "",
+                  expandedSections[key] ? "rotate-180 text-black" : "",
                 )}
               />
             </div>
@@ -175,15 +172,14 @@ export default function JobsFilters({ query, onQuery }: JobsFiltersProps) {
                   <label
                     key={item}
                     className={cn(
-                      "flex cursor-pointer items-center gap-3 rounded-lg px-2 py-2 transition-all",
-                      checked ? "bg-indigo-50/70" : "hover:bg-slate-50",
+                      "flex cursor-pointer items-center gap-3 rounded-lg px-2 py-2 transition-all hover:bg-slate-50",
                     )}
                   >
                     <span
                       className={cn(
                         "flex h-4 w-4 flex-shrink-0 items-center justify-center rounded-[4px] border transition-all",
                         checked
-                          ? "border-primary bg-primary shadow-[0_0_0_3px_rgba(99,102,241,0.12)]"
+                          ? "border-black bg-black "
                           : "border-slate-300 bg-white",
                       )}
                     >
@@ -212,16 +208,11 @@ export default function JobsFilters({ query, onQuery }: JobsFiltersProps) {
                     <span
                       className={cn(
                         "text-sm transition-colors",
-                        checked
-                          ? "font-medium text-slate-800"
-                          : "text-slate-500",
+                        checked ? "font-medium text-black" : "text-black/80",
                       )}
                     >
                       {item}
                     </span>
-                    {checked && (
-                      <span className="ml-auto h-1.5 w-1.5 rounded-full bg-primary/70 flex-shrink-0" />
-                    )}
                   </label>
                 );
               })}
@@ -245,6 +236,6 @@ export default function JobsFilters({ query, onQuery }: JobsFiltersProps) {
           Clear all filters
         </button>
       </div>
-    </div>
+    </Card>
   );
 }

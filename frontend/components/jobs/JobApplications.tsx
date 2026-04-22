@@ -85,9 +85,9 @@ const getColumns = (
     render: (row) => (
       <Button
         onClick={() => onCvDownload(row.cvUrl)}
-        className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-xs font-medium text-primary bg-primary/5 hover:bg-primary/10 transition-colors"
+        className="h-8 inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-xs font-medium text-primary bg-primary/5 hover:bg-primary/10 transition-colors"
       >
-        <Download size={12} />
+        <Download size={8} />
         Download CV
       </Button>
     ),
@@ -122,12 +122,12 @@ export default function JobApplications() {
         <div className="mb-6 flex items-center justify-between">
           <div>
             <h4 className="font-medium">Applications</h4>
-            <p className="text-[16px] mt-0.5">
+            <p className="text-xs md:text-[16px] mt-0.5">
               Review and manage applicants for this position
             </p>
           </div>
           {data?.data?.length > 0 && (
-            <span className="text-sm text-gray-500 bg-white border border-gray-200 px-3 py-1.5 rounded-full">
+            <span className="hidden md:block text-sm text-gray-500 bg-white border border-gray-200 px-3 py-1.5 rounded-full">
               {data.data.length} applicant{data.data.length !== 1 ? "s" : ""}
             </span>
           )}

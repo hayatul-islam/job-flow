@@ -127,17 +127,17 @@ export default function ProfilePage() {
   const showRemoveButton = editing && displayAvatar;
 
   return (
-    <div className="bg-light-background flex items-center justify-center p- pt-40 pb-16">
+    <div className="bg-light-background flex items-center justify-center pt-36 md:pt-40 pb-12 md:pb-16 px-4">
       <div className="w-full max-w-xl">
         {loading ? (
           <ProfileSkeleton />
         ) : (
           <Card className="relative p-0 shadow-xl">
             <form onSubmit={handleSubmit(onSubmit)}>
-              <div className="flex flex-col items-center -mt-12 px-8 pb-2">
+              <div className="flex flex-col items-center -mt-12 px-5 md:px-8 pb-2">
                 <div className="relative group">
                   <div
-                    className="w-24 h-24 rounded-2xl overflow-hidden ring-4 ring-slate-100 shadow-lg cursor-pointer"
+                    className="w-20 h-20 md:w-24 md:h-24 rounded-2xl overflow-hidden ring-4 ring-slate-100 shadow-lg cursor-pointer"
                     onClick={handleAvatarClick}
                   >
                     {displayAvatar ? (
@@ -186,10 +186,12 @@ export default function ProfilePage() {
                 </div>
 
                 <div className="mt-3 text-center">
-                  <h1 className="text-lg font-semibold text-slate-800">
+                  <h1 className="text-base md:text-lg font-semibold text-slate-800">
                     {user?.firstName} {user?.lastName}
                   </h1>
-                  <p className="text-sm text-slate-400 mt-0.5">{user?.email}</p>
+                  <p className="text-xs md:text-sm text-slate-400 mt-0.5 break-all">
+                    {user?.email}
+                  </p>
                   <span className="inline-flex items-center gap-1.5 mt-2 px-2.5 py-1 rounded-full bg-primary/10 border border-violet-100 text-primary text-xs font-medium">
                     <span className="w-1.5 h-1.5 rounded-full bg-primary" />
                     {formatRole(user?.role)}
@@ -260,9 +262,9 @@ export default function ProfilePage() {
                 </div>
               </div>
 
-              <div className="mx-8 my-5 h-px bg-slate-100" />
+              <div className="mx-5 md:mx-8 my-5 h-px bg-slate-100" />
 
-              <div className="px-8 pb-8 space-y-4">
+              <div className="px-5 md:px-8 pb-8 space-y-4">
                 {editing ? (
                   <>
                     {errors.root && (
@@ -294,7 +296,7 @@ export default function ProfilePage() {
                       </div>
                     )}
 
-                    <div className="grid grid-cols-2 gap-4">
+                    <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                       <InputField
                         label="First name"
                         editable
@@ -312,7 +314,7 @@ export default function ProfilePage() {
                     <InputField label="Email address" value={user?.email} />
                     <InputField label="Role" value={formatRole(user?.role)} />
 
-                    <div className="grid grid-cols-2 gap-4">
+                    <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                       <InputField label="User ID" value={`#${user?.id}`} />
                       <InputField
                         label="Member since"
@@ -322,7 +324,7 @@ export default function ProfilePage() {
                   </>
                 ) : (
                   <>
-                    <div className="grid grid-cols-2 gap-3">
+                    <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
                       <InputField
                         label="First name"
                         value={user?.firstName}
@@ -346,7 +348,7 @@ export default function ProfilePage() {
                       readOnly
                     />
 
-                    <div className="grid grid-cols-2 gap-3">
+                    <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
                       <InputField
                         label="User ID"
                         value={`#${user?.id}`}

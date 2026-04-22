@@ -26,11 +26,9 @@ export default function JobsGrid({ query }: JobsGridProps) {
   return (
     <div className="space-y-6">
       {!isLoading && (
-        <p className="text-sm text-slate-600">
+        <p className="text-sm text-black/70">
           Showing{" "}
-          <span className="font-semibold text-slate-900">
-            {data?.data?.length}
-          </span>{" "}
+          <span className="font-semibold text-black">{data?.data?.length}</span>{" "}
           results
         </p>
       )}
@@ -38,7 +36,7 @@ export default function JobsGrid({ query }: JobsGridProps) {
       {isLoading ? (
         <JobsSkeletonList />
       ) : data?.data?.length > 0 ? (
-        <div className="grid gap-6">
+        <div className="grid gap-3">
           {data?.data?.map((job: Job) => (
             <JobCardV2 key={job.id} job={job} />
           ))}

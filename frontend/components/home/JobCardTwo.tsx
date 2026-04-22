@@ -65,11 +65,11 @@ export default function JobCardV2({ job }: JobCardProps) {
 
           {/* Row 4: tags */}
           <div className="flex items-center gap-1.5 flex-wrap">
-            <span className="inline-flex items-center gap-1 px-2 py-0.5 rounded-md text-[11px] font-medium bg-black/5 text-black">
+            <span className="inline-flex items-center gap-1 px-2 py-0.5 rounded-md text-[11px] font-medium bg-black/5 text-black/80">
               <JobTypeIcon className="w-3 h-3" />
               {JOB_TYPE_CONFIG[job?.jobType]?.label}
             </span>
-            <span className="inline-flex items-center gap-1 px-2 py-0.5 rounded-md text-[11px] font-medium bg-black/5 text-black">
+            <span className="inline-flex items-center gap-1 px-2 py-0.5 rounded-md text-[11px] font-medium bg-black/5 text-black/80">
               <Tag size={10} />
               {job?.category?.name}
             </span>
@@ -100,7 +100,7 @@ export default function JobCardV2({ job }: JobCardProps) {
               </span>
             )}
             {job.salary && (
-              <span className="text-xs font-semibold text-gray-900 bg-white border border-gray-200 rounded-lg px-2.5 py-1">
+              <span className="text-xs font-semibold text-black bg-white border border-gray-200 rounded-lg px-2.5 py-1">
                 ৳{job.salary}
               </span>
             )}
@@ -112,11 +112,11 @@ export default function JobCardV2({ job }: JobCardProps) {
 
           <div className="flex items-center gap-2 shrink-0">
             <div className="flex gap-1.5">
-              <span className="inline-flex items-center gap-1 px-2.5 py-1 rounded-md text-[11px] font-medium bg-black/5 text-black">
+              <span className="inline-flex items-center gap-1 px-2.5 py-1 rounded-md text-[11px] font-medium bg-black/5 text-black/80">
                 <JobTypeIcon className="w-3 h-3" />
                 {JOB_TYPE_CONFIG[job?.jobType]?.label}
               </span>
-              <span className="inline-flex items-center gap-1 px-2.5 py-1 rounded-md text-[11px] font-medium bg-black/5 text-black">
+              <span className="inline-flex items-center gap-1 px-2.5 py-1 rounded-md text-[11px] font-medium bg-black/5 text-black/80">
                 <Tag size={10} />
                 {job?.category?.name}
               </span>

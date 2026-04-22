@@ -65,7 +65,7 @@ export default function CreateJobForm() {
         <div className="bg-white rounded-2xl border border-gray-100 shadow-sm overflow-hidden">
           <div className="h-1 bg-black w-full" />
 
-          <div className="p-7">
+          <div className="p-4 md:p-7">
             <form onSubmit={handleSubmit(onSubmit)} className="space-y-6">
               <InputField
                 label="Job Title"
