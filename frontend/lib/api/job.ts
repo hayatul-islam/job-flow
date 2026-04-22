@@ -1,5 +1,4 @@
 import { Job, JobsParams } from "@/types";
-import toast from "react-hot-toast";
 import api from "../axios";
 
 export const getJobs = async (params: JobsParams) => {
@@ -38,13 +37,6 @@ export const updateJob = async ({ id, data }: { id: number; data: Job }) => {
 };
 
 export const deleteJob = async (id: number) => {
-  try {
-    const res = await api.delete(`/jobs/${id}`);
-    toast.success(res?.data?.message);
-    return res.data;
-  } catch (error: any) {
-    const message = error?.response?.data?.message || "Failed to delete job";
-    toast.error(message);
-    throw error;
-  }
+  const res = await api.delete(`/jobs/${id}`);
+  return res.data;
 };

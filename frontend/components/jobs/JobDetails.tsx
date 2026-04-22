@@ -6,7 +6,6 @@ import { timeAgo } from "@/lib/utils";
 import {
   ArrowLeft,
   ArrowRight,
-  Bookmark,
   Calendar,
   Clock,
   MapPin,
@@ -141,9 +140,10 @@ export default function JobDetails() {
 
             <div className="mb-6">
               <h5 className=" mb-3">About the role</h5>
-              <p className=" leading-relaxed whitespace-pre-line">
-                {data.description}
-              </p>
+              <div
+                className="leading-relaxed prose prose-sm max-w-none"
+                dangerouslySetInnerHTML={{ __html: data.description }}
+              />
             </div>
           </div>
 
@@ -200,24 +200,12 @@ export default function JobDetails() {
             ) : (
               <Button
                 onClick={() => setShowApplyModal(true)}
-                className="w-full"
+                className="w-full bg-black"
               >
                 <ArrowRight size={15} />
                 Apply now
               </Button>
             )}
-
-            <Button
-              onClick={() => setSaved((s) => !s)}
-              className={`w-full h-10 mt-2.5  ${
-                saved
-                  ? "bg-primary/10 border-primary/20 text-primary"
-                  : "bg-white border-primary/10 text-black hover:bg-primary/10"
-              }`}
-            >
-              <Bookmark size={14} fill={saved ? "currentColor" : "none"} />
-              {saved ? "Saved" : "Save job"}
-            </Button>
 
             <hr className="border-gray-100 my-5" />
 

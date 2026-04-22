@@ -9,6 +9,7 @@ import {
   updateJob,
 } from "@/lib/api/job";
 import { JobsParams } from "@/types";
+import toast from "react-hot-toast";
 
 export const useMyJobs = () => {
   return useQuery({
@@ -37,9 +38,13 @@ export const useCreateJob = () => {
 
   return useMutation({
     mutationFn: createJob,
-    onSuccess: () => {
+    onSuccess: (data) => {
+      toast.success(data?.message || "Job posted successfully!");
       queryClient.invalidateQueries({ queryKey: ["jobs"] });
       queryClient.invalidateQueries({ queryKey: ["my-jobs"] });
+    },
+    onError: (error: any) => {
+      toast.error(error?.response?.data?.message || "Something went wrong.");
     },
   });
 };
@@ -63,9 +68,13 @@ export const useDeleteJob = () => {
 
   return useMutation({
     mutationFn: deleteJob,
-    onSuccess: () => {
+    onSuccess: (data) => {
+      toast.success(data?.message || "Job deleted successfully!");
       queryClient.invalidateQueries({ queryKey: ["jobs"] });
       queryClient.invalidateQueries({ queryKey: ["my-jobs"] });
+    },
+    onError: (error: any) => {
+      toast.error(error?.response?.data?.message || "Something went wrong.");
     },
   });
 };

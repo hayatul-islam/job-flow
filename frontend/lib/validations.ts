@@ -22,22 +22,24 @@ export const registerSchema = z
     path: ["confirmPassword"],
   });
 
-export const createJobSchema = z.object({
-  title: z.string().min(3, "Title must be at least 3 characters"),
-  description: z.string().min(10, "Description must be at least 10 characters"),
-  location: z.string().min(2, "Location must be at least 2 characters"),
-  salary: z.string().min(1, "Salary is required"),
-  jobType: z.enum(["FULL_TIME", "PART_TIME", "REMOTE", "HYBRID", "INTERNSHIP"]),
-  categoryId: z.number(),
-});
-
 export const profileSchema = z.object({
   firstName: z.string().min(1, "First name is required"),
   lastName: z.string(),
 });
 
-export type ProfileForm = z.infer<typeof profileSchema>;
+export const createJobSchema = z.object({
+  title: z.string().min(1, "Job title is required"),
+  description: z.string().min(1, "Description is required"),
+  location: z.string().min(1, "Location is required"),
+  salary: z
+    .string()
+    .min(1, "Salary is required")
+    .regex(/^\d+$/, "Enter a valid number"),
+  jobType: z.string().min(1, "Job type is required"),
+  categoryId: z.string().min(1, "Category is required"),
+});
 
+export type JobForm = z.infer<typeof jobSchema>;
+export type ProfileForm = z.infer<typeof profileSchema>;
 export type LoginForm = z.infer<typeof loginSchema>;
 export type RegisterForm = z.infer<typeof registerSchema>;
-export type CreateJobForm = z.infer<typeof createJobSchema>;
