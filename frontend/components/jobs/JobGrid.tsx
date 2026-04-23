@@ -1,7 +1,7 @@
 "use client";
 
 import { useJobs } from "@/hooks/useJobs";
-import { JobsParams, JobViewMode } from "@/types";
+import { Job, JobsParams, JobViewMode } from "@/types";
 import { useState } from "react";
 import JobCard from "../home/JobCard";
 import JobCardGrid from "../home/JobCardGrid";
@@ -50,13 +50,13 @@ export default function JobsGrid({ query, onQuery }: JobsGridProps) {
       ) : data?.data?.length > 0 ? (
         viewMode === "card" ? (
           <div className="grid sm:grid-cols-2 lg:grid-cols-3  gap-3">
-            {data?.data?.map((job) => (
+            {data?.data?.map((job: Job) => (
               <JobCard key={job.id} job={job} />
             ))}
           </div>
         ) : (
           <div className="flex flex-col gap-3">
-            {data?.data?.map((job) => (
+            {data?.data?.map((job: Job) => (
               <JobCardGrid key={job.id} job={job} />
             ))}
           </div>

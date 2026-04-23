@@ -21,7 +21,7 @@ interface PaginationMeta {
 interface JobPaginationProps {
   pagination: PaginationMeta;
   onPageChange: (key: keyof JobsParams, value: any) => void;
-  queryKey?: string;
+  queryKey?: keyof JobsParams;
 }
 
 export default function Pagination({
