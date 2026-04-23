@@ -1,92 +1,78 @@
-"use client";
+// components/jobs/JobCardCompact.tsx
 
 import { JOB_TYPE_CONFIG } from "@/lib/data";
 import { timeAgo } from "@/lib/utils";
 import { Job } from "@/types";
-import { Building2, Clock, MapPin, Tag } from "lucide-react";
+import { Clock, MapPin, Tag } from "lucide-react";
 import Link from "next/link";
+import { Card } from "../ui/card";
 
-interface JobCardProps {
+interface JobCardCompactProps {
   job: Job;
 }
 
-export default function JobCard({ job }: JobCardProps) {
+export default function JobCard({ job }: JobCardCompactProps) {
   const employerName = `${job?.employer?.firstName} ${job?.employer?.lastName}`;
   const JobTypeIcon = JOB_TYPE_CONFIG[job?.jobType]?.icon;
   const isNew = timeAgo(job?.createdAt || "") === "Today";
+  const employerFirstLetter = employerName?.[0]?.toUpperCase() || "A";
 
   return (
-    <Link
-      href={`/jobs/${job.id}`}
-      className="group bg-white border border-gray-200 rounded-xl overflow-hidden hover:border-black/40 hover:shadow transition-all duration-200 cursor-pointer"
-    >
-      <div className="flex items-stretch">
-        <div className="flex items-center justify-between flex-1 px-4 py-3.5 gap-4">
-          <div className="flex items-center gap-3 flex-1 min-w-0">
-            <div className="w-10 h-10 rounded-xl bg-red-500 border border-gray-200 flex items-center justify-center text-sm font-semibold text-gray-700 shrink-0">
-              {employerName?.[0] || "A"}
+    <Link href={`/jobs/${job.id}`}>
+      <Card className="p-0 bg-white group overflow-hidden border-black/8 hover:border-black/25 transition-all duration-150 flex flex-col h-full shadow-sm">
+        <div className="px-3.5 pt-3.5 pb-3 flex flex-col gap-2.5">
+          <div className="flex items-center justify-between">
+            <div className="w-[34px] h-[34px] rounded-lg bg-black/5 border border-black/5 flex items-center justify-center text-xs font-semibold text-black shrink-0">
+              {employerFirstLetter}
             </div>
-
-            <div className="flex flex-col gap-1.5 min-w-0">
-              <div className="flex items-center gap-2">
-                <Link href={`/jobs/${job.id}`}>
-                  <h3 className="text-sm font-semibold text-black truncate tracking-tight  transition-colors">
-                    {job.title}
-                  </h3>
-                </Link>
-
-                {isNew && (
-                  <span className="shrink-0 text-[10px] font-semibold px-2 py-0.5 rounded-full bg-emerald-50 text-emerald-700 tracking-wide">
-                    NEW
-                  </span>
-                )}
-              </div>
-
-              <div className="flex flex-wrap gap-1.5">
-                <span
-                  className={`inline-flex items-center gap-1 px-3 py-1 rounded-full text-[11px] font-medium ${JOB_TYPE_CONFIG[job?.jobType]?.className}`}
-                >
-                  <JobTypeIcon className="w-3 h-3" />
-                  {JOB_TYPE_CONFIG[job?.jobType]?.label}
-                </span>
-                <span className="inline-flex items-center gap-1 px-3 py-1 rounded-full text-[11px] font-medium bg-amber-50 text-amber-800">
-                  <Tag size={10} />
-                  {job?.category?.name}
-                </span>
-              </div>
-            </div>
-          </div>
-
-          <div className="flex flex-col items-end gap-2 shrink-0">
             {job.salary && (
-              <span className="text-sm font-semibold text-black tracking-tight">
+              <span className="text-xs font-semibold text-black bg-gray-50 border border-black/10 rounded-lg px-2.5 py-1">
                 ৳{job.salary}
               </span>
             )}
+          </div>
 
-            <div className="flex items-center gap-2 text-[12px] text-gray-700">
-              <span className="flex items-center gap-1">
-                <Building2 className="w-3 h-3" />
+          <div>
+            <div className="flex items-center gap-1.5">
+              <span className="text-[12px] text-black truncate">
                 {employerName}
               </span>
-
-              <span className="w-1 h-1 rounded-full bg-gray-300" />
-
-              <span className="flex items-center gap-1">
-                <MapPin className="w-3 h-3" />
+              {isNew && (
+                <span className="text-[10px] font-semibold px-1.5 py-0.5 rounded bg-emerald-50 text-emerald-700 tracking-wide shrink-0">
+                  NEW
+                </span>
+              )}
+            </div>
+            <div className="flex items-center gap-1 mt-0.5">
+              <MapPin className="w-2.5 h-2.5 text-gray-600 shrink-0" />
+              <span className="text-[11px] text-gray-600 truncate">
                 {job.location}
-              </span>
-
-              <span className="w-1 h-1 rounded-full bg-gray-300" />
-
-              <span className="flex items-center gap-1">
-                <Clock className="w-3 h-3" />
-                {timeAgo(job?.createdAt || "")}
               </span>
             </div>
           </div>
+
+          <h6 className="text-sm font-semibold text-black leading-snug line-clamp-2">
+            {job.title}
+          </h6>
         </div>
-      </div>
+
+        <div className="px-3.5 py-2.5 border-t border-black/5 flex items-center justify-between gap-2 mt-auto">
+          <div className="flex items-center gap-1.5">
+            <span className="inline-flex items-center gap-1 px-2 py-0.5 rounded-md text-[10px] font-medium bg-black/5 text-black">
+              <JobTypeIcon className="w-2.5 h-2.5" />
+              {JOB_TYPE_CONFIG[job?.jobType]?.label}
+            </span>
+            <span className="inline-flex items-center gap-1 px-2 py-0.5 rounded-md text-[10px] font-medium bg-black/5 text-black">
+              <Tag size={9} />
+              {job?.category?.name}
+            </span>
+          </div>
+          <span className="flex items-center gap-1 text-[11px] text-gray-600 shrink-0">
+            <Clock className="w-3 h-3" />
+            {timeAgo(job?.createdAt || "")}
+          </span>
+        </div>
+      </Card>
     </Link>
   );
 }

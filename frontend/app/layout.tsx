@@ -1,4 +1,5 @@
 import Providers from "@/components/shared/Providers";
+import { Metadata } from "next";
 import { Inter, Poppins } from "next/font/google";
 import { Toaster } from "react-hot-toast";
 import "./globals.css";
@@ -15,6 +16,12 @@ const poppins = Poppins({
   variable: "--font-body",
   display: "swap",
 });
+
+export const metadata: Metadata = {
+  title: "JobFlow — One place for every job",
+  description:
+    "Find full-time, part-time, and remote jobs worldwide on JobFlow — one place for every job.",
+};
 
 export default function RootLayout({
   children,

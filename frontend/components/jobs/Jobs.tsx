@@ -35,7 +35,7 @@ export default function Jobs() {
           </aside>
 
           <section className="lg:col-span-3">
-            <JobsGrid query={query} />
+            <JobsGrid query={query} onQuery={onQuery} />
           </section>
         </div>
       </main>

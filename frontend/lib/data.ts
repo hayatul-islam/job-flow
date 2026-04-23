@@ -16,15 +16,23 @@ export const JOB_FILTER_TABS = [
   "INTERNSHIP",
 ];
 
-export const LOCATIONS = [
-  "Dhaka",
-  "Chattogram",
-  "Sylhet",
-  "Rajshahi",
-  "Khulna",
-  "Barishal",
-  "Rangpur",
-  "Mymensingh",
+export const LOCATIONS_OPTIONS = [
+  { label: "Dhaka", value: "Dhaka" },
+  { label: "Chattogram", value: "Chattogram" },
+  { label: "Sylhet", value: "Sylhet" },
+  { label: "Rajshahi", value: "Rajshahi" },
+  { label: "Khulna", value: "Khulna" },
+  { label: "Barishal", value: "Barishal" },
+  { label: "Rangpur", value: "Rangpur" },
+  { label: "Mymensingh", value: "Mymensingh" },
+];
+
+export const JOB_FILTER_TAGS_OPTIONS = [
+  { label: "Full Time", value: "FULL_TIME" },
+  { label: "Part time", value: "PART_TIME" },
+  { label: "Remote", value: "REMOTE" },
+  { label: "Hybrid", value: "HYBRID" },
+  { label: "Internship", value: "INTERNSHIP" },
 ];
 
 export const JOB_TYPE_LABEL: Record<string, string> = {

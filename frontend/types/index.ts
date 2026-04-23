@@ -1,4 +1,5 @@
 export type Role = "EMPLOYER" | "JOB_SEEKER";
+
 export type JobType =
   | "FULL_TIME"
   | "PART_TIME"
@@ -6,6 +7,9 @@ export type JobType =
   | "HYBRID"
   | "INTERNSHIP";
 export type ApplicationStatus = "PENDING" | "ACCEPTED" | "REJECTED";
+
+export type JobViewMode = "grid" | "card";
+
 export interface User {
   id: number;
   firstName: string;
@@ -34,6 +38,8 @@ export type JobsParams = {
   location: string[];
   catId: string | number;
   jobType: string[];
+  page?: number;
+  limit?: number;
 };
 
 export interface Category {
