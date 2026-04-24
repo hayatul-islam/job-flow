@@ -31,6 +31,7 @@ export interface Job {
   employer?: { firstName: string; lastName: string };
   createdAt?: string;
   categoryId?: number;
+  isApplied?: boolean;
 }
 
 export type JobsParams = {

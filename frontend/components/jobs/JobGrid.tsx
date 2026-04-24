@@ -36,10 +36,11 @@ export default function JobsGrid({ query, onQuery }: JobsGridProps) {
   return (
     <div className="space-y-6">
       <div className="flex justify-between items-center">
-        <p className="text-sm text-black/70">
-          Showing{" "}
-          <span className="font-semibold text-black">{data?.data?.length}</span>{" "}
-          results
+        <p className="text-sm text-black/80">
+          <span>Total: </span>
+          <span className="font-semibold text-black">
+            {data?.pagination?.total}
+          </span>
         </p>
 
         <JobViewModeToggle viewMode={viewMode} setViewMode={setViewMode} />

@@ -67,7 +67,7 @@ export default function JobDetails() {
           Back to jobs
         </button>
 
-        <div className="grid grid-cols-1 lg:grid-cols-[1fr_300px] gap-6 items-start">
+        <div className="grid grid-cols-1 lg:grid-cols-[1fr_350px] gap-6 items-start">
           <Card className="md:p-7">
             <div className="flex items-center gap-2 md:gap-4 mb-5">
               <div className="w-12 h-12 rounded-lg bg-primary/5 border border-primary/5 flex items-center justify-center text-xl font-semibold text-primary shrink-0 capitalize">
@@ -178,7 +178,7 @@ export default function JobDetails() {
               ))}
             </div>
 
-            {applied ? (
+            {applied || data?.isApplied ? (
               <div className="w-full h-11 flex items-center justify-center gap-2 bg-green-50 border border-green-200 rounded-xl text-green-700 text-sm font-medium">
                 <svg width="15" height="15" viewBox="0 0 20 20" fill="none">
                   <circle
@@ -196,7 +196,7 @@ export default function JobDetails() {
                     strokeLinejoin="round"
                   />
                 </svg>
-                Applied successfully
+                {data?.isApplied ? "Already Apply" : "Applied successfully"}
               </div>
             ) : (
               <Button
