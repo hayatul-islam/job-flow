@@ -11,7 +11,13 @@ const authenticate_1 = __importDefault(require("../middleware/authenticate"));
 const router = express_1.default.Router();
 const prisma = new client_1.PrismaClient();
 router.get("/", (0, asyncHandler_1.default)(async (req, res) => {
-    const categories = await prisma.category.findMany();
+    const categories = await prisma.category.findMany({
+        include: {
+            _count: {
+                select: { jobs: true },
+            },
+        },
+    });
     res.respond(200, true, "Categories fetched successfully", categories);
 }));
 router.post("/", authenticate_1.default, (0, asyncHandler_1.default)(async (req, res, next) => {

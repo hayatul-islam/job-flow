@@ -10,7 +10,13 @@ const prisma = new PrismaClient();
 router.get(
   "/",
   asyncHandler(async (req, res) => {
-    const categories = await prisma.category.findMany();
+    const categories = await prisma.category.findMany({
+      include: {
+        _count: {
+          select: { jobs: true },
+        },
+      },
+    });
     res.respond(200, true, "Categories fetched successfully", categories);
   }),
 );
