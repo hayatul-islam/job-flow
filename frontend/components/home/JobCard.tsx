@@ -62,9 +62,9 @@ export default function JobCard({ job }: JobCardCompactProps) {
               <JobTypeIcon className="w-2.5 h-2.5" />
               {JOB_TYPE_CONFIG[job?.jobType]?.label}
             </span>
-            <span className="inline-flex items-center gap-1 px-2 py-0.5 rounded-md text-[10px] font-medium bg-black/5 text-black">
-              <Tag size={9} />
-              {job?.category?.name}
+            <span className="inline-flex items-center gap-1 px-2 py-0.5 rounded-md text-[10px] font-medium bg-black/5 text-black max-w-[100px]">
+              <Tag size={9} className="shrink-0" />
+              <span className="truncate">{job?.category?.name}</span>
             </span>
           </div>
           <span className="flex items-center gap-1 text-[11px] text-gray-600 shrink-0">

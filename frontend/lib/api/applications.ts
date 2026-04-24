@@ -28,6 +28,11 @@ export const getJobApplications = async (id: number) => {
   return res.data;
 };
 
+export const getJobApplicationCv = async (id: number) => {
+  const res = await api.get(`/applications/${id}/cv`);
+  return res.data;
+};
+
 export const useUpdateApplicationStatus = () => {
   const queryClient = useQueryClient();
   return useMutation({

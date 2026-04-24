@@ -27,7 +27,7 @@ export default function RecentJobs() {
     location: query.location ?? [],
     catId: query.catId?.toString() ?? "",
     jobType: query.jobType ?? [],
-    limit: 12,
+    limit: 8,
   });
 
   const onQuery = (key: string, value: any) => {

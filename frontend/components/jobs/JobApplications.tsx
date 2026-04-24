@@ -2,9 +2,10 @@
 
 import { useJobApplications } from "@/hooks/useApplications";
 import { useUpdateApplicationStatus } from "@/lib/api/applications";
-import { Download, Users } from "lucide-react";
+import api from "@/lib/axios";
+import { ArrowLeft, Download, Users } from "lucide-react";
 import moment from "moment";
-import { useParams } from "next/navigation";
+import { useParams, useRouter } from "next/navigation";
 import EmptyTable from "../shared/EmptyTable";
 import Table, { Column } from "../shared/Table";
 import AppliedJobsSkeleton from "../skeletons/AppliedJobsSkeleton";
@@ -27,7 +28,7 @@ const STATUS_STYLE = {
 const getColumns = (
   onStatusChange: (id: number, status: string) => void,
   updatingId: number | null,
-  onCvDownload: (url: any) => void,
+  onCvDownload: (id: number) => void,
 ): Column<Application>[] => [
   {
     label: "Applicant",
@@ -79,12 +80,12 @@ const getColumns = (
     },
   },
   {
-    label: "CV",
+    label: "Action",
     width: "14%",
     align: "right",
     render: (row) => (
       <Button
-        onClick={() => onCvDownload(row.cvUrl)}
+        onClick={() => onCvDownload(row.id)}
         className="h-8 inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-xs font-medium text-primary bg-primary/5 hover:bg-primary/10 transition-colors"
       >
         <Download size={8} />
@@ -97,28 +98,44 @@ const getColumns = (
 export default function JobApplications() {
   const { id } = useParams<{ id: string }>();
   const jobId = Number(id);
+  const router = useRouter();
 
   const { data, isLoading } = useJobApplications(jobId);
   const { mutate: updateStatus, variables } = useUpdateApplicationStatus();
 
   const updatingId = variables?.id ?? null;
 
-  const handleCvDownload = async (cvUrl: any) => {
-    const res = await fetch(cvUrl);
-    const blob = await res.blob();
-    const url = window.URL.createObjectURL(blob);
+  const handleCvDownload = async (id: number) => {
+    try {
+      const response = await api.get(`/applications/${id}/cv`, {
+        responseType: "blob",
+      });
 
-    const a = document.createElement("a");
-    a.href = url;
-    a.download = "cv.pdf";
-    a.click();
-
-    window.URL.revokeObjectURL(url);
+      const blob = new Blob([response.data], { type: "application/pdf" });
+      const url = window.URL.createObjectURL(blob);
+      const link = document.createElement("a");
+      link.href = url;
+      link.setAttribute("download", `cv-${id}.pdf`);
+      document.body.appendChild(link);
+      link.click();
+      document.body.removeChild(link);
+      window.URL.revokeObjectURL(url);
+    } catch (err) {
+      console.error("CV download failed", err);
+    }
   };
 
   return (
-    <div className="bg-gradient-to-br from-gray-50 via-emerald-50/40 to-teal-50/30 pt-24 pb-12">
+    <div className="pt-24 pb-12">
       <div className="w-full container">
+        <button
+          onClick={() => router.back()}
+          className="inline-flex items-center gap-1.5 text-sm text-gray-500 hover:text-black mb-6 transition-colors"
+        >
+          <ArrowLeft size={15} />
+          Back to My Posts
+        </button>
+
         <div className="mb-6 flex items-center justify-between">
           <div>
             <h4 className="font-medium">Applications</h4>
@@ -137,7 +154,7 @@ export default function JobApplications() {
           columns={getColumns(
             (id, status) => updateStatus({ id, status }),
             updatingId,
-            (url) => handleCvDownload(url),
+            (id) => handleCvDownload(id),
           )}
           data={data?.data}
           isLoading={isLoading}

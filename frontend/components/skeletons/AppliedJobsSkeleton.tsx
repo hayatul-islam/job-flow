@@ -42,10 +42,18 @@ const AppliedJobsSkeleton = ({ length = 6 }: { length?: number }) => {
   return (
     <div className="border border-gray-100 border-gray-200-gray-200 rounded-2xl overflow-hidden">
       <div className="grid grid-cols-12 gap-4 px-5 py-3 bg-gray-50 dark:bg-gray-900 text-xs font-medium text-gray-500 uppercase">
-        <div className="col-span-5">Jobs</div>
-        <div className="col-span-3">Status</div>
-        <div className="col-span-3">Date Applied</div>
-        <div className="col-span-1 text-right">Action</div>
+        <div className="col-span-5">
+          <Skeleton className="h-5 w-16 rounded" />
+        </div>
+        <div className="col-span-3">
+          <Skeleton className="h-5 w-16 rounded" />
+        </div>
+        <div className="col-span-3">
+          <Skeleton className="h-5 w-16 rounded" />
+        </div>
+        <div className="col-span-1 text-right">
+          <Skeleton className="h-5 w-16 rounded" />
+        </div>
       </div>
 
       {Array(length)

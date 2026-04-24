@@ -19,10 +19,8 @@ export default function JobCardGrid({ job }: JobCardProps) {
 
   return (
     <Link href={`/jobs/${job.id}`}>
-      {/* ── MOBILE card (hidden on sm+) ── */}
       <Card className="sm:hidden p-0 group block overflow-hidden hover:border-gray-400 transition-all duration-150">
         <div className="px-3.5 py-3 flex flex-col gap-2.5">
-          {/* Row 1: avatar + employer + NEW badge */}
           <div className="flex items-center justify-between gap-2">
             <div className="flex items-center gap-2 min-w-0">
               <div className="w-7 h-7 rounded-md bg-white border border-gray-200 flex items-center justify-center text-xs font-semibold text-primary shrink-0">
@@ -45,12 +43,10 @@ export default function JobCardGrid({ job }: JobCardProps) {
             </div>
           </div>
 
-          {/* Row 2: job title */}
           <h6 className="text-sm font-semibold text-gray-900 leading-snug">
             {job.title}
           </h6>
 
-          {/* Row 3: location + salary */}
           <div className="flex items-center justify-between gap-2">
             <span className="flex items-center gap-1 text-[11px] text-gray-500 truncate">
               <MapPin className="w-3 h-3 shrink-0" />
@@ -63,21 +59,19 @@ export default function JobCardGrid({ job }: JobCardProps) {
             )}
           </div>
 
-          {/* Row 4: tags */}
           <div className="flex items-center gap-1.5 flex-wrap">
             <span className="inline-flex items-center gap-1 px-2 py-0.5 rounded-md text-[11px] font-medium bg-black/5 text-black/80">
               <JobTypeIcon className="w-3 h-3" />
               {JOB_TYPE_CONFIG[job?.jobType]?.label}
             </span>
-            <span className="inline-flex items-center gap-1 px-2 py-0.5 rounded-md text-[11px] font-medium bg-black/5 text-black/80">
-              <Tag size={10} />
-              {job?.category?.name}
+            <span className="inline-flex items-center gap-1 px-2 py-0.5 rounded-md text-[10px] font-medium bg-black/5 text-black max-w-[100px]">
+              <Tag size={10} className="shrink-0" />
+              <span className="truncate">{job?.category?.name}</span>
             </span>
           </div>
         </div>
       </Card>
 
-      {/* ── DESKTOP card (hidden below sm) ── */}
       <Card className="hidden sm:block p-0 group overflow-hidden hover:border-gray-400 transition-all duration-150">
         <div className="flex items-center justify-between gap-3 px-4 py-2.5 bg-white/80 border-b border-gray-100">
           <div className="flex items-center gap-2.5 min-w-0">
@@ -116,9 +110,9 @@ export default function JobCardGrid({ job }: JobCardProps) {
                 <JobTypeIcon className="w-3 h-3" />
                 {JOB_TYPE_CONFIG[job?.jobType]?.label}
               </span>
-              <span className="inline-flex items-center gap-1 px-2.5 py-1 rounded-md text-[11px] font-medium bg-black/5 text-black/80">
-                <Tag size={10} />
-                {job?.category?.name}
+              <span className="inline-flex items-center gap-1 px-2 py-0.5 rounded-md text-[10px] font-medium bg-black/5 text-black max-w-[100px]">
+                <Tag size={10} className="shrink-0" />
+                <span className="truncate">{job?.category?.name}</span>
               </span>
             </div>
 

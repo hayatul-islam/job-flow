@@ -1,5 +1,6 @@
 import {
   applyToJob,
+  getJobApplicationCv,
   getJobApplications,
   getMyApplications,
 } from "@/lib/api/applications";
@@ -16,6 +17,16 @@ export const useJobApplications = (id: number) => {
   return useQuery({
     queryKey: ["job-applications"],
     queryFn: () => getJobApplications(id),
+  });
+};
+
+export const useJobApplicationCv = (id: number | undefined) => {
+  return useQuery({
+    queryKey: ["jobApplicationCv", id],
+    queryFn: () => getJobApplicationCv(id!),
+    enabled: !!id,
+    staleTime: 0,
+    gcTime: 0,
   });
 };
 
