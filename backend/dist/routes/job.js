@@ -160,7 +160,7 @@ router.put("/:id", authenticate_1.default, (0, validate_1.default)(jobValidator_
     res.respond(200, true, "Job updated successfully", updated);
 }));
 router.delete("/:id", authenticate_1.default, (0, asyncHandler_1.default)(async (req, res, next) => {
-    const id = parseInt(req.params.id);
+    const id = +req.params.id;
     const job = await prisma.job.findUnique({ where: { id } });
     if (!job) {
         return next(new AppError_1.default("Job not found", 404));
@@ -168,6 +168,9 @@ router.delete("/:id", authenticate_1.default, (0, asyncHandler_1.default)(async 
     if (job.employerId !== req.userId) {
         return next(new AppError_1.default("You are not authorized to delete this job", 403));
     }
+    await prisma.application.deleteMany({
+        where: { jobId: id },
+    });
     await prisma.job.delete({ where: { id } });
     res.respond(200, true, "Job deleted successfully");
 }));

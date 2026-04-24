@@ -4,8 +4,9 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 const client_1 = require("@prisma/client");
+const cloudinary_1 = require("cloudinary");
 const express_1 = __importDefault(require("express"));
-const cloudinary_1 = __importDefault(require("../config/cloudinary"));
+const cloudinary_2 = __importDefault(require("../config/cloudinary"));
 const pagination_1 = require("../lib/pagination");
 const AppError_1 = __importDefault(require("../middleware/AppError"));
 const asyncHandler_1 = __importDefault(require("../middleware/asyncHandler"));
@@ -34,7 +35,7 @@ router.post("/:jobId", authenticate_1.default, upload_1.uploadCV.single("cv"), (
         return next(new AppError_1.default("You have already applied for this job", 400));
     }
     const cvUrl = await new Promise((resolve, reject) => {
-        const stream = cloudinary_1.default.uploader.upload_stream({ folder: "jobflow/cvs" }, (error, result) => {
+        const stream = cloudinary_2.default.uploader.upload_stream({ folder: "jobflow/cvs" }, (error, result) => {
             if (error)
                 reject(error);
             else
@@ -143,5 +144,34 @@ router.put("/:id/status", authenticate_1.default, (0, validate_1.default)(applic
         data: { status },
     });
     res.respond(200, true, "Application status updated successfully", updated);
+}));
+router.get("/:id/cv", authenticate_1.default, (0, asyncHandler_1.default)(async (req, res, next) => {
+    const id = +req.params.id;
+    const application = await prisma.application.findUnique({
+        where: { id },
+        include: { job: true },
+    });
+    if (!application) {
+        return next(new AppError_1.default("Application not found", 404));
+    }
+    if (req.userRole === "EMPLOYER" &&
+        application.job.employerId !== req.userId) {
+        return next(new AppError_1.default("You are not authorized to download this CV", 403));
+    }
+    if (req.userRole === "JOB_SEEKER" && application.userId !== req.userId) {
+        return next(new AppError_1.default("You are not authorized to download this CV", 403));
+    }
+    const publicId = application.cvUrl
+        .split("/")
+        .slice(-2)
+        .join("/")
+        .replace(".pdf", "");
+    const downloadUrl = cloudinary_1.v2.url(publicId, {
+        resource_type: "raw",
+        type: "upload",
+        expires_at: Math.floor(Date.now() / 1000) + 60, // 60 seconds
+        sign_url: true,
+    });
+    res.respond(200, true, "CV download URL generated", { downloadUrl });
 }));
 exports.default = router;

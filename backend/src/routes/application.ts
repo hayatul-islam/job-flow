@@ -1,4 +1,5 @@
 import { PrismaClient } from "@prisma/client";
+import { v2 as cloud } from "cloudinary";
 import express from "express";
 import cloudinary from "../config/cloudinary";
 import { getPagination, getPaginationMeta } from "../lib/pagination";
@@ -209,6 +210,53 @@ router.put(
     });
 
     res.respond(200, true, "Application status updated successfully", updated);
+  }),
+);
+
+router.get(
+  "/:id/cv",
+  authenticate,
+  asyncHandler(async (req: any, res, next) => {
+    const id = +req.params.id;
+
+    const application = await prisma.application.findUnique({
+      where: { id },
+      include: { job: true },
+    });
+
+    if (!application) {
+      return next(new AppError("Application not found", 404));
+    }
+
+    if (
+      req.userRole === "EMPLOYER" &&
+      application.job.employerId !== req.userId
+    ) {
+      return next(
+        new AppError("You are not authorized to download this CV", 403),
+      );
+    }
+
+    if (req.userRole === "JOB_SEEKER" && application.userId !== req.userId) {
+      return next(
+        new AppError("You are not authorized to download this CV", 403),
+      );
+    }
+
+    const publicId = application.cvUrl
+      .split("/")
+      .slice(-2)
+      .join("/")
+      .replace(".pdf", "");
+
+    const downloadUrl = cloud.url(publicId, {
+      resource_type: "raw",
+      type: "upload",
+      expires_at: Math.floor(Date.now() / 1000) + 60, // 60 seconds
+      sign_url: true,
+    });
+
+    res.respond(200, true, "CV download URL generated", { downloadUrl });
   }),
 );
 

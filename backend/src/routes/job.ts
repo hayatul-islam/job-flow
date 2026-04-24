@@ -219,7 +219,7 @@ router.delete(
   "/:id",
   authenticate,
   asyncHandler(async (req: any, res, next) => {
-    const id = parseInt(req.params.id as string);
+    const id = +req.params.id;
 
     const job = await prisma.job.findUnique({ where: { id } });
 
@@ -232,6 +232,10 @@ router.delete(
         new AppError("You are not authorized to delete this job", 403),
       );
     }
+
+    await prisma.application.deleteMany({
+      where: { jobId: id },
+    });
 
     await prisma.job.delete({ where: { id } });
 

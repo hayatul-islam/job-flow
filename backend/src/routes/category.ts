@@ -33,4 +33,29 @@ router.post(
   }),
 );
 
+router.put(
+  "/:id",
+  authenticate,
+  asyncHandler(async (req: any, res, next) => {
+    if (req.userRole !== "EMPLOYER") {
+      return next(new AppError("Only employers can update categories", 403));
+    }
+
+    const id = +req.params.id;
+
+    const cat = await prisma.category.findUnique({ where: { id } });
+
+    if (!cat) {
+      return next(new AppError("Category not found", 404));
+    }
+
+    const updated = await prisma.category.update({
+      where: { id },
+      data: req.body,
+    });
+
+    res.respond(200, true, "Category updated successfully", updated);
+  }),
+);
+
 export default router;
