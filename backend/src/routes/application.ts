@@ -44,7 +44,7 @@ router.post(
 
     const cvUrl = await new Promise<string>((resolve, reject) => {
       const stream = cloudinary.uploader.upload_stream(
-        { folder: "jobflow/cvs" },
+        { folder: "jobflow/cvs", resource_type: "raw" },
         (error, result) => {
           if (error) reject(error);
           else resolve(result!.secure_url);
@@ -242,21 +242,41 @@ router.get(
         new AppError("You are not authorized to download this CV", 403),
       );
     }
+    const urlParts = application.cvUrl.split("/");
+    const resourceType = urlParts.includes("image") ? "image" : "raw";
+    const uploadIndex = urlParts.indexOf("upload");
+    const afterUpload = urlParts.slice(uploadIndex + 1);
+    const publicIdParts = afterUpload[0]?.startsWith("v")
+      ? afterUpload.slice(1)
+      : afterUpload;
+    const publicId = publicIdParts.join("/");
 
-    const publicId = application.cvUrl
-      .split("/")
-      .slice(-2)
-      .join("/")
-      .replace(".pdf", "");
-
-    const downloadUrl = cloud.url(publicId, {
-      resource_type: "raw",
+    const signedUrl = cloud.url(publicId, {
+      resource_type: resourceType,
       type: "upload",
-      expires_at: Math.floor(Date.now() / 1000) + 60, // 60 seconds
       sign_url: true,
+      expires_at: Math.floor(Date.now() / 1000) + 300,
     });
 
-    res.respond(200, true, "CV download URL generated", { downloadUrl });
+    const response = await fetch(signedUrl);
+
+    if (!response.ok) {
+      return next(
+        new AppError(
+          `Failed to fetch CV: ${response.status} ${response.statusText}`,
+          500,
+        ),
+      );
+    }
+
+    const fileName = `cv-${application.userId}-${application.id}.pdf`;
+
+    res.setHeader("Content-Type", "application/pdf");
+    res.setHeader("Content-Disposition", `attachment; filename="${fileName}"`);
+
+    const { Readable } = await import("stream");
+    const readable = Readable.fromWeb(response.body as any);
+    readable.pipe(res);
   }),
 );
 

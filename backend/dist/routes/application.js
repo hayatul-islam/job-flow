@@ -1,4 +1,37 @@
 "use strict";
+var __createBinding = (this && this.__createBinding) || (Object.create ? (function(o, m, k, k2) {
+    if (k2 === undefined) k2 = k;
+    var desc = Object.getOwnPropertyDescriptor(m, k);
+    if (!desc || ("get" in desc ? !m.__esModule : desc.writable || desc.configurable)) {
+      desc = { enumerable: true, get: function() { return m[k]; } };
+    }
+    Object.defineProperty(o, k2, desc);
+}) : (function(o, m, k, k2) {
+    if (k2 === undefined) k2 = k;
+    o[k2] = m[k];
+}));
+var __setModuleDefault = (this && this.__setModuleDefault) || (Object.create ? (function(o, v) {
+    Object.defineProperty(o, "default", { enumerable: true, value: v });
+}) : function(o, v) {
+    o["default"] = v;
+});
+var __importStar = (this && this.__importStar) || (function () {
+    var ownKeys = function(o) {
+        ownKeys = Object.getOwnPropertyNames || function (o) {
+            var ar = [];
+            for (var k in o) if (Object.prototype.hasOwnProperty.call(o, k)) ar[ar.length] = k;
+            return ar;
+        };
+        return ownKeys(o);
+    };
+    return function (mod) {
+        if (mod && mod.__esModule) return mod;
+        var result = {};
+        if (mod != null) for (var k = ownKeys(mod), i = 0; i < k.length; i++) if (k[i] !== "default") __createBinding(result, mod, k[i]);
+        __setModuleDefault(result, mod);
+        return result;
+    };
+})();
 var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
@@ -35,7 +68,7 @@ router.post("/:jobId", authenticate_1.default, upload_1.uploadCV.single("cv"), (
         return next(new AppError_1.default("You have already applied for this job", 400));
     }
     const cvUrl = await new Promise((resolve, reject) => {
-        const stream = cloudinary_2.default.uploader.upload_stream({ folder: "jobflow/cvs" }, (error, result) => {
+        const stream = cloudinary_2.default.uploader.upload_stream({ folder: "jobflow/cvs", resource_type: "raw" }, (error, result) => {
             if (error)
                 reject(error);
             else
@@ -161,17 +194,29 @@ router.get("/:id/cv", authenticate_1.default, (0, asyncHandler_1.default)(async 
     if (req.userRole === "JOB_SEEKER" && application.userId !== req.userId) {
         return next(new AppError_1.default("You are not authorized to download this CV", 403));
     }
-    const publicId = application.cvUrl
-        .split("/")
-        .slice(-2)
-        .join("/")
-        .replace(".pdf", "");
-    const downloadUrl = cloudinary_1.v2.url(publicId, {
-        resource_type: "raw",
+    const urlParts = application.cvUrl.split("/");
+    const resourceType = urlParts.includes("image") ? "image" : "raw";
+    const uploadIndex = urlParts.indexOf("upload");
+    const afterUpload = urlParts.slice(uploadIndex + 1);
+    const publicIdParts = afterUpload[0]?.startsWith("v")
+        ? afterUpload.slice(1)
+        : afterUpload;
+    const publicId = publicIdParts.join("/");
+    const signedUrl = cloudinary_1.v2.url(publicId, {
+        resource_type: resourceType,
         type: "upload",
-        expires_at: Math.floor(Date.now() / 1000) + 60, // 60 seconds
         sign_url: true,
+        expires_at: Math.floor(Date.now() / 1000) + 300,
     });
-    res.respond(200, true, "CV download URL generated", { downloadUrl });
+    const response = await fetch(signedUrl);
+    if (!response.ok) {
+        return next(new AppError_1.default(`Failed to fetch CV: ${response.status} ${response.statusText}`, 500));
+    }
+    const fileName = `cv-${application.userId}-${application.id}.pdf`;
+    res.setHeader("Content-Type", "application/pdf");
+    res.setHeader("Content-Disposition", `attachment; filename="${fileName}"`);
+    const { Readable } = await Promise.resolve().then(() => __importStar(require("stream")));
+    const readable = Readable.fromWeb(response.body);
+    readable.pipe(res);
 }));
 exports.default = router;
