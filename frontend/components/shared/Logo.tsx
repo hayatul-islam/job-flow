@@ -1,23 +1,14 @@
-import { BriefcaseIcon } from "lucide-react";
+import Image from "next/image";
 import Link from "next/link";
+import blackLogo from "../../public/logo/jobFlowBlack.svg";
+import whiteLogo from "../../public/logo/jobFlowWhite.svg";
 
-const Logo = ({ color = "white" }: { color?: string }) => {
+const Logo = ({ color = "white" }: { color?: "white" | "black" }) => {
+  const logo = color === "black" ? blackLogo : whiteLogo;
+
   return (
     <Link href="/" className="flex items-center gap-2 group">
-      <div
-        className="w-8 h-8 rounded-lg flex items-center justify-center "
-        style={{
-          background: color,
-          color: color === "white" ? "black" : "white",
-        }}
-      >
-        <BriefcaseIcon className={`w-4 h-4 `} />
-      </div>
-      <span
-        className={`text-${color} font-bold text-xl tracking-tight font-serif`}
-      >
-        Job<span className="text-primary">.</span>Flow
-      </span>
+      <Image src={logo} alt="Job Flow Logo" className="w-[140px] h-auto" />
     </Link>
   );
 };
