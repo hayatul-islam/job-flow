@@ -1,5 +1,8 @@
 "use client";
+
+import { fadeUp, stagger } from "@/lib/animations";
 import { JobsParams } from "@/types";
+import { motion } from "framer-motion";
 import { useSearchParams } from "next/navigation";
 import { useState } from "react";
 import JobsFilters from "./JobFilters";
@@ -20,24 +23,26 @@ export default function Jobs() {
   });
 
   const onQuery = (key: string, value: any) => {
-    setQuery((prev) => ({
-      ...prev,
-      [key]: value,
-    }));
+    setQuery((prev) => ({ ...prev, [key]: value }));
   };
 
   return (
     <div className="min-h-screen bg-light-background pt-24">
       <main className="container mx-auto px-4 pb-12 pt-4">
-        <div className="grid grid-cols-1 lg:grid-cols-4 gap-8">
-          <aside className="lg:col-span-1">
+        <motion.div
+          className="grid grid-cols-1 lg:grid-cols-4 gap-8"
+          variants={stagger}
+          initial="hidden"
+          animate="show"
+        >
+          <motion.aside variants={fadeUp} className="lg:col-span-1">
             <JobsFilters onQuery={onQuery} query={query} />
-          </aside>
+          </motion.aside>
 
-          <section className="lg:col-span-3">
+          <motion.section variants={fadeUp} className="lg:col-span-3">
             <JobsGrid query={query} onQuery={onQuery} />
-          </section>
-        </div>
+          </motion.section>
+        </motion.div>
       </main>
     </div>
   );

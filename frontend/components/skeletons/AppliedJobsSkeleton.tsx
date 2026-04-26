@@ -19,17 +19,14 @@ const RowSkeleton = () => {
         </div>
       </div>
 
-      {/* STATUS */}
       <div className="col-span-3">
         <Skeleton className="h-6 w-20 rounded-full" />
       </div>
 
-      {/* DATE */}
       <div className="col-span-3">
         <Skeleton className="h-4 w-28" />
       </div>
 
-      {/* ACTION */}
       <div className="col-span-1 flex gap-3 justify-end">
         <Skeleton className="h-5 w-5 rounded" />
         <Skeleton className="h-5 w-5 rounded" />

@@ -30,7 +30,6 @@ export default function DeleteModal({
         className="bg-white dark:bg-neutral-900 rounded-2xl border border-neutral-200 dark:border-neutral-800 w-full max-w-sm mx-4 p-6 shadow-lg animate-in fade-in-0 zoom-in-95 duration-200"
         onClick={(e) => e.stopPropagation()}
       >
-        {/* Header */}
         <div className="flex items-start justify-between mb-5">
           <div className="w-[46px] h-[46px] rounded-xl bg-red-50 dark:bg-red-950/40 flex items-center justify-center shrink-0">
             <Trash2 size={20} className="text-red-500" strokeWidth={1.8} />
@@ -43,7 +42,6 @@ export default function DeleteModal({
           </button>
         </div>
 
-        {/* Text */}
         <h2 className="text-[15px] font-medium text-neutral-900 dark:text-neutral-100 mb-1.5">
           {title}
         </h2>
@@ -51,7 +49,6 @@ export default function DeleteModal({
           {description}
         </p>
 
-        {/* Actions */}
         <div className="flex gap-2.5 mt-6">
           <Button
             type="button"

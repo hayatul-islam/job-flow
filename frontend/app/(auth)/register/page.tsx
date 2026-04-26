@@ -145,7 +145,6 @@ export default function RegisterPage() {
 
           {/* RIGHT PANEL */}
           <div className="w-full bg-white px-5 py-8 md:px-10 md:py-10">
-            {/* Mobile: logo + step indicator */}
             <div className="flex items-center justify-between mb-6 md:hidden">
               <Logo color="black" />
               <div className="flex items-center gap-1.5">

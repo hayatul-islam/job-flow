@@ -24,7 +24,6 @@ export function JobsSkeletonList({
   );
 }
 
-// Grid view skeleton (list row)
 export function JobCardSkeleton() {
   return (
     <div className="rounded-2xl border bg-white border-gray-200 p-4 space-y-4 animate-pulse">
@@ -51,11 +50,9 @@ export function JobCardSkeleton() {
   );
 }
 
-// Card view skeleton (compact card)
 export function JobCardCompactSkeleton() {
   return (
     <div className="rounded-xl border bg-white border-gray-200 animate-pulse flex flex-col">
-      {/* Header */}
       <div className="px-3.5 pt-3 pb-2.5 border-b border-gray-100 flex flex-col gap-2">
         <div className="flex items-center justify-between">
           <div className="w-8 h-8 rounded-lg bg-gray-200" />
@@ -64,14 +61,12 @@ export function JobCardCompactSkeleton() {
         <div className="w-24 h-2.5 rounded bg-gray-200" />
       </div>
 
-      {/* Body */}
       <div className="px-3.5 py-3 flex flex-col gap-2 flex-1">
         <div className="w-full h-3.5 rounded bg-gray-200" />
         <div className="w-3/4 h-3.5 rounded bg-gray-200" />
         <div className="w-20 h-2.5 rounded bg-gray-200 mt-1" />
       </div>
 
-      {/* Footer */}
       <div className="px-3.5 py-2.5 border-t border-gray-100 flex items-center justify-between gap-2">
         <div className="flex gap-1.5">
           <div className="w-16 h-5 rounded-md bg-gray-200" />

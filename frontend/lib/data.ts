@@ -1,10 +1,17 @@
 import {
   Blend,
   Briefcase,
+  Building2,
   Clock,
+  Code2,
+  GitMerge,
   GraduationCap,
   Home,
+  Layers,
+  LayoutDashboard,
   LucideIcon,
+  PenTool,
+  Wifi,
 } from "lucide-react";
 
 export const JOB_FILTER_TABS = [
@@ -81,3 +88,26 @@ export const JOB_TYPE_CONFIG: Record<
     className: "bg-green-50 text-green-800",
   },
 };
+
+export const SEARCH_JOB_TYPES = [
+  { value: "", label: "All types", Icon: Layers },
+  { value: "REMOTE", label: "Remote", Icon: Wifi },
+  { value: "FULL_TIME", label: "Full-time", Icon: Building2 },
+  { value: "HYBRID", label: "Hybrid", Icon: GitMerge },
+  { value: "PART_TIME", label: "Part-time", Icon: Clock },
+  { value: "INTERNSHIP", label: "Internship", Icon: GraduationCap },
+];
+
+export const SEARCH_QUICK_TAGS: {
+  label: string;
+  Icon: React.ElementType;
+  q?: string;
+  jobType?: string;
+}[] = [
+  { label: "Remote", Icon: Wifi, jobType: "REMOTE" },
+  { label: "Hybrid", Icon: GitMerge, jobType: "HYBRID" },
+  { label: "Design", Icon: PenTool, q: "designer" },
+  { label: "Engineering", Icon: Code2, q: "engineer" },
+  { label: "Product", Icon: LayoutDashboard, q: "product manager" },
+  { label: "Internship", Icon: GraduationCap, jobType: "INTERNSHIP" },
+];

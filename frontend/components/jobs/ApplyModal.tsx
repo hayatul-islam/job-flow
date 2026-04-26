@@ -47,7 +47,6 @@ export default function ApplyModal({
         <h4 className="mb-1">Apply for this job</h4>
         <p className=" mb-5">Upload your CV to submit your application</p>
 
-        {/* Upload */}
         <label className="block cursor-pointer">
           <div
             className={`border-2 border-dashed rounded-xl px-5 py-7 text-center ${

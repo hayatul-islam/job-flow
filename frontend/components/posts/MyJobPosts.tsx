@@ -129,7 +129,7 @@ export default function MyJobPosts() {
   };
 
   return (
-    <div className="bg-gradient-to-br from-gray-50 via-emerald-50/40 to-teal-50/30 pt-24 pb-12">
+    <div className=" pt-24 pb-12">
       <div className="w-full container">
         <div className="mb-6">
           <h4 className="font-medium">My Job Posts</h4>
