@@ -29,12 +29,12 @@ This project is built with a real-world recruitment system in mind.
 - Access Token & Refresh Token implementation
 - Role-based access control (Employer / Job Seeker)
 
-### 👤 Profile Management
+### Profile Management
 
 - Update profile information
 - Upload avatar image
 
-### 📄 File Handling
+### File Handling
 
 - CV upload using Multer
 - Cloudinary integration for file storage and delivery
