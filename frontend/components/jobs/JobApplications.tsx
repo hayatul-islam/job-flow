@@ -13,7 +13,7 @@ import { Button } from "../ui/button";
 
 interface Application {
   id: number;
-  status: "PENDING" | "APPROVED" | "REJECTED";
+  status: "PENDING" | "ACCEPTED" | "REJECTED";
   cvUrl: string;
   createdAt: string;
   user: { id: number; firstName: string; lastName: string; email: string };
@@ -21,7 +21,7 @@ interface Application {
 
 const STATUS_STYLE = {
   PENDING: { bg: "bg-[#FAEEDA]", text: "text-[#854F0B]" },
-  APPROVED: { bg: "bg-[#EAF3DE]", text: "text-[#3B6D11]" },
+  ACCEPTED: { bg: "bg-[#EAF3DE]", text: "text-[#3B6D11]" },
   REJECTED: { bg: "bg-[#FCEBEB]", text: "text-[#A32D2D]" },
 };
 
@@ -70,7 +70,7 @@ const getColumns = (
           value={row.status}
           disabled={updatingId === row.id}
           onChange={(e) => onStatusChange(row.id, e.target.value)}
-          className={` text-[11.5px] font-medium px-2.5 py-1 rounded-full border-0 outline-none cursor-pointer appearance-none ${s.bg} ${s.text} disabled:opacity-60`}
+          className={` text-[11.5px] font-medium px-2.5 py-1 rounded-full border-0 outline-none cursor-pointer appearance-none ${s?.bg} ${s?.text} disabled:opacity-60`}
         >
           <option value="PENDING">Pending</option>
           <option value="ACCEPTED">Accepted</option>

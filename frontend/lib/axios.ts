@@ -18,6 +18,10 @@ api.interceptors.response.use(
   async (error) => {
     const originalRequest = error.config;
 
+    if (originalRequest.url?.includes("/auth/login")) {
+      return Promise.reject(error);
+    }
+
     if (error.response?.status === 401 && !originalRequest._retry) {
       originalRequest._retry = true;
 
@@ -54,3 +58,43 @@ api.interceptors.response.use(
 );
 
 export default api;
+
+// api.interceptors.response.use(
+//   (response) => response,
+//   async (error) => {
+//     const originalRequest = error.config;
+
+//     if (error.response?.status === 401 && !originalRequest._retry) {
+//       originalRequest._retry = true;
+
+//       const refreshToken = Cookies.get("refreshToken");
+
+//       if (!refreshToken) {
+//         Cookies.remove("accessToken");
+//         Cookies.remove("refreshToken");
+//         window.location.href = "/login";
+//         return Promise.reject(error);
+//       }
+
+//       try {
+//         const response = await axios.post(
+//           `${process.env.NEXT_PUBLIC_API_URL}/auth/refresh`,
+//           { refreshToken },
+//         );
+
+//         const { accessToken } = response.data.data;
+//         Cookies.set("accessToken", accessToken);
+//         originalRequest.headers.authorization = accessToken;
+
+//         return api(originalRequest);
+//       } catch {
+//         Cookies.remove("accessToken");
+//         Cookies.remove("refreshToken");
+//         window.location.href = "/login";
+//         return Promise.reject(error);
+//       }
+//     }
+
+//     return Promise.reject(error);
+//   },
+// );

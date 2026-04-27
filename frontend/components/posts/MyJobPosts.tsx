@@ -149,7 +149,7 @@ export default function MyJobPosts() {
               title="No job posts yet"
               description="Jobs you post will appear here"
               actionLabel="Post a Job"
-              actionHref="/jobs-create"
+              actionHref="/post-job"
             />
           }
           rowKey={(row) => row.id}

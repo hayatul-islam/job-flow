@@ -1,7 +1,7 @@
 "use client";
-import { useAuth } from "@/hooks/useAuth";
+import { useAuth } from "@/contexts/AuthContext";
+import { useUpdateProfile } from "@/hooks/useProfile";
 import { fadeUp, stagger } from "@/lib/animations";
-import api from "@/lib/axios";
 import { formatRole } from "@/lib/utils";
 import { ProfileForm, profileSchema } from "@/lib/validations";
 import { zodResolver } from "@hookform/resolvers/zod";
@@ -10,37 +10,30 @@ import { Camera, Check, Pencil, X } from "lucide-react";
 import moment from "moment";
 import { useEffect, useRef, useState } from "react";
 import { useForm } from "react-hook-form";
-import toast from "react-hot-toast";
 import InputField from "../shared/InputField";
 import ProfileSkeleton from "../skeletons/ProfileSkeleton";
 import { Button } from "../ui/button";
 import { Card } from "../ui/card";
 
 export default function ProfilePage() {
-  const { loading, user, setUser } = useAuth();
+  const { user, isLoading: loading } = useAuth();
+  const { mutate: updateProfile, isPending, isSuccess } = useUpdateProfile();
 
   const [editing, setEditing] = useState(false);
   const [avatarPreview, setAvatarPreview] = useState<string | null>(null);
+  const [avatarRemoved, setAvatarRemoved] = useState(false);
   const [avatarFile, setAvatarFile] = useState<File | null>(null);
   const fileInputRef = useRef<HTMLInputElement | null>(null);
 
   const setFileInputRef = (el: HTMLInputElement | null) => {
     fileInputRef.current = el;
   };
-  const savedTimerRef = useRef<ReturnType<typeof setTimeout> | null>(null);
-
-  useEffect(() => {
-    return () => {
-      if (savedTimerRef.current) clearTimeout(savedTimerRef.current);
-    };
-  }, []);
 
   const {
     register,
     handleSubmit,
     reset,
-    setError,
-    formState: { errors, isSubmitting },
+    formState: { errors },
   } = useForm<ProfileForm>({
     resolver: zodResolver(profileSchema),
     defaultValues: {
@@ -53,61 +46,46 @@ export default function ProfilePage() {
     if (user && !editing) {
       reset({ firstName: user.firstName ?? "", lastName: user.lastName ?? "" });
     }
-  }, [user?.id]);
+  }, [user?.id, editing, reset]);
 
-  const handleEdit = (e: React.MouseEvent) => {
-    e.preventDefault();
+  useEffect(() => {
+    if (isSuccess) {
+      setAvatarPreview(null);
+      setAvatarFile(null);
+      setAvatarRemoved(false);
+      setEditing(false);
+    }
+  }, [isSuccess]);
+
+  const handleEdit = () => {
     reset({ firstName: user?.firstName ?? "", lastName: user?.lastName ?? "" });
     setAvatarPreview(null);
     setAvatarFile(null);
+    setAvatarRemoved(false);
     setEditing(true);
   };
 
   const handleCancel = () => {
     setAvatarPreview(null);
     setAvatarFile(null);
+    setAvatarRemoved(false);
     setEditing(false);
   };
 
-  const onSubmit = async (data: ProfileForm) => {
-    try {
-      const formData = new FormData();
-      formData.append("firstName", data.firstName);
-      formData.append("lastName", data.lastName);
-      if (avatarFile) formData.append("avatar", avatarFile);
-
-      const response = await api.put("/profile", formData, {
-        headers: { "Content-Type": "multipart/form-data" },
-      });
-
-      toast.success(response?.data?.message);
-      const updated = response.data?.data;
-
-      if (setUser) {
-        setUser((prev: any) => ({
-          ...prev,
-          firstName: updated?.firstName ?? data.firstName,
-          lastName: updated?.lastName ?? data.lastName,
-          avatar: updated?.avatar ?? prev?.avatar,
-        }));
-      }
-
-      setAvatarPreview(null);
-      setAvatarFile(null);
-      setEditing(false);
-
-      if (savedTimerRef.current) clearTimeout(savedTimerRef.current);
-    } catch (error: any) {
-      setError("root", {
-        message: error.response?.data?.message || "Failed to update profile",
-      });
-    }
+  const onSubmit = (data: ProfileForm) => {
+    const formData = new FormData();
+    formData.append("firstName", data.firstName);
+    formData.append("lastName", data.lastName);
+    if (avatarFile) formData.append("avatar", avatarFile);
+    if (avatarRemoved) formData.append("removeAvatar", "true");
+    updateProfile(formData);
   };
 
   const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const file = e.target.files?.[0];
     if (!file || !file.type.startsWith("image/")) return;
     setAvatarFile(file);
+    setAvatarRemoved(false);
     const reader = new FileReader();
     reader.onload = (ev) => setAvatarPreview(ev.target?.result as string);
     reader.readAsDataURL(file);
@@ -119,12 +97,14 @@ export default function ProfilePage() {
   };
 
   const handleRemoveAvatar = () => {
-    setAvatarPreview("remove");
+    setAvatarRemoved(true);
+    setAvatarPreview(null);
     setAvatarFile(null);
   };
 
-  const displayAvatar =
-    avatarPreview === "remove" ? null : (avatarPreview ?? user?.avatar ?? null);
+  const displayAvatar = avatarRemoved
+    ? null
+    : (avatarPreview ?? user?.avatar ?? null);
 
   const showRemoveButton = editing && displayAvatar;
 
@@ -240,10 +220,10 @@ export default function ProfilePage() {
                         >
                           <Button
                             type="submit"
-                            disabled={isSubmitting}
+                            disabled={isPending}
                             className="h-9 px-4 text-xs rounded-xl"
                           >
-                            {isSubmitting ? (
+                            {isPending ? (
                               <span className="flex items-center gap-2">
                                 <svg
                                   className="animate-spin"
@@ -279,6 +259,7 @@ export default function ProfilePage() {
                           <Button
                             type="button"
                             onClick={handleCancel}
+                            disabled={isPending}
                             className="h-9 px-4 rounded-xl"
                             variant="outline"
                           >

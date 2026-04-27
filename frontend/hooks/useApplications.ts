@@ -41,8 +41,8 @@ export const useJobApply = (jobId: string | number) => {
       }),
 
     onSuccess: () => {
-      queryClient.invalidateQueries({ queryKey: ["job", jobId] });
-      queryClient.invalidateQueries({ queryKey: ["applications"] });
+      queryClient.invalidateQueries({ queryKey: ["job", Number(jobId)] });
+      queryClient.invalidateQueries({ queryKey: ["my-applications"] });
     },
   });
 };

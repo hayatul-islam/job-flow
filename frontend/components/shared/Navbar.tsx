@@ -1,7 +1,7 @@
 "use client";
 
 import { Button } from "@/components/ui/button";
-import { useAuth } from "@/hooks/useAuth";
+import { useAuth } from "@/contexts/AuthContext";
 import { LogIn, UserPlus } from "lucide-react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
@@ -9,7 +9,6 @@ import { useEffect, useState } from "react";
 import Logo from "./Logo";
 import UserDropdown from "./UserDropdown";
 
-// Animated hamburger → X icon
 function MenuIcon({ open }: { open: boolean }) {
   return (
     <div className="w-5 h-5 flex flex-col justify-center items-center gap-[5px]">

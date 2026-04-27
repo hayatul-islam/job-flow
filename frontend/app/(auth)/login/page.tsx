@@ -3,6 +3,7 @@ import Logo from "@/components/shared/Logo";
 import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
+import { useAuth } from "@/contexts/AuthContext";
 import api from "@/lib/axios";
 import { LoginForm, loginSchema } from "@/lib/validations";
 import { zodResolver } from "@hookform/resolvers/zod";
@@ -12,9 +13,11 @@ import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { useState } from "react";
 import { useForm } from "react-hook-form";
+import toast from "react-hot-toast";
 
 export default function LoginPage() {
   const router = useRouter();
+  const { setAuthenticated } = useAuth();
   const [showPassword, setShowPassword] = useState(false);
 
   const {
@@ -29,6 +32,11 @@ export default function LoginPage() {
   const onSubmit = async (data: LoginForm) => {
     try {
       const response = await api.post("/auth/login", data);
+
+      if (!response.data?.data?.accessToken) {
+        throw new Error("Invalid response from server");
+      }
+
       const { accessToken, refreshToken } = response.data.data;
 
       Cookies.set("accessToken", accessToken, {
@@ -43,8 +51,15 @@ export default function LoginPage() {
         sameSite: "strict",
       });
 
+      toast.success(response?.data?.message);
+      setAuthenticated(true);
       router.push("/");
     } catch (error: any) {
+      Cookies.remove("accessToken");
+      Cookies.remove("refreshToken");
+
+      setAuthenticated(false);
+
       setError("root", {
         message: error.response?.data?.message || "Login failed",
       });

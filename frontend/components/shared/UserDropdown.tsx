@@ -9,7 +9,7 @@ import {
   DropdownMenuSeparator,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
-import { useAuth } from "@/hooks/useAuth";
+import { useAuth } from "@/contexts/AuthContext";
 import { DropdownItemConfig } from "@/types";
 import { Briefcase, FileText, LogOut, User } from "lucide-react";
 import Link from "next/link";
@@ -58,7 +58,7 @@ export default function UserDropdown() {
               <img
                 src={user?.avatar}
                 alt="User"
-                className="rounded-full w-7.8 h-7.8"
+                className="rounded-full w-full h-full"
               />
             ) : (
               user.firstName?.[0]
